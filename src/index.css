@@ -1,0 +1,167 @@
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&display=swap");
+
+/* VARIABLES */
+:root {
+  --card-bg: linear-gradient(
+    135deg,
+    rgb(0, 0, 0) 0%,
+    #151515 85%,
+    rgb(49, 49, 49) 100%
+  );
+}
+
+/* GLOBAL STYLES */
+body {
+  background-image: url("/f1_bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: rgb(220, 220, 220);
+  font-family: "Audiowide", sans-serif;
+}
+
+/* LINK STYLES */
+a {
+  text-decoration: none;
+  color: rgb(220, 220, 220);
+}
+
+a:hover {
+  color: rgb(255, 0, 0);
+  text-shadow: 0 0 0.5px black;
+}
+
+/* BACKGROUND */
+.f1-bg {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* HEADER STYLES  */
+.header {
+  background: var(--card-bg);
+  position: relative;
+  z-index: 10;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.5rem;
+}
+
+/* TABLE STYLES */
+tbody tr:not(:last-child) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.278);
+  transition: background 0.2s ease;
+}
+
+tbody tr:hover {
+  background: rgba(255, 0, 0, 0.1);
+}
+
+tbody td {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+th:last-child,
+td:last-child {
+  text-align: right;
+}
+
+/* FLAG STYLES */
+.flag {
+  margin-right: 8px;
+  height: 20px;
+  width: 30px;
+  border-radius: 1rem;
+}
+
+/*GENERAL CARD STYLES */
+.display-card {
+  width: 100%;
+  padding: 2rem;
+  background: var(--card-bg);
+  position: relative;
+  z-index: 10;
+  margin-top: 1rem;
+  border-radius: 1rem;
+  font-size: 1rem;
+}
+
+/* PILOT CARD STYLES */
+.pilot-header-segment {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.pilot-card-content {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.pilot-card-segment {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pilot-stats {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.pilot-photo-div {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.pilot-photo {
+  width: 150px;
+  height: auto;
+  border-radius: 12px;
+}
+
+/*RACE CARD STYLES*/
+.race-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  position: relative;
+  font-size: 1.5rem;
+}
+
+.race-card-country {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pilot-card-stats {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+}
