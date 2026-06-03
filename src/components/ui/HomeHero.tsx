@@ -1,10 +1,12 @@
 const HomeHero = () => {
   return (
-    <div>
+    <div className="home-hero-container">
+      <h1 className="home-hero-title">F1 Analytics Website</h1>
+      <img src="/HeroBg.png" alt="HomeBg" className="home-hero-bg" />
       <img
-        src="../assets/Home-bg.png"
-        alt="Home Hero"
-        className="w-full h-auto object-cover"
+        src="/Hero-cars.png"
+        alt="Home HeroCars"
+        className="home-hero-cars"
       />
     </div>
   );

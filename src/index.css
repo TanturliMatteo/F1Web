@@ -21,6 +21,11 @@ body {
   font-family: "Audiowide", sans-serif;
 }
 
+.page-container {
+  width: 98%;
+  margin: 0 auto;
+}
+
 /* LINK STYLES */
 a {
   text-decoration: none;
@@ -164,4 +169,66 @@ td:last-child {
 .stats-table {
   width: 100%;
   border-collapse: collapse;
+}
+
+/* HERO STYLE */
+.home-hero-container {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.home-hero-cars {
+  position: absolute;
+  height: 70%;
+  width: 70%;
+  transform: scale(0) translateY(0);
+  animation: espandi 1s ease-out forwards;
+}
+
+@keyframes espandi {
+  to {
+    transform: scale(1) translateY(100px);
+  }
+}
+
+.home-hero-title {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateY(20px);
+  font-size: 4rem;
+
+  opacity: 0;
+
+  animation: slideIn 0.8s ease-out forwards;
+  animation-delay: 0.5s; /* aspetta la fine delle auto */
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(0);
+  }
 }

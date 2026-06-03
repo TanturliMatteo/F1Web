@@ -33,7 +33,7 @@ const PilotCardPage = () => {
   }
 
   return (
-    <div>
+    <div className="page-container">
       <PilotCardHeader data={data} />
       <PilotCard pilot={data} stats={stats} photo={photo} />
     </div>

@@ -12,7 +12,7 @@ const RaceTablePage = () => {
   }
 
   return (
-    <div>
+    <div className="page-container">
       <RacesTable races={data} />
     </div>
   );

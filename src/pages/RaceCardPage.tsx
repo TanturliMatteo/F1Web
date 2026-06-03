@@ -17,7 +17,7 @@ export const RaceCardPage = () => {
     return <div>Race not found</div>;
   }
   return (
-    <div>
+    <div className="page-container">
       <div>
         <RaceCardHeader data={data} />
       </div>
