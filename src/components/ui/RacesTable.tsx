@@ -12,7 +12,7 @@ const flagUrl = (nationality: string) =>
 
 const RaceTable = ({ races }: RaceTableProps) => {
   return (
-    <div className="display-card">
+    <div className="display-card display-card-row">
       <table className="w-100">
         <thead>
           <tr>

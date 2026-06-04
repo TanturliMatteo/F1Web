@@ -1,6 +1,7 @@
 import type { Pilot } from "../../hooks/usePilot";
 import type { PilotResult } from "../../hooks/usePilotResults";
 import type { PilotPhoto } from "../../hooks/usePilotPhoto";
+import { getTeamColor } from "../../utils/teamColors";
 
 interface PilotCardProps {
   pilot: Pilot;
@@ -25,23 +26,24 @@ const PilotCard = ({ pilot, stats, photo }: PilotCardProps) => {
   ];
 
   return (
-    <div className="pilot-card-content">
+    <div className=" display-card-row stretch">
       {/* LEFT CARD */}
-      <div className="display-card w-25 pilot-card-segment">
-        <div className="pilot-photo-div">
-          <img src={photo?.url} alt={pilot.name} className="pilot-photo" />
-        </div>
-
-        <div className="pilot-stats">
-          <div>Team: {pilot.team}</div>
-          <div>Nationality: {pilot.nationality}</div>
-          <div>Date of Birth: {pilot.dateOfBirth}</div>
+      <div className="display-card min">
+        <div className="display-card-column">
+          <div className="avatar-container">
+            <img src={photo?.url} alt={pilot.name} className="pilot-photo" />
+          </div>
+          <div className="display-card-column start">
+            <h5>Team: {pilot.team}</h5>
+            <h5>Nationality: {pilot.nationality}</h5>
+            <h5>Birth: {pilot.dateOfBirth}</h5>
+          </div>
         </div>
       </div>
 
       {/* RIGHT CARD */}
-      <div className="display-card w-75">
-        <table className="stats-table">
+      <div className=" display-card max">
+        <table className="w-100">
           <tbody>
             {statsList.map((stat, index) => (
               <tr key={index}>

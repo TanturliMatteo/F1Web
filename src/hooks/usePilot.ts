@@ -37,7 +37,7 @@ export type Pilot = {
   constructorId: string;
 };
 
-export function usePilot(driverCode?: string) {
+export function usePilot(driverCode?: string | null) {
   const [data, setData] = useState<Pilot | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);

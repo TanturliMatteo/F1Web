@@ -1,6 +1,6 @@
 import { nationToCode } from "../../utils/nationalityCode";
-import type { Race } from "../../hooks/useRace";
 import { getNationColor } from "../../utils/nationColors";
+import type { Race } from "../../hooks/useRace";
 
 interface RaceCardHeaderProps {
   data: Race;
@@ -12,17 +12,16 @@ const flagUrl = (nationality: string) =>
 const RaceCardHeader = ({ data: race }: RaceCardHeaderProps) => {
   return (
     <div
-      className="display-card race-card-header"
+      className="display-card display-card-row"
       style={{ borderLeft: `3px solid ${getNationColor(race.country)}` }}
     >
-      <div>{race.round}</div>
-      <div>{race.raceName}</div>
-      <div>{race.circuitName}</div>
-      <div className="race-card-country">
-        <div>{race.locality}</div>
-        <img src={flagUrl(race.country)} alt={race.country} className="flag" />
-      </div>
-      <div>[{race.date}]</div>
+      <h3>{race.round}</h3>
+      <h3>{race.raceName}</h3>
+      <img
+        src={flagUrl(race.country)}
+        alt={race.country}
+        className="flag flag-lg"
+      />
     </div>
   );
 };

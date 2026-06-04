@@ -36,7 +36,7 @@ const PilotTable = ({ data: pilots }: PilotTableProps) => {
                   src={flagUrl(pilot.nationality)}
                   alt={pilot.nationality}
                   className="flag"
-                />
+                />{" "}
                 {pilot.nationality}
               </td>
               <td>{pilot.team}</td>

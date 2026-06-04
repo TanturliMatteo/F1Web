@@ -13,27 +13,24 @@ const flagUrl = (nationality: string) =>
 const PilotCardHeader = ({ data: pilot }: PilotCardHeaderProps) => {
   return (
     <div
-      className=" display-card "
+      className="display-card display-card-row"
       style={{ borderLeft: `3px solid ${getTeamColor(pilot.constructorId)}` }}
     >
-      <div className="pilot-header-segment">
-        <div>[{pilot.permanentNumber}]</div>
-        <div>
-          <Link
-            to={`http://en.wikipedia.org/wiki/${pilot.name}_${pilot.surname}`}
-            className="pilot-name"
-          >
-            {pilot.name} {pilot.surname}
-          </Link>
-        </div>
-        <div>
-          <img
-            src={flagUrl(pilot.nationality)}
-            alt={pilot.nationality}
-            className="flag"
-          />
-        </div>
-      </div>
+      <h2>
+        [{pilot.permanentNumber}]{" "}
+        <Link
+          to={`http://en.wikipedia.org/wiki/${pilot.name}_${pilot.surname}`}
+          target="_blank"
+          className="pilot-name"
+        >
+          {pilot.name} {pilot.surname}
+        </Link>
+      </h2>
+      <img
+        src={flagUrl(pilot.nationality)}
+        alt={pilot.nationality}
+        className="flag flag-lg"
+      />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { useParams } from "react-router";
 import { useRace } from "../hooks/useRace";
 import RaceCard from "../components/ui/RaceCard";
 import RaceCardHeader from "../components/ui/RaceCardHeader";
+import RaceCardCircuit from "../components/ui/RaceCardCircuit";
 
 export const RaceCardPage = () => {
   const { id } = useParams();
@@ -21,6 +22,7 @@ export const RaceCardPage = () => {
       <div>
         <RaceCardHeader data={data} />
       </div>
+      <RaceCardCircuit data={data} />
       <div>
         <RaceCard data={data} />
       </div>

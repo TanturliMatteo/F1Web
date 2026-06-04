@@ -64,7 +64,7 @@ type SimpleResult = {
   rank: number;
 };
 
-export function usePilotStats(driverCode?: string) {
+export function usePilotStats(driverCode?: string | null) {
   const [data, setData] = useState<PilotResult | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);

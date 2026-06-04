@@ -20,7 +20,7 @@ export type PilotPhoto = {
   url: string;
 };
 
-export function usePilotPhoto(driverCode?: string) {
+export function usePilotPhoto(driverCode?: string | null) {
   const [data, setData] = useState<PilotPhoto | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);

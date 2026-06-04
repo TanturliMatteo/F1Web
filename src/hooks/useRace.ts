@@ -24,6 +24,7 @@ type RaceApiData = {
   round: string;
   raceName: string;
   Circuit: {
+    circuitId: string;
     circuitName: string;
     Location: {
       locality: string;
@@ -61,6 +62,7 @@ type RaceApiData = {
 };
 
 export type Race = {
+  circuitId: string;
   round: string;
   raceName: string;
   circuitName: string;
@@ -99,6 +101,7 @@ export function useRace(raceId?: string) {
         }
 
         const formatted: Race = {
+          circuitId: foundRace.Circuit.circuitId ?? "0",
           round: foundRace.round ?? "0",
           raceName: foundRace.raceName ?? "Unknown",
           circuitName: foundRace.Circuit?.circuitName ?? "Unknown",
