@@ -1,30 +1,31 @@
 import { useParams } from "react-router";
+import { useResultsRace } from "../hooks/useResultsRace";
 import { useRace } from "../hooks/useRace";
-import RaceCard from "../components/ui/RaceCard";
 import RaceCardHeader from "../components/ui/RaceCardHeader";
 import RaceCardCircuit from "../components/ui/RaceCardCircuit";
+import RaceCard from "../components/ui/RaceCardTable";
 
 export const RaceCardPage = () => {
   const { id } = useParams();
-  const { data, loading, error } = useRace(id);
+  const { data, isLoading, error } = useRace(id);
+  const { data: results } = useResultsRace(id);
 
-  if (loading) {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return <div className="display-card">Loading...</div>;
   }
   if (error) {
-    return <div>Error: {error?.message}</div>;
+    return <div className="display-card">Error: {error?.message}</div>;
   }
   if (!data) {
-    return <div>Race not found</div>;
+    return <div className="display-card">Race not found</div>;
   }
+
   return (
     <div className="page-container">
       <div>
         <RaceCardHeader data={data} />
-      </div>
-      <RaceCardCircuit data={data} />
-      <div>
-        <RaceCard data={data} />
+        <RaceCardCircuit data={data} />
+        <RaceCard data={results} />
       </div>
     </div>
   );

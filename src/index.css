@@ -56,6 +56,13 @@ p {
 /* HEADER STYLES  */
 .header {
   background: var(--card-bg);
+}
+
+.header-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem;
   z-index: 10;
   font-weight: 400;
   font-style: normal;
@@ -82,11 +89,18 @@ td:last-child {
   text-align: right;
 }
 
+@media (max-width: 600px) {
+  .header-nav {
+    /* inseire hamburger */
+  }
+}
+
 /* FLAG STYLES */
 .flag {
   height: 20px;
   width: 30px;
   border-radius: 1rem;
+  margin-right: 0.5rem;
 }
 
 .flag.flag-lg {
@@ -101,7 +115,6 @@ td:last-child {
   z-index: 10;
   border-radius: 1rem;
   font-size: 1rem;
-
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -110,6 +123,8 @@ td:last-child {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .display-card-column.start {
@@ -181,7 +196,6 @@ td:last-child {
   width: 100vw;
   height: 100vh;
   z-index: 1;
-
   display: flex;
   justify-content: center;
   align-items: center;

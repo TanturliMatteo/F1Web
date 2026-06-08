@@ -1,16 +1,16 @@
 import { Link } from "react-router";
-import type { FormattedRaces } from "../../hooks/useRaces";
-import { nationToCode } from "../../utils/nationalityCode";
+import type { Race } from "../../services/RacesServices";
+import { getNationToCode } from "../../utils/nationalityCode";
 import isRaceCompleted from "../../utils/isRaceCompleted";
 
 interface RaceTableProps {
-  races: FormattedRaces[];
+  data: Race[];
 }
 
 const flagUrl = (nationality: string) =>
-  `https://flagcdn.com/w40/${nationToCode[nationality]}.png`;
+  `https://flagcdn.com/w40/${getNationToCode(nationality)}.png`;
 
-const RaceTable = ({ races }: RaceTableProps) => {
+const RaceTable = ({ data }: RaceTableProps) => {
   return (
     <div className="display-card display-card-row">
       <table className="w-100">
@@ -24,19 +24,19 @@ const RaceTable = ({ races }: RaceTableProps) => {
           </tr>
         </thead>
         <tbody>
-          {races.map((race) => (
+          {data.map((race) => (
             <tr key={race.round}>
               <td>{race.round}</td>
 
               <td>
                 {isRaceCompleted(race.date) ? (
-                  <Link to={`/races/${race.round}`}>{race.raceName}</Link>
+                  <Link to={`/races/${race.round}`}>{race.name}</Link>
                 ) : (
-                  race.raceName
+                  race.name
                 )}
               </td>
 
-              <td>{race.circuitName}</td>
+              <td>{race.circuit}</td>
               <td>
                 <img
                   src={flagUrl(race.country)}

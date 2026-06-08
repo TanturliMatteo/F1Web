@@ -1,17 +1,22 @@
 import { Link } from "react-router";
-import type { Pilot } from "../../hooks/usePilots";
-import { nationalityToCode } from "../../utils/nationalityCode";
+import { getNationalityToCode } from "../../utils/nationalityCode";
+import type { PilotStandings } from "../../services/PilotStandingsServices";
 
 interface PilotTableProps {
-  data: Pilot[];
+  data: PilotStandings[];
 }
 
 const flagUrl = (nationality: string) =>
-  `https://flagcdn.com/w40/${nationalityToCode[nationality]}.png`;
+  `https://flagcdn.com/w40/${getNationalityToCode(nationality)}.png`;
 
-const PilotTable = ({ data: pilots }: PilotTableProps) => {
+const PilotTable = ({ data: pilots = [] }: PilotTableProps) => {
+  if (pilots.length === 0) {
+    return (
+      <div className="display-card">Nessun dato disponibile al momento.</div>
+    );
+  }
   return (
-    <div className="display-card">
+    <div className="display-card display-card-column">
       <table className="w-100">
         <thead>
           <tr>
@@ -37,7 +42,7 @@ const PilotTable = ({ data: pilots }: PilotTableProps) => {
                   alt={pilot.nationality}
                   className="flag"
                 />{" "}
-                {pilot.nationality}
+                <span className="hide-text-mobile">{pilot.nationality}</span>
               </td>
               <td>{pilot.team}</td>
               <td>{pilot.points}</td>

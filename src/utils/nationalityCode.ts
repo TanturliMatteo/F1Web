@@ -1,4 +1,4 @@
-export const nationalityToCode: Record<string, string> = {
+const nationalityToCode: Record<string, string> = {
   American: "us",
   Argentine: "ar",
   Australian: "au",
@@ -52,7 +52,8 @@ export const nationalityToCode: Record<string, string> = {
   Uruguayan: "uy",
   Venezuelan: "ve",
 };
-export const nationToCode: Record<string, string> = {
+
+const nationToCode: Record<string, string> = {
   Argentina: "ar",
   Australia: "au",
   Austria: "at",
@@ -109,3 +110,11 @@ export const nationToCode: Record<string, string> = {
   Uruguay: "uy",
   Venezuela: "ve",
 };
+
+export function getNationalityToCode(nationality: string): string {
+  return nationalityToCode[nationality] || "unknown";
+}
+
+export function getNationToCode(nation: string): string {
+  return nationToCode[nation] || "unknown";
+}

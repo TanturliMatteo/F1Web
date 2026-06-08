@@ -1,5 +1,4 @@
-import React from "react";
-import type { Race } from "../../hooks/useRace";
+import type { Race } from "../../services/RacesServices";
 
 interface RaceCardCircuitProps {
   data: Race;
@@ -14,7 +13,7 @@ const RaceCardCircuit = ({ data: circuit }: RaceCardCircuitProps) => {
       <div className="display-card max">
         <div className="display-card-column">
           <h2>
-            {circuit.circuitName}
+            {circuit.country}
             {"  "}[{circuit.locality}]
           </h2>
           <p>

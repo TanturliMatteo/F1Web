@@ -1,16 +1,21 @@
-import type { Pilot } from "../../hooks/usePilot";
-import type { PilotResult } from "../../hooks/usePilotResults";
+import type { PilotStandings } from "../../services/PilotStandingsServices";
+import type { UseResultsReturnType } from "../../hooks/useResultsPilot";
 import type { PilotPhoto } from "../../hooks/usePilotPhoto";
-import { getTeamColor } from "../../utils/teamColors";
 
 interface PilotCardProps {
-  pilot: Pilot;
-  stats: PilotResult | null;
+  pilot: PilotStandings | null;
+  stats: UseResultsReturnType["data"] | null;
   photo: PilotPhoto | null;
 }
 
 const PilotCard = ({ pilot, stats, photo }: PilotCardProps) => {
-  if (!stats) return <div>Loading...</div>;
+  if (!pilot || !stats) {
+    return (
+      <div className="display-card-row stretch">
+        <p>Caricamento dati pilota...</p>
+      </div>
+    );
+  }
 
   const statsList = [
     { label: "Points", value: pilot.points },

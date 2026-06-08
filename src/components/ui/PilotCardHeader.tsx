@@ -1,16 +1,20 @@
 import { Link } from "react-router";
-import type { Pilot } from "../../hooks/usePilot";
-import { nationalityToCode } from "../../utils/nationalityCode";
+import type { PilotStandings } from "../../services/PilotStandingsServices";
+import { getNationalityToCode } from "../../utils/nationalityCode";
 import { getTeamColor } from "../../utils/teamColors";
 
 interface PilotCardHeaderProps {
-  data: Pilot;
+  data: PilotStandings | null;
 }
 
 const flagUrl = (nationality: string) =>
-  `https://flagcdn.com/w40/${nationalityToCode[nationality]}.png`;
+  `https://flagcdn.com/w40/${getNationalityToCode(nationality)}.png`;
 
 const PilotCardHeader = ({ data: pilot }: PilotCardHeaderProps) => {
+  if (!pilot) {
+    return null;
+  }
+
   return (
     <div
       className="display-card display-card-row"

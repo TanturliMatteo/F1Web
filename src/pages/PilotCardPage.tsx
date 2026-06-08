@@ -1,5 +1,5 @@
 import { usePilot } from "../hooks/usePilot";
-import { usePilotStats } from "../hooks/usePilotResults";
+import { useResultsPilot } from "../hooks/useResultsPilot";
 import { useParams } from "react-router";
 import { usePilotPhoto } from "../hooks/usePilotPhoto";
 import PilotCard from "../components/ui/PilotCard";
@@ -7,30 +7,15 @@ import PilotCardHeader from "../components/ui/PilotCardHeader";
 
 const PilotCardPage = () => {
   const { id } = useParams();
-  const { data, loading, error } = usePilot(id);
-  const {
-    data: photo,
-    loading: loadingPhoto,
-    error: errorPhoto,
-  } = usePilotPhoto(id);
-  const {
-    data: stats,
-    loading: loadingStats,
-    error: errorStats,
-  } = usePilotStats(id);
+  const { data, isError, isLoading, error } = usePilot(id);
+  const { data: stats } = useResultsPilot(id);
+  const { data: photo } = usePilotPhoto(id);
 
-  if (loading || loadingStats || loadingPhoto) return <div>Loading...</div>;
+  if (isLoading)
+    return <div className="display-card">Caricamento in corso...</div>;
 
-  if (error || errorStats || errorPhoto)
-    return (
-      <div>
-        Error: {error?.message || errorStats?.message || errorPhoto?.message}
-      </div>
-    );
-
-  if (!data || !stats) {
-    return <div>Pilot not found</div>;
-  }
+  if (isError)
+    return <div className="display-card">Errore: {error?.message}</div>;
 
   return (
     <div className="page-container">

@@ -1,19 +1,18 @@
-import { useRaces } from "../hooks/useRaces";
 import RacesTable from "../components/ui/RacesTable";
+import { useRaces } from "../hooks/useRaces";
 
 const RaceTablePage = () => {
-  const { data, error, loading } = useRaces();
+  const { data, isError, isLoading, error } = useRaces();
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-  if (error) {
-    return <div>Error: {error?.message}</div>;
-  }
+  if (isLoading)
+    return <div className="display-card">Caricamento in corso...</div>;
+
+  if (isError)
+    return <div className="display-card">Errore: {error?.message}</div>;
 
   return (
     <div className="page-container">
-      <RacesTable races={data} />
+      <RacesTable data={data || []} />
     </div>
   );
 };
