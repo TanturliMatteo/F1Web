@@ -17,7 +17,6 @@ export function useResultsPilot(driverId?: string) {
     const driverResults = query.data.filter(
       (r) => r.code.toLowerCase().trim() === driverId.toLowerCase().trim(),
     );
-    console.log("Driver Results:", driverResults);
 
     const clean = driverResults.map((r) => ({
       ...r,
@@ -34,8 +33,12 @@ export function useResultsPilot(driverId?: string) {
       poles: clean.filter((p) => p.grd === 1).length,
       totalPoints: clean.reduce((sum, p) => sum + p.pts, 0),
       bestFinish: Math.min(...clean.map((p) => p.pos)),
-      averageFinish: clean.reduce((sum, p) => sum + p.pos, 0) / clean.length,
-      averageGrid: clean.reduce((sum, p) => sum + p.grd, 0) / clean.length,
+      averageFinish: (
+        clean.reduce((sum, p) => sum + p.pos, 0) / clean.length
+      ).toFixed(2),
+      averageGrid: (
+        clean.reduce((sum, p) => sum + p.grd, 0) / clean.length
+      ).toFixed(2),
       positionsGained: clean.reduce((sum, p) => sum + (p.grd - p.pos), 0),
       dnfs: clean.filter((p) => p.status !== "Finished").length,
       racesCompleted: clean.filter((p) => p.status === "Finished").length,

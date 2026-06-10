@@ -1,6 +1,6 @@
 import { usePilot } from "../hooks/usePilot";
 import { useResultsPilot } from "../hooks/useResultsPilot";
-import { useParams } from "react-router";
+import { Navigate, useParams } from "react-router";
 import { usePilotPhoto } from "../hooks/usePilotPhoto";
 import PilotCard from "../components/ui/PilotCard";
 import PilotCardHeader from "../components/ui/PilotCardHeader";
@@ -12,10 +12,22 @@ const PilotCardPage = () => {
   const { data: photo } = usePilotPhoto(id);
 
   if (isLoading)
-    return <div className="display-card">Caricamento in corso...</div>;
+    return (
+      <div className="display-card display-card-column">
+        Caricamento in corso...
+      </div>
+    );
 
   if (isError)
-    return <div className="display-card">Errore: {error?.message}</div>;
+    return (
+      <div className="display-card display-card-column">
+        Errore: {error?.message}
+      </div>
+    );
+
+  if (!data) {
+    return <Navigate to="/NotFoundPage"></Navigate>;
+  }
 
   return (
     <div className="page-container">

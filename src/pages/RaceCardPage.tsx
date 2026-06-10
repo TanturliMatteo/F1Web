@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { Navigate, useParams } from "react-router";
 import { useResultsRace } from "../hooks/useResultsRace";
 import { useRace } from "../hooks/useRace";
 import RaceCardHeader from "../components/ui/RaceCardHeader";
@@ -7,17 +7,25 @@ import RaceCard from "../components/ui/RaceCardTable";
 
 export const RaceCardPage = () => {
   const { id } = useParams();
-  const { data, isLoading, error } = useRace(id);
+  const { data, isLoading, isError, error } = useRace(id);
   const { data: results } = useResultsRace(id);
 
-  if (isLoading) {
-    return <div className="display-card">Loading...</div>;
-  }
-  if (error) {
-    return <div className="display-card">Error: {error?.message}</div>;
-  }
+  if (isLoading)
+    return (
+      <div className="display-card display-card-column">
+        Caricamento in corso...
+      </div>
+    );
+
+  if (isError)
+    return (
+      <div className="display-card display-card-column">
+        Errore: {error?.message}
+      </div>
+    );
+
   if (!data) {
-    return <div className="display-card">Race not found</div>;
+    return <Navigate to="/NotFoundPage"></Navigate>;
   }
 
   return (
