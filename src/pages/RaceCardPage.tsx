@@ -24,7 +24,7 @@ export const RaceCardPage = () => {
     <div className="page-container">
       <div>
         <RaceCardHeader data={data} />
-        <RaceCardCircuit data={data} />
+        <RaceCardCircuit data={data} round={id} />
         <RaceCard data={results} />
       </div>
     </div>

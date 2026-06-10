@@ -78,17 +78,27 @@ export interface Results {
 }
 
 export async function fetchResults(): Promise<Results[]> {
-  const res = await fetch(
-    "https://api.jolpi.ca/ergast/f1/2026/results/?format=json&limit=500",
+  const res1 = await fetch(
+    "https://api.jolpi.ca/ergast/f1/2026/results/?format=json&limit=100&offset=0",
   );
 
-  if (!res.ok) {
+  const res2 = await fetch(
+    "https://api.jolpi.ca/ergast/f1/2026/results/?format=json&limit=100&offset=100",
+  );
+
+  if (!res1.ok || !res2.ok) {
     throw new Error("Failed to fetch results");
   }
 
-  const data: ErgastResponse = await res.json();
+  const data1: ErgastResponse = await res1.json();
+  const data2: ErgastResponse = await res2.json();
 
-  const results = data.MRData.RaceTable.Races.flatMap((race) => {
+  const allRaces = [
+    ...data1.MRData.RaceTable.Races,
+    ...data2.MRData.RaceTable.Races,
+  ];
+
+  const results = allRaces.flatMap((race) => {
     return race.Results.map((result) => ({
       round: race.round ?? "0",
       raceName: race.raceName ?? "Unknown",
