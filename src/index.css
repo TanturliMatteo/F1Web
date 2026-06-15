@@ -1,0 +1,377 @@
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&family=Bungee+Outline&family=Londrina+Outline&display=swap");
+
+/* VARIABLES */
+:root {
+  --card-bg: linear-gradient(135deg, #0d0d0f 0%, #1a1a1f 60%, #2d2d35 100%);
+  --font-face: "Bungee Outline", cursive;
+}
+
+/* GLOBAL STYLES */
+body {
+  background-image: url("/f1_2bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  color: rgb(220, 220, 220);
+  font-family: "Audiowide", sans-serif;
+}
+
+.page-container {
+  width: 98%;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+/* LINK STYLES */
+a {
+  text-decoration: none;
+  color: rgb(235, 235, 235);
+}
+
+a:hover {
+  color: rgb(255, 0, 0);
+  text-shadow: 0 0 0.5px black;
+}
+
+/*Text styles*/
+h2 {
+  margin: 0;
+}
+
+h3 {
+  margin: 0;
+}
+
+p {
+  line-height: 2;
+  color: #c2c2ce;
+  margin: 0;
+}
+
+/* BACKGROUND */
+.f1-bg {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* NOT FOUND */
+.not-found {
+  min-height: 100vh;
+}
+
+.not-found-button {
+  border: 2px solid rgba(172, 172, 172, 0.2);
+  border-radius: 0.5rem;
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+
+/* HEADER STYLES  */
+.header {
+  background: var(--card-bg);
+}
+
+.header-logo {
+  height: 60px;
+  width: auto;
+  margin: 0;
+  padding: 0;
+}
+
+.header-logo:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+.header-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem;
+  z-index: 10;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.5rem;
+}
+
+/* FOOTER STYLES */
+footer {
+  background: var(--card-bg);
+  width: 100%;
+  color: rgb(164, 164, 164);
+  font-size: 0.9rem;
+}
+
+.footer-logo {
+  height: 100px;
+  width: auto;
+}
+
+.footer-left {
+  width: 90%;
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+.separation-line {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.278);
+}
+
+/* TABLE STYLES */
+tbody tr:not(:last-child) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.278);
+  transition: background 0.2s ease;
+}
+
+tbody tr:hover {
+  background: rgba(255, 0, 0, 0.1);
+}
+
+tbody td {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+th:last-child,
+td:last-child {
+  text-align: right;
+}
+
+/* FLAG STYLES */
+.flag {
+  height: 20px;
+  width: 30px;
+  border-radius: 1rem;
+  margin-right: 0.5rem;
+}
+
+.flag.flag-lg {
+  height: 30px;
+  width: 50px;
+}
+
+/* Privacy Policy Styles */
+.privacy-section {
+  margin-bottom: 2rem;
+}
+
+/*GENERAL CARD STYLES */
+.display-card {
+  width: 100%;
+  /* height: 100%; */
+  padding: 2rem;
+  background: var(--card-bg);
+  z-index: 10;
+  border-radius: 1rem;
+  font-size: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.top {
+  margin-top: 1rem;
+}
+
+.middle {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.bottom {
+  margin-bottom: 1rem;
+}
+
+.display-card-column {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  gap: 1rem;
+}
+
+.display-card-column.start {
+  align-items: flex-start;
+}
+
+.display-card-column.end {
+  align-items: flex-end;
+}
+
+.display-card-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.display-card-row.stretch {
+  align-items: stretch;
+}
+
+.display-card-row.around {
+  justify-content: space-around;
+}
+
+.max {
+  flex: 3;
+}
+
+.mid {
+  flex: 2;
+}
+
+.min {
+  flex: 1;
+}
+
+/* PILOT CARD STYLES */
+.pilot-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* Progress Bar Styles */
+.box-statistica {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+/* Il contenitore grigio vuoto */
+.barra-sfondo {
+  width: 100%;
+  height: 15px;
+  background: #333333;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.barra-riempimento {
+  height: 100%;
+  background: #00ffcc;
+}
+
+.testi-barra {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+/*RACE CARD STYLES*/
+.circuit-image {
+  width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 0.5rem;
+}
+/* HERO STYLE */
+.home-hero-container {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.home-hero-cars {
+  position: absolute;
+  height: 70%;
+  width: 70%;
+  transform: scale(0) translateY(0);
+  animation: espandi 1s ease-out forwards;
+}
+
+@keyframes espandi {
+  to {
+    transform: scale(1) translateY(100px);
+  }
+}
+
+.home-hero-title {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateY(20px);
+  font-size: 4rem;
+  opacity: 0;
+  animation: slideIn 0.8s ease-out forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(0);
+  }
+}
+
+/* PILOT CARD STYLES */
+.display-card.pilot {
+  background: #121212;
+  background: linear-gradient(
+    145deg,
+    rgba(0, 0, 0, 0.852) 0%,
+    var(--team-color) 150%
+  );
+
+  border: 1px solid rgba(var(--team-color), 0.2);
+  border-radius: 12px;
+}
+
+.pilot-photo-container {
+  position: relative;
+  height: 450px;
+  width: auto;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+.pilot-photo {
+  width: auto;
+  height: 1000px;
+  object-fit: cover;
+  object-position: top;
+  opacity: 0.97;
+  z-index: 10;
+}
+
+.pilotNumber {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 300px;
+  font-family: var(--font-face);
+  z-index: 1;
+}
+
+.pilot-description {
+  font-size: 1.1rem;
+  width: 80%;
+}
