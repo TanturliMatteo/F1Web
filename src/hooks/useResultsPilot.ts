@@ -31,6 +31,7 @@ export function useResultsPilot(code?: string) {
     // 2. CALCOLO TEAMMATE BATTLE
     let totalRacesCompared = 0;
     let driverWins = 0;
+    let points = 0;
 
     clean.forEach((myRace) => {
       const teammateRace = query.data.find(
@@ -39,6 +40,8 @@ export function useResultsPilot(code?: string) {
           r.constructorId === driverResults[0].constructorId &&
           r.driverId.toLowerCase().trim() !== code.toLowerCase().trim(),
       );
+
+      points += myRace.pts;
 
       if (teammateRace) {
         totalRacesCompared++;
@@ -81,6 +84,12 @@ export function useResultsPilot(code?: string) {
         (clean.filter((p) => p.pos > 0 && p.pos <= 10).length / clean.length) *
         100
       ).toFixed(2),
+      pointsToMax: Number(
+        ((points / (totalRacesCompared * 26)) * 100).toFixed(2),
+      ),
+      maxPoints: totalRacesCompared * 26,
+      pointsLost: totalRacesCompared * 26 - points,
+      remainingPoints: (19 - totalRacesCompared) * 26,
     };
   }, [query.data, code]);
 

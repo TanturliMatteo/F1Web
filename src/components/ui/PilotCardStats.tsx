@@ -62,8 +62,35 @@ const PilotCardStats = ({ stats }: PilotCardProps) => {
             </div>
           </div>
         </div>
+
         <div className="display-card h-50">
-          <h3 className="text-center">Statistics</h3>
+          <div className="display-card-row">
+            <div className="gauge-wrapper min">
+              <svg className="gauge" viewBox="0 0 100 100">
+                <circle className="gauge-bg" cx="50" cy="50" r="45" />
+                <circle
+                  className="gauge-progress"
+                  cx="50"
+                  cy="50"
+                  r="45"
+                  style={{
+                    stroke: getTeamColor(stats.rawResult[1]?.constructorId),
+                    strokeDasharray: 282.7,
+                    strokeDashoffset: 282.7 - (stats.pointsToMax / 100) * 282.7,
+                  }}
+                />
+              </svg>
+              <div className="gauge-text">
+                <span className="gauge-value">{stats.pointsToMax}%</span>
+                <span className="gauge-label">Pts Efficiency</span>
+              </div>
+            </div>
+            <div className="min">
+              <p>MAX AVAILABLE: {stats.maxPoints} PTS</p>
+              <p>POINTS LOST: {stats.pointsLost} PTS</p>
+              <p>REMAINING: {stats.remainingPoints} PTS</p>
+            </div>
+          </div>
         </div>
       </div>
       <div className=" display-card mid">
