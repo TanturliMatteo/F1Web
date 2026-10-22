@@ -2,7 +2,7 @@ import HomeHero from "../components/ui/HomeHero";
 
 const Home = () => {
   return (
-    <div>
+    <div id="home-page">
       <HomeHero />
     </div>
   );

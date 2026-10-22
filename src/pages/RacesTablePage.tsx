@@ -7,14 +7,14 @@ const RaceTablePage = () => {
 
   if (isLoading)
     return (
-      <div className="display-card display-card-column">
+      <div id="races-loading" className="display-card display-card-column">
         Caricamento in corso...
       </div>
     );
 
   if (isError)
     return (
-      <div className="display-card display-card-column">
+      <div id="races-error" className="display-card display-card-column">
         Errore: {error?.message}
       </div>
     );
@@ -23,7 +23,7 @@ const RaceTablePage = () => {
     return <Navigate to="/NotFoundPage"></Navigate>;
   }
   return (
-    <div className="page-container">
+    <div id="races-page" className="page-container">
       <RacesTable data={data || []} />
     </div>
   );

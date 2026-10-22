@@ -7,9 +7,9 @@ import { queryClient } from "./queryClient";
 function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen flex flex-col f1-bg">
+      <div id="app-layout" className="min-h-screen flex flex-col f1-bg">
         <Header />
-        <main className="flex-1">
+        <main id="app-main" className="flex-1">
           <Outlet />
         </main>
         <Footer />

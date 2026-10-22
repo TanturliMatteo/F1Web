@@ -8,15 +8,15 @@ interface RaceCardProps {
 const RaceCard = ({ data: result }: RaceCardProps) => {
   if (!result) {
     return (
-      <div className="display-card-row stretch">
+      <div id="race-card-table-loading" className="display-card-row stretch">
         <p>Caricamento risultati...</p>
       </div>
     );
   }
   return (
-    <div className="display-card bottom">
-      <table className="w-100">
-        <thead>
+    <div id="race-card-table-card" className="display-card bottom">
+      <table id="race-card-table" className="w-100">
+        <thead id="race-card-table-head">
           <tr>
             <th>Position</th>
             <th>Number</th>
@@ -26,13 +26,16 @@ const RaceCard = ({ data: result }: RaceCardProps) => {
             <th>Pts</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="race-card-table-body">
           {result.map((res) => (
-            <tr key={res.position}>
+            <tr key={res.position} id={`race-card-table-row-${res.position}`}>
               <td>{res.position}</td>
               <td>{res.number}</td>
               <td>
-                <Link to={`/pilots/${res.code}`}>
+                <Link
+                  id={`race-card-table-link-${res.position}`}
+                  to={`/pilots/${res.code}`}
+                >
                   {res.givenName} {res.familyName}
                 </Link>
               </td>

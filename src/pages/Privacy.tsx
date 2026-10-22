@@ -1,8 +1,11 @@
 const PrivacyPage = () => {
   return (
-    <div className="page-container">
-      <div className="display-card display-card-column start">
-        <section className="privacy-section">
+    <div id="privacy-page" className="page-container">
+      <div
+        id="privacy-card"
+        className="display-card display-card-column start"
+      >
+        <section id="privacy-header" className="privacy-section">
           <h2>Privacy Policy di F1Web Statistics</h2>
           <p>
             <strong>Ultimo aggiornamento:</strong> 11 Giugno 2026
@@ -14,7 +17,7 @@ const PrivacyPage = () => {
           </p>
         </section>
 
-        <section className="privacy-section">
+        <section id="privacy-introduction" className="privacy-section">
           <h2>Introduzione</h2>
           <p>
             F1Web Statistics è un portale informativo dedicato alla
@@ -25,7 +28,7 @@ const PrivacyPage = () => {
           </p>
         </section>
 
-        <section className="privacy-section">
+        <section id="privacy-data-collected" className="privacy-section">
           <h2>Dati Raccolti</h2>
           <p>
             F1Web Statistics è un progetto informativo indipendente.{" "}
@@ -38,14 +41,14 @@ const PrivacyPage = () => {
           </p>
         </section>
 
-        <section className="privacy-section">
+        <section id="privacy-data-source" className="privacy-section">
           <h2>Origine dei Dati (API)</h2>
           <p>
             Le statistiche e i risultati visualizzati su questo portale sono
             ottenuti in tempo reale tramite{" "}
             <strong>Ergast Developer API</strong> (o Jolpica F1 API).
           </p>
-          <ul>
+          <ul id="privacy-data-source-list">
             <li>Questi dati sono di natura pubblica e sportiva.</li>
             <li>
               F1Web Statistics non manipola i risultati delle gare, ma si limita
@@ -58,7 +61,7 @@ const PrivacyPage = () => {
           </ul>
         </section>
 
-        <section className="privacy-section">
+        <section id="privacy-purpose" className="privacy-section">
           <h2>3. Progetto Personale e Finalità</h2>
           <p>
             Questo sito è un progetto di sviluppo personale e non a scopo di
@@ -67,7 +70,7 @@ const PrivacyPage = () => {
           </p>
         </section>
 
-        <section className="privacy-section">
+        <section id="privacy-third-party-links" className="privacy-section">
           <h2>4. Link a Siti Terzi</h2>
           <p>
             Il nostro sito contiene link verso risorse esterne. F1Web Statistics
@@ -76,7 +79,11 @@ const PrivacyPage = () => {
           </p>
         </section>
 
-        <section className="privacy-section" style={{ marginBottom: "2rem" }}>
+        <section
+          id="privacy-changes"
+          className="privacy-section"
+          style={{ marginBottom: "2rem" }}
+        >
           <h2>5. Modifiche alla presente Privacy Policy</h2>
           <p>
             Ci riserviamo il diritto di aggiornare questa informativa in
@@ -85,7 +92,7 @@ const PrivacyPage = () => {
           </p>
         </section>
 
-        <section>
+        <section id="privacy-contacts">
           <h2>6. Contatti</h2>
           <p>
             Per qualsiasi domanda riguardante questa Privacy Policy, puoi

@@ -16,14 +16,14 @@ const PilotCardPage = () => {
 
   if (isLoading || isStatsLoading)
     return (
-      <div className="display-card display-card-column">
+      <div id="pilot-card-loading" className="display-card display-card-column">
         Caricamento in corso...
       </div>
     );
 
   if (isError || isStatsError)
     return (
-      <div className="display-card display-card-column">
+      <div id="pilot-card-error" className="display-card display-card-column">
         Errore: {error?.message}
       </div>
     );
@@ -33,7 +33,7 @@ const PilotCardPage = () => {
   }
 
   return (
-    <div className="page-container ">
+    <div id="pilot-card-page" className="page-container ">
       <PilotCardHeader data={data} />
       <PilotCard pilot={data} />
       <PilotCardStats stats={stats} />

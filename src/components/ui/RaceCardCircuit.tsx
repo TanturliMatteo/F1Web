@@ -1,7 +1,6 @@
 import type { Race } from "../../services/RacesServices";
 import { circuitDescriptions } from "../../data/circuitDescriptions";
 import { circuitImages } from "../../data/circuitTrack";
-import { getNationColor } from "../../utils/nationColors";
 
 interface RaceCardCircuitProps {
   data: Race;
@@ -15,26 +14,30 @@ const RaceCardCircuit = ({ data: circuit, round }: RaceCardCircuitProps) => {
   const extraCircuitInfo = round ? circuitDescriptions[round] : null;
   const circuitImage = round ? circuitImages[round] : null;
   return (
-    <div className="display-card-row stretch middle">
-      <div className="display-card min p-1">
+    <div id="race-card-circuit" className="display-card-row stretch middle">
+      <div id="race-card-circuit-image-card" className="display-card min p-1">
         {circuitImage ? (
-          <img src={circuitImage} className="circuit-image" />
+          <img
+            id="race-card-circuit-image"
+            src={circuitImage}
+            className="circuit-image"
+          />
         ) : (
-          <p>No image available</p>
+          <p id="race-card-circuit-no-image">No image available</p>
         )}
       </div>
-      <div className="display-card max">
-        <div className="display-card-column">
-          <h2>
+      <div id="race-card-circuit-info-card" className="display-card max">
+        <div id="race-card-circuit-info" className="display-card-column">
+          <h2 id="race-card-circuit-title">
             {circuit.circuit}
             {"  "}[{circuit.locality}]
           </h2>
-          <p>
+          <p id="race-card-circuit-description">
             {extraCircuitInfo
               ? extraCircuitInfo.description
               : "No additional information available for this circuit."}
           </p>
-          <p>{extraCircuitInfo ? extraCircuitInfo.trivia : "none"} </p>
+          <p id="race-card-circuit-trivia">{extraCircuitInfo ? extraCircuitInfo.trivia : "none"} </p>
         </div>
       </div>
     </div>

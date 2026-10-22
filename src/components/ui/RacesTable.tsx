@@ -12,9 +12,12 @@ const flagUrl = (nationality: string) =>
 
 const RaceTable = ({ data }: RaceTableProps) => {
   return (
-    <div className="display-card display-card-row middle">
-      <table className="w-100">
-        <thead>
+    <div
+      id="races-table-card"
+      className="display-card display-card-row middle"
+    >
+      <table id="races-table" className="w-100">
+        <thead id="races-table-head">
           <tr>
             <th>Round</th>
             <th>Race Name</th>
@@ -23,14 +26,19 @@ const RaceTable = ({ data }: RaceTableProps) => {
             <th>Date</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="races-table-body">
           {data.map((race) => (
-            <tr key={race.round}>
+            <tr key={race.round} id={`races-table-row-${race.round}`}>
               <td>{race.round}</td>
 
               <td>
                 {isRaceCompleted(race.date) ? (
-                  <Link to={`/races/${race.round}`}>{race.name}</Link>
+                  <Link
+                    id={`races-table-link-${race.round}`}
+                    to={`/races/${race.round}`}
+                  >
+                    {race.name}
+                  </Link>
                 ) : (
                   race.name
                 )}
@@ -39,6 +47,7 @@ const RaceTable = ({ data }: RaceTableProps) => {
               <td>{race.circuit}</td>
               <td>
                 <img
+                  id={`races-table-flag-${race.round}`}
                   src={flagUrl(race.country)}
                   alt={race.country}
                   className="flag"

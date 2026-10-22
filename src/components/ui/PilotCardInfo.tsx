@@ -10,15 +10,16 @@ interface PilotCardProps {
 const PilotCard = ({ pilot }: PilotCardProps) => {
   if (!pilot) {
     return (
-      <div className="display-card-row stretch">
+      <div id="pilot-card-info-loading" className="display-card-row stretch">
         <p>Caricamento dati pilota...</p>
       </div>
     );
   }
 
   return (
-    <div className=" display-card-row stretch middle">
+    <div id="pilot-card-info" className=" display-card-row stretch middle">
       <div
+        id="pilot-card-info-card"
         className="display-card display-card-row stretch pb-0 pilot"
         style={
           {
@@ -26,21 +27,29 @@ const PilotCard = ({ pilot }: PilotCardProps) => {
           } as React.CSSProperties
         }
       >
-        <div className="display-card-column min pilot-photo-container">
+        <div
+          id="pilot-card-info-photo-container"
+          className="display-card-column min pilot-photo-container"
+        >
           <p
+            id="pilot-card-info-number"
             className="pilotNumber"
             style={{ color: getTeamColor(pilot.constructorId) }}
           >
             {pilot.permanentNumber}
           </p>
           <img
+            id="pilot-card-info-photo"
             src={getPilotPhoto(pilot.code.toLowerCase())}
             alt={pilot.name}
             className="pilot-photo"
           />
         </div>
-        <div className="display-card-column mid">
-          <p className="pilot-description ">
+        <div
+          id="pilot-card-info-description-container"
+          className="display-card-column mid"
+        >
+          <p id="pilot-card-info-description" className="pilot-description ">
             {getPilotDescription(pilot.code.toLowerCase())}
           </p>
         </div>

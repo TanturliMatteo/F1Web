@@ -12,13 +12,18 @@ const flagUrl = (nationality: string) =>
 const PilotTable = ({ data: pilots = [] }: PilotTableProps) => {
   if (pilots.length === 0) {
     return (
-      <div className="display-card">Nessun dato disponibile al momento.</div>
+      <div id="pilots-table-empty" className="display-card">
+        Nessun dato disponibile al momento.
+      </div>
     );
   }
   return (
-    <div className="display-card display-card-column middle">
-      <table className="w-100">
-        <thead>
+    <div
+      id="pilots-table-card"
+      className="display-card display-card-column middle"
+    >
+      <table id="pilots-table" className="w-100">
+        <thead id="pilots-table-head">
           <tr>
             <th>Position</th>
             <th>Pilot</th>
@@ -27,17 +32,20 @@ const PilotTable = ({ data: pilots = [] }: PilotTableProps) => {
             <th>Points</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="pilots-table-body">
           {pilots.map((pilot) => (
-            <tr key={pilot.driverId}>
+            <tr key={pilot.driverId} id={`pilots-table-row-${pilot.driverId}`}>
               <td>{pilot.position}</td>
               <td>
-                <Link to={`/pilots/${pilot.code.toLowerCase()}`}>
+                <Link
+                  id={`pilots-table-link-${pilot.driverId}`}
+                  to={`/pilots/${pilot.code.toLowerCase()}`}>
                   {pilot.name} {pilot.surname}
                 </Link>
               </td>
               <td>
                 <img
+                  id={`pilots-table-flag-${pilot.driverId}`}
                   src={flagUrl(pilot.nationality)}
                   alt={pilot.nationality}
                   className="flag"

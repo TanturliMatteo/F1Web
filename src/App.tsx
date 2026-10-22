@@ -1,6 +1,4 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "./queryClient";
 import Home from "./pages/Home";
 import PilotTablePage from "./pages/PilotsTablePage";
 import RootLayout from "./RootLayout";

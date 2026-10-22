@@ -17,14 +17,16 @@ const PilotCardHeader = ({ data: pilot }: PilotCardHeaderProps) => {
 
   return (
     <div
+      id="pilot-card-header"
       className="display-card display-card-row top"
       style={{
         borderLeft: `3px solid ${getTeamColor(pilot.constructorId)}`,
       }}
     >
-      <h2>
+      <h2 id="pilot-card-header-title">
         [{pilot.permanentNumber}]{" "}
         <Link
+          id="pilot-card-header-link"
           to={`http://en.wikipedia.org/wiki/${pilot.name}_${pilot.surname}`}
           target="_blank"
           className="pilot-name"
@@ -33,6 +35,7 @@ const PilotCardHeader = ({ data: pilot }: PilotCardHeaderProps) => {
         </Link>
       </h2>
       <img
+        id="pilot-card-header-flag"
         src={flagUrl(pilot.nationality)}
         alt={pilot.nationality}
         className="flag flag-lg"

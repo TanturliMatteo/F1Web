@@ -16,14 +16,14 @@ const RaceCardPage = () => {
 
   if (isLoading || isResultsLoading)
     return (
-      <div className="display-card display-card-column">
+      <div id="race-card-loading" className="display-card display-card-column">
         Caricamento in corso...
       </div>
     );
 
   if (isError || isResultsError)
     return (
-      <div className="display-card display-card-column">
+      <div id="race-card-error" className="display-card display-card-column">
         Errore: {error?.message}
       </div>
     );
@@ -33,8 +33,8 @@ const RaceCardPage = () => {
   }
 
   return (
-    <div className="page-container">
-      <div>
+    <div id="race-card-page" className="page-container">
+      <div id="race-card-content">
         <RaceCardHeader data={data} />
         <RaceCardCircuit data={data} round={id} />
         <RaceCard data={results} />
