@@ -3,15 +3,9 @@ import { Link } from "react-router";
 
 const Footer = () => {
   return (
-    <footer id="footer" className="footer pb-1">
-      <div
-        id="footer-top"
-        className="ui-row divider-bottom pb-1"
-      >
-        <div
-          id="footer-about"
-          className="ui-stack ui-grow-2"
-        >
+    <footer id="footer" className="footer">
+      <div id="footer-top" className="ui-row footer-top divider-bottom">
+        <div id="footer-about" className="ui-stack ui-stack--start ui-grow-2">
           <img
             id="footer-logo"
             src={logo}
@@ -26,7 +20,7 @@ const Footer = () => {
           </p>
         </div>
         <div id="footer-links-wrapper" className="ui-row ui-row--around ui-grow-2">
-          <div id="footer-links" className="ui-stack">
+          <div id="footer-links" className="ui-stack ui-stack--start">
             <h5 id="footer-links-title">Links</h5>
             <Link id="footer-home-link" to="/">
               Home
@@ -38,7 +32,7 @@ const Footer = () => {
               Race Table
             </Link>
           </div>
-          <div id="footer-contact" className="ui-stack">
+          <div id="footer-contact" className="ui-stack ui-stack--start">
             <h5 id="footer-contact-title">Contact</h5>
             <Link
               id="footer-email-link"
@@ -64,7 +58,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div id="footer-bottom" className="ui-row ui-row--around m-0 mt-1">
+      <div id="footer-bottom" className="ui-row ui-row--around footer-bottom">
         <p id="footer-copyright">© 2026 F1Web Statistics. </p>
         <p>|</p>
         <Link id="footer-privacy-link" to="/privacy" target="_blank">
