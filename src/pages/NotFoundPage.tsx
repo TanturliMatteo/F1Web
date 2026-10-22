@@ -3,10 +3,10 @@ const NotFoundPage = () => {
   return (
     <div
       id="not-found-page"
-      className="page-container display-card display-card-column "
+      className="page-container ui-card ui-stack"
     >
       <h1 id="not-found-title">404 - Not Found</h1>
-      <Link id="not-found-home-link" to="/" className="not-found-button">
+      <Link id="not-found-home-link" to="/" className="link-button">
         Go back to Home
       </Link>
     </div>

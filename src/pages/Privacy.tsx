@@ -3,7 +3,7 @@ const PrivacyPage = () => {
     <div id="privacy-page" className="page-container">
       <div
         id="privacy-card"
-        className="display-card display-card-column start"
+        className="ui-card ui-stack ui-stack--start"
       >
         <section id="privacy-header" className="privacy-section">
           <h2>Privacy Policy di F1Web Statistics</h2>

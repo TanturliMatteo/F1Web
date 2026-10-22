@@ -10,17 +10,17 @@ interface PilotCardProps {
 const PilotCard = ({ pilot }: PilotCardProps) => {
   if (!pilot) {
     return (
-      <div id="pilot-card-info-loading" className="display-card-row stretch">
+      <div id="pilot-card-info-loading" className="ui-row ui-row--stretch">
         <p>Caricamento dati pilota...</p>
       </div>
     );
   }
 
   return (
-    <div id="pilot-card-info" className=" display-card-row stretch middle">
+    <div id="pilot-card-info" className="ui-row ui-row--stretch my-3">
       <div
         id="pilot-card-info-card"
-        className="display-card display-card-row stretch pb-0 pilot"
+        className="ui-card ui-row ui-row--stretch pb-0 pilot-card"
         style={
           {
             "--team-color": getTeamColor(pilot.constructorId),
@@ -29,11 +29,11 @@ const PilotCard = ({ pilot }: PilotCardProps) => {
       >
         <div
           id="pilot-card-info-photo-container"
-          className="display-card-column min pilot-photo-container"
+          className="ui-stack ui-grow-1 pilot-photo-container"
         >
           <p
             id="pilot-card-info-number"
-            className="pilotNumber"
+            className="pilot-number"
             style={{ color: getTeamColor(pilot.constructorId) }}
           >
             {pilot.permanentNumber}
@@ -47,9 +47,9 @@ const PilotCard = ({ pilot }: PilotCardProps) => {
         </div>
         <div
           id="pilot-card-info-description-container"
-          className="display-card-column mid"
+          className="ui-stack ui-grow-2"
         >
-          <p id="pilot-card-info-description" className="pilot-description ">
+          <p id="pilot-card-info-description" className="pilot-description">
             {getPilotDescription(pilot.code.toLowerCase())}
           </p>
         </div>

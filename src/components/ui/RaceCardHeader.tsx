@@ -14,7 +14,7 @@ const RaceCardHeader = ({ data: race }: RaceCardHeaderProps) => {
   return (
     <div
       id="race-card-header"
-      className="display-card display-card-row top"
+      className="ui-card ui-row mt-3"
       style={{ borderLeft: `3px solid ${getNationColor(race.country)}` }}
     >
       <h3 id="race-card-header-round">{race.round}</h3>
@@ -24,7 +24,7 @@ const RaceCardHeader = ({ data: race }: RaceCardHeaderProps) => {
         id="race-card-header-flag"
         src={flagUrl(getNationToCode(race.country))}
         alt={race.country}
-        className="flag flag-lg"
+        className="flag flag--lg"
       />
     </div>
   );

@@ -10,7 +10,7 @@ interface PilotTableProps {
 const PilotTable = ({ data: pilots = [] }: PilotTableProps) => {
   if (pilots.length === 0) {
     return (
-      <div id="pilots-table-empty" className="display-card">
+      <div id="pilots-table-empty" className="ui-card">
         Nessun dato disponibile al momento.
       </div>
     );
@@ -18,7 +18,7 @@ const PilotTable = ({ data: pilots = [] }: PilotTableProps) => {
   return (
     <div
       id="pilots-table-card"
-      className="display-card display-card-column middle"
+      className="ui-card ui-stack my-3"
     >
       <table id="pilots-table" className="w-100">
         <thead id="pilots-table-head">

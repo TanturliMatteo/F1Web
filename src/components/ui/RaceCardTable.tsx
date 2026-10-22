@@ -8,13 +8,13 @@ interface RaceCardProps {
 const RaceCard = ({ data: result }: RaceCardProps) => {
   if (!result) {
     return (
-      <div id="race-card-table-loading" className="display-card-row stretch">
+      <div id="race-card-table-loading" className="ui-row ui-row--stretch">
         <p>Caricamento risultati...</p>
       </div>
     );
   }
   return (
-    <div id="race-card-table-card" className="display-card bottom">
+    <div id="race-card-table-card" className="ui-card mb-3">
       <table id="race-card-table" className="w-100">
         <thead id="race-card-table-head">
           <tr>

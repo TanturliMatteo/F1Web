@@ -14,8 +14,8 @@ const RaceCardCircuit = ({ data: circuit, round }: RaceCardCircuitProps) => {
   const extraCircuitInfo = round ? circuitDescriptions[round] : null;
   const circuitImage = round ? circuitImages[round] : null;
   return (
-    <div id="race-card-circuit" className="display-card-row stretch middle">
-      <div id="race-card-circuit-image-card" className="display-card min p-1">
+    <div id="race-card-circuit" className="ui-row ui-row--stretch my-3">
+      <div id="race-card-circuit-image-card" className="ui-card ui-grow-1 p-1">
         {circuitImage ? (
           <img
             id="race-card-circuit-image"
@@ -26,8 +26,8 @@ const RaceCardCircuit = ({ data: circuit, round }: RaceCardCircuitProps) => {
           <p id="race-card-circuit-no-image">No image available</p>
         )}
       </div>
-      <div id="race-card-circuit-info-card" className="display-card max">
-        <div id="race-card-circuit-info" className="display-card-column">
+      <div id="race-card-circuit-info-card" className="ui-card ui-grow-3">
+        <div id="race-card-circuit-info" className="ui-stack">
           <h2 id="race-card-circuit-title">
             {circuit.circuit}
             {"  "}[{circuit.locality}]

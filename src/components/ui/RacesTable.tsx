@@ -12,7 +12,7 @@ const RaceTable = ({ data }: RaceTableProps) => {
   return (
     <div
       id="races-table-card"
-      className="display-card display-card-row middle"
+      className="ui-card ui-row my-3"
     >
       <table id="races-table" className="w-100">
         <thead id="races-table-head">

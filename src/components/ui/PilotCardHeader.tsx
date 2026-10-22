@@ -16,7 +16,7 @@ const PilotCardHeader = ({ data: pilot }: PilotCardHeaderProps) => {
   return (
     <div
       id="pilot-card-header"
-      className="display-card display-card-row top"
+      className="ui-card ui-row mt-3"
       style={{
         borderLeft: `3px solid ${getTeamColor(pilot.constructorId)}`,
       }}
@@ -27,7 +27,6 @@ const PilotCardHeader = ({ data: pilot }: PilotCardHeaderProps) => {
           id="pilot-card-header-link"
           to={`http://en.wikipedia.org/wiki/${pilot.name}_${pilot.surname}`}
           target="_blank"
-          className="pilot-name"
         >
           {pilot.name} {pilot.surname}
         </Link>
@@ -36,7 +35,7 @@ const PilotCardHeader = ({ data: pilot }: PilotCardHeaderProps) => {
         id="pilot-card-header-flag"
         src={flagUrl(getNationalityToCode(pilot.nationality))}
         alt={pilot.nationality}
-        className="flag flag-lg"
+        className="flag flag--lg"
       />
     </div>
   );

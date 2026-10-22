@@ -8,7 +8,7 @@ interface PilotCardProps {
 const PilotCardStats = ({ stats }: PilotCardProps) => {
   if (!stats) {
     return (
-      <div id="pilot-card-stats-empty" className="display-card-row stretch">
+      <div id="pilot-card-stats-empty" className="ui-row ui-row--stretch">
         Statistiche non disponibili.
       </div>
     );
@@ -28,27 +28,27 @@ const PilotCardStats = ({ stats }: PilotCardProps) => {
   ];
 
   return (
-    <div id="pilot-card-stats" className="display-card-row stretch bottom">
-      <div id="pilot-card-stats-left" className="display-card-column max">
+    <div id="pilot-card-stats" className="ui-row ui-row--stretch mb-3">
+      <div id="pilot-card-stats-left" className="ui-stack ui-grow-3">
         {/* Progress Bars */}
         <div
           id="pilot-card-stats-bars"
-          className="display-card display-card-column h-50"
+          className="ui-card ui-stack h-50"
         >
           <div
             id="pilot-card-stats-teammate-battle"
-            className="box-statistica middle"
+            className="stat-bar my-3"
           >
-            <div className="testi-barra">
+            <div className="stat-bar-header">
               <span>Teammate Battle</span>
               <span id="pilot-card-stats-teammate-battle-value">
                 {stats.teammateBattle}%
               </span>
             </div>
-            <div className="barra-sfondo">
+            <div className="stat-bar-track">
               <div
                 id="pilot-card-stats-teammate-battle-bar"
-                className="barra-riempimento"
+                className="stat-bar-fill"
                 style={{
                   width: `${stats.teammateBattle}%`,
                   backgroundColor: getTeamColor(
@@ -60,18 +60,18 @@ const PilotCardStats = ({ stats }: PilotCardProps) => {
           </div>
           <div
             id="pilot-card-stats-consistency"
-            className="box-statistica middle"
+            className="stat-bar my-3"
           >
-            <div className="testi-barra">
+            <div className="stat-bar-header">
               <span>Points Finish Consistency</span>
               <span id="pilot-card-stats-consistency-value">
                 {stats.topTen}%
               </span>
             </div>
-            <div className="barra-sfondo">
+            <div className="stat-bar-track">
               <div
                 id="pilot-card-stats-consistency-bar"
-                className="barra-riempimento"
+                className="stat-bar-fill"
                 style={{
                   width: `${stats.topTen}%`,
                   backgroundColor: getTeamColor(
@@ -83,11 +83,11 @@ const PilotCardStats = ({ stats }: PilotCardProps) => {
           </div>
         </div>
         {/* Gauge */}
-        <div id="pilot-card-stats-gauge-card" className="display-card h-50">
-          <div id="pilot-card-stats-gauge-row" className="display-card-row">
+        <div id="pilot-card-stats-gauge-card" className="ui-card h-50">
+          <div id="pilot-card-stats-gauge-row" className="ui-row">
             <div
               id="pilot-card-stats-gauge-wrapper"
-              className="gauge-wrapper min"
+              className="gauge-wrapper ui-grow-1"
             >
               <svg
                 id="pilot-card-stats-gauge"
@@ -123,7 +123,7 @@ const PilotCardStats = ({ stats }: PilotCardProps) => {
                 </span>
               </div>
             </div>
-            <div id="pilot-card-stats-points-summary" className="min">
+            <div id="pilot-card-stats-points-summary" className="ui-grow-1">
               <p id="pilot-card-stats-max-points">
                 MAX AVAILABLE: {stats.maxPoints} PTS
               </p>
@@ -138,13 +138,13 @@ const PilotCardStats = ({ stats }: PilotCardProps) => {
         </div>
       </div>
       {/* Stats Table */}
-      <div id="pilot-card-stats-table-card" className=" display-card mid">
+      <div id="pilot-card-stats-table-card" className="ui-card ui-grow-2">
         <table id="pilot-card-stats-table" className="w-100">
           <tbody id="pilot-card-stats-table-body">
             {statsList.map((stat, index) => (
               <tr key={index} id={`pilot-card-stats-row-${index}`}>
-                <td className="label">{stat.label}</td>
-                <td className="value">{stat.value}</td>
+                <td>{stat.label}</td>
+                <td>{stat.value}</td>
               </tr>
             ))}
           </tbody>

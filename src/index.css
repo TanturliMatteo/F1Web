@@ -1,10 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Audiowide&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Audiowide&family=Bungee+Outline&family=Londrina+Outline&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&family=Bungee+Outline&display=swap");
 
 /* VARIABLES */
 :root {
   --card-bg: linear-gradient(135deg, #0d0d0f 0%, #1a1a1f 60%, #2d2d35 100%);
-  --font-face: "Bungee Outline", cursive;
+  --font-display: "Bungee Outline", cursive;
+  --color-accent: #00ffcc;
+  --border-subtle: rgba(255, 255, 255, 0.278);
 }
 
 /* GLOBAL STYLES */
@@ -19,13 +20,6 @@ body {
   font-family: "Audiowide", sans-serif;
 }
 
-.page-container {
-  width: 98%;
-  margin: 0 auto;
-  min-height: 100vh;
-}
-
-/* LINK STYLES */
 a {
   text-decoration: none;
   color: rgb(235, 235, 235);
@@ -36,11 +30,7 @@ a:hover {
   text-shadow: 0 0 0.5px black;
 }
 
-/*Text styles*/
-h2 {
-  margin: 0;
-}
-
+h2,
 h3 {
   margin: 0;
 }
@@ -51,41 +41,33 @@ p {
   margin: 0;
 }
 
-/* BACKGROUND */
-.f1-bg {
-  min-height: 100vh;
+/* LAYOUT */
+.app-layout {
   position: relative;
   overflow: hidden;
   z-index: 0;
 }
 
-/* NOT FOUND */
-.not-found {
+.page-container {
+  width: 98%;
+  margin: 0 auto;
   min-height: 100vh;
 }
 
-.not-found-button {
+.divider-bottom {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.link-button {
   border: 2px solid rgba(172, 172, 172, 0.2);
   border-radius: 0.5rem;
   margin: 0.5rem;
   padding: 0.5rem;
 }
 
-/* HEADER STYLES  */
+/* HEADER */
 .header {
   background: var(--card-bg);
-}
-
-.header-logo {
-  height: 60px;
-  width: auto;
-  margin: 0;
-  padding: 0;
-}
-
-.header-logo:hover {
-  transform: scale(1.05);
-  transition: transform 0.2s ease;
 }
 
 .header-nav {
@@ -93,14 +75,21 @@ p {
   justify-content: space-around;
   align-items: center;
   padding: 1rem;
-  z-index: 10;
-  font-weight: 400;
-  font-style: normal;
   font-size: 1.5rem;
 }
 
-/* FOOTER STYLES */
-footer {
+.header-logo {
+  height: 60px;
+  width: auto;
+}
+
+.header-logo:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+/* FOOTER */
+.footer {
   background: var(--card-bg);
   width: 100%;
   color: rgb(164, 164, 164);
@@ -112,19 +101,13 @@ footer {
   width: auto;
 }
 
-.footer-left {
+.footer-description {
   width: 90%;
-  font-size: 0.9rem;
-  margin-bottom: 0;
 }
 
-.separation-line {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.278);
-}
-
-/* TABLE STYLES */
+/* TABLES */
 tbody tr:not(:last-child) {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.278);
+  border-bottom: 1px solid var(--border-subtle);
   transition: background 0.2s ease;
 }
 
@@ -142,7 +125,7 @@ td:last-child {
   text-align: right;
 }
 
-/* FLAG STYLES */
+/* FLAGS */
 .flag {
   height: 20px;
   width: 30px;
@@ -150,43 +133,34 @@ td:last-child {
   margin-right: 0.5rem;
 }
 
-.flag.flag-lg {
+.flag--lg {
   height: 30px;
   width: 50px;
 }
 
-/* Privacy Policy Styles */
+@media (max-width: 576px) {
+  .hide-text-mobile {
+    display: none;
+  }
+}
+
+/* PRIVACY */
 .privacy-section {
   margin-bottom: 2rem;
 }
 
-/*GENERAL CARD STYLES */
-.display-card {
+/* CARD + LAYOUT PRIMITIVES (ui-*) */
+.ui-card {
   width: 100%;
-  /* height: 100%; */
   padding: 2rem;
   background: var(--card-bg);
   z-index: 10;
   border-radius: 1rem;
-  font-size: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.top {
-  margin-top: 1rem;
-}
-
-.middle {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-.bottom {
-  margin-bottom: 1rem;
-}
-
-.display-card-column {
+.ui-stack {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -195,46 +169,40 @@ td:last-child {
   gap: 1rem;
 }
 
-.display-card-column.start {
+.ui-stack--start {
   align-items: flex-start;
 }
 
-.display-card-column.end {
-  align-items: flex-end;
-}
-
-.display-card-row {
+.ui-row {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 1rem;
 }
 
-.display-card-row.stretch {
+.ui-row--stretch {
   align-items: stretch;
 }
 
-.display-card-row.around {
+.ui-row--around {
   justify-content: space-around;
 }
 
-.max {
-  flex: 3;
-}
-
-.mid {
-  flex: 2;
-}
-
-.min {
+.ui-grow-1 {
   flex: 1;
 }
 
-/* HERO STYLE */
+.ui-grow-2 {
+  flex: 2;
+}
+
+.ui-grow-3 {
+  flex: 3;
+}
+
+/* HOME HERO */
 .home-hero-container {
   position: relative;
-  top: 0;
-  left: 0;
   width: 100vw;
   height: 100vh;
   z-index: 1;
@@ -257,27 +225,25 @@ td:last-child {
   height: 70%;
   width: 70%;
   transform: scale(0) translateY(0);
-  animation: espandi 1s ease-out forwards;
-}
-
-@keyframes espandi {
-  to {
-    transform: scale(1) translateY(100px);
-  }
+  animation: hero-cars-expand 1s ease-out forwards;
 }
 
 .home-hero-title {
   position: absolute;
   top: 15%;
   left: 50%;
-  transform: translate(-50%, -50%) translateY(20px);
+  transform: translate(-50%, -50%);
   font-size: 4rem;
-  opacity: 0;
-  animation: slideIn 0.8s ease-out forwards;
-  animation-delay: 0.5s;
+  animation: hero-title-slide-in 0.8s ease-out 0.5s both;
 }
 
-@keyframes slideIn {
+@keyframes hero-cars-expand {
+  to {
+    transform: scale(1) translateY(100px);
+  }
+}
+
+@keyframes hero-title-slide-in {
   from {
     opacity: 0;
     transform: translate(-50%, -50%) translateY(20px);
@@ -289,25 +255,20 @@ td:last-child {
   }
 }
 
-/* PILOT CARD STYLES */
-.display-card.pilot {
-  background: #121212;
+/* PILOT CARD */
+.pilot-card {
   background: linear-gradient(
     145deg,
     rgba(0, 0, 0, 0.852) 0%,
     var(--team-color) 150%
   );
-
-  border: 1px solid rgba(var(--team-color), 0.2);
   border-radius: 12px;
 }
 
 .pilot-photo-container {
   position: relative;
   height: 450px;
-  width: auto;
   overflow: hidden;
-  margin-bottom: 0;
 }
 
 .pilot-photo {
@@ -319,13 +280,13 @@ td:last-child {
   z-index: 10;
 }
 
-.pilotNumber {
+.pilot-number {
   position: absolute;
   top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 300px;
-  font-family: var(--font-face);
+  font-family: var(--font-display);
   z-index: 1;
 }
 
@@ -334,14 +295,20 @@ td:last-child {
   width: 80%;
 }
 
-/* Progress Bars */
-.box-statistica {
+/* STAT BAR */
+.stat-bar {
   width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.barra-sfondo {
+.stat-bar-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.stat-bar-track {
   width: 100%;
   height: 15px;
   background: #333333;
@@ -349,16 +316,9 @@ td:last-child {
   overflow: hidden;
 }
 
-.barra-riempimento {
+.stat-bar-fill {
   height: 100%;
-  background: #00ffcc;
-}
-
-.testi-barra {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 5px;
-  font-size: 1rem;
+  background: var(--color-accent);
 }
 
 /* GAUGE */
@@ -367,7 +327,6 @@ td:last-child {
   width: 180px;
   height: 180px;
   margin: 0 auto;
-  font-family: inherit;
 }
 
 .gauge {
@@ -382,17 +341,12 @@ td:last-child {
   stroke-width: 8;
 }
 
+/* stroke-dasharray / dashoffset are set inline from the stats */
 .gauge-progress {
   fill: none;
-  stroke: var(--team-color, #00ffcc);
+  stroke: var(--color-accent);
   stroke-width: 8;
   stroke-linecap: round;
-
-  /*Circonferenza = 2 * PI * Raggio (2 * 3.1415 * 45 = 282.7) */
-  stroke-dasharray: 282.7;
-
-  stroke-dashoffset: 282.7;
-
   transition: stroke-dashoffset 0.8s ease-in-out;
 }
 
@@ -421,7 +375,7 @@ td:last-child {
   margin-top: 2px;
 }
 
-/*RACE CARD STYLES*/
+/* RACE CARD */
 .circuit-image {
   width: 100%;
   max-height: 100%;

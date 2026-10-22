@@ -6,11 +6,11 @@ const Footer = () => {
     <footer id="footer" className="footer pb-1">
       <div
         id="footer-top"
-        className=" display-card-row separation-line pb-1"
+        className="ui-row divider-bottom pb-1"
       >
         <div
           id="footer-about"
-          className="display-card-column mid "
+          className="ui-stack ui-grow-2"
         >
           <img
             id="footer-logo"
@@ -18,15 +18,15 @@ const Footer = () => {
             alt="F1 Logo"
             className="footer-logo"
           />
-          <p id="footer-description" className="footer-left">
+          <p id="footer-description" className="footer-description">
             F1Web Statistics è il portale dedicato all'analisi dei dati della
             Formula 1. Elaboriamo i risultati ufficiali in tempo reale per
             offrirti statistiche, medie e approfondimenti sulla stagione 2026.
             Dati forniti tramite Ergast API.
           </p>
         </div>
-        <div id="footer-links-wrapper" className="display-card-row around mid">
-          <div id="footer-links" className="display-card-column">
+        <div id="footer-links-wrapper" className="ui-row ui-row--around ui-grow-2">
+          <div id="footer-links" className="ui-stack">
             <h5 id="footer-links-title">Links</h5>
             <Link id="footer-home-link" to="/">
               Home
@@ -38,7 +38,7 @@ const Footer = () => {
               Race Table
             </Link>
           </div>
-          <div id="footer-contact" className="display-card-column">
+          <div id="footer-contact" className="ui-stack">
             <h5 id="footer-contact-title">Contact</h5>
             <Link
               id="footer-email-link"
@@ -64,7 +64,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div id="footer-bottom" className="display-card-row around m-0 mt-1">
+      <div id="footer-bottom" className="ui-row ui-row--around m-0 mt-1">
         <p id="footer-copyright">© 2026 F1Web Statistics. </p>
         <p>|</p>
         <Link id="footer-privacy-link" to="/privacy" target="_blank">

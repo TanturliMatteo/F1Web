@@ -31,7 +31,7 @@ const PilotCardPage = () => {
   if (!data || !stats) return <NotFoundPage />;
 
   return (
-    <div id="pilot-card-page" className="page-container ">
+    <div id="pilot-card-page" className="page-container">
       <PilotCardHeader data={data} />
       <PilotCard pilot={data} />
       <PilotCardStats stats={stats} />
