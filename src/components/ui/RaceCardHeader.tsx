@@ -1,13 +1,11 @@
 import { getNationToCode } from "../../utils/nationalityCode";
 import { getNationColor } from "../../utils/nationColors";
+import { flagUrl } from "../../utils/flagUrl";
 import type { Race } from "../../services/RacesServices";
 
 interface RaceCardHeaderProps {
   data: Race | null;
 }
-
-const flagUrl = (nationality: string) =>
-  `https://flagcdn.com/w40/${getNationToCode(nationality)}.png`;
 
 const RaceCardHeader = ({ data: race }: RaceCardHeaderProps) => {
   if (!race) {
@@ -24,7 +22,7 @@ const RaceCardHeader = ({ data: race }: RaceCardHeaderProps) => {
 
       <img
         id="race-card-header-flag"
-        src={flagUrl(race.country)}
+        src={flagUrl(getNationToCode(race.country))}
         alt={race.country}
         className="flag flag-lg"
       />

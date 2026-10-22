@@ -1,13 +1,11 @@
 import { Link } from "react-router";
 import { getNationalityToCode } from "../../utils/nationalityCode";
+import { flagUrl } from "../../utils/flagUrl";
 import type { PilotStandings } from "../../services/PilotStandingsServices";
 
 interface PilotTableProps {
   data: PilotStandings[];
 }
-
-const flagUrl = (nationality: string) =>
-  `https://flagcdn.com/w40/${getNationalityToCode(nationality)}.png`;
 
 const PilotTable = ({ data: pilots = [] }: PilotTableProps) => {
   if (pilots.length === 0) {
@@ -46,7 +44,7 @@ const PilotTable = ({ data: pilots = [] }: PilotTableProps) => {
               <td>
                 <img
                   id={`pilots-table-flag-${pilot.driverId}`}
-                  src={flagUrl(pilot.nationality)}
+                  src={flagUrl(getNationalityToCode(pilot.nationality))}
                   alt={pilot.nationality}
                   className="flag"
                 />{" "}

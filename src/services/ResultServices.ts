@@ -78,13 +78,14 @@ export interface Results {
 }
 
 export async function fetchResults(): Promise<Results[]> {
-  const res1 = await fetch(
-    "https://api.jolpi.ca/ergast/f1/2026/results/?format=json&limit=100&offset=0",
-  );
-
-  const res2 = await fetch(
-    "https://api.jolpi.ca/ergast/f1/2026/results/?format=json&limit=100&offset=100",
-  );
+  const [res1, res2] = await Promise.all([
+    fetch(
+      "https://api.jolpi.ca/ergast/f1/2026/results/?format=json&limit=100&offset=0",
+    ),
+    fetch(
+      "https://api.jolpi.ca/ergast/f1/2026/results/?format=json&limit=100&offset=100",
+    ),
+  ]);
 
   if (!res1.ok || !res2.ok) {
     throw new Error("Failed to fetch results");

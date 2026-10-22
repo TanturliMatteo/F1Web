@@ -1,9 +1,11 @@
 import { usePilot } from "../hooks/usePilot";
 import { useResultsPilot } from "../hooks/useResultsPilot";
-import { Navigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import PilotCardStats from "../components/ui/PilotCardStats";
 import PilotCard from "../components/ui/PilotCardInfo";
 import PilotCardHeader from "../components/ui/PilotCardHeader";
+import { LoadingCard, ErrorCard } from "../components/ui/QueryState";
+import NotFoundPage from "./NotFoundPage";
 
 const PilotCardPage = () => {
   const { id } = useParams();
@@ -12,25 +14,21 @@ const PilotCardPage = () => {
     data: stats,
     isError: isStatsError,
     isLoading: isStatsLoading,
+    error: statsError,
   } = useResultsPilot(id);
 
   if (isLoading || isStatsLoading)
-    return (
-      <div id="pilot-card-loading" className="display-card display-card-column">
-        Caricamento in corso...
-      </div>
-    );
+    return <LoadingCard id="pilot-card-loading" />;
 
   if (isError || isStatsError)
     return (
-      <div id="pilot-card-error" className="display-card display-card-column">
-        Errore: {error?.message}
-      </div>
+      <ErrorCard
+        id="pilot-card-error"
+        message={(error ?? statsError)?.message}
+      />
     );
 
-  if (!data || !stats) {
-    return <Navigate to="/NotFoundPage"></Navigate>;
-  }
+  if (!data || !stats) return <NotFoundPage />;
 
   return (
     <div id="pilot-card-page" className="page-container ">

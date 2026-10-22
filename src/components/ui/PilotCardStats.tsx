@@ -9,8 +9,7 @@ const PilotCardStats = ({ stats }: PilotCardProps) => {
   if (!stats) {
     return (
       <div id="pilot-card-stats-empty" className="display-card-row stretch">
-        {" "}
-        ciao
+        Statistiche non disponibili.
       </div>
     );
   }

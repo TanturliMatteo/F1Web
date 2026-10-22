@@ -1,14 +1,12 @@
 import { Link } from "react-router";
 import type { PilotStandings } from "../../services/PilotStandingsServices";
 import { getNationalityToCode } from "../../utils/nationalityCode";
+import { flagUrl } from "../../utils/flagUrl";
 import getTeamColor from "../../utils/teamColors";
 
 interface PilotCardHeaderProps {
   data: PilotStandings | null;
 }
-
-const flagUrl = (nationality: string) =>
-  `https://flagcdn.com/w40/${getNationalityToCode(nationality)}.png`;
 
 const PilotCardHeader = ({ data: pilot }: PilotCardHeaderProps) => {
   if (!pilot) {
@@ -36,7 +34,7 @@ const PilotCardHeader = ({ data: pilot }: PilotCardHeaderProps) => {
       </h2>
       <img
         id="pilot-card-header-flag"
-        src={flagUrl(pilot.nationality)}
+        src={flagUrl(getNationalityToCode(pilot.nationality))}
         alt={pilot.nationality}
         className="flag flag-lg"
       />

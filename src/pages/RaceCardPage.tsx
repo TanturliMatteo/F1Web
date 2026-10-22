@@ -1,9 +1,11 @@
-import { Navigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import { useResultsRace } from "../hooks/useResultsRace";
 import { useRace } from "../hooks/useRace";
 import RaceCardHeader from "../components/ui/RaceCardHeader";
 import RaceCardCircuit from "../components/ui/RaceCardCircuit";
 import RaceCard from "../components/ui/RaceCardTable";
+import { LoadingCard, ErrorCard } from "../components/ui/QueryState";
+import NotFoundPage from "./NotFoundPage";
 
 const RaceCardPage = () => {
   const { id } = useParams();
@@ -12,25 +14,20 @@ const RaceCardPage = () => {
     data: results,
     isLoading: isResultsLoading,
     isError: isResultsError,
+    error: resultsError,
   } = useResultsRace(id);
 
-  if (isLoading || isResultsLoading)
-    return (
-      <div id="race-card-loading" className="display-card display-card-column">
-        Caricamento in corso...
-      </div>
-    );
+  if (isLoading || isResultsLoading) return <LoadingCard id="race-card-loading" />;
 
   if (isError || isResultsError)
     return (
-      <div id="race-card-error" className="display-card display-card-column">
-        Errore: {error?.message}
-      </div>
+      <ErrorCard
+        id="race-card-error"
+        message={(error ?? resultsError)?.message}
+      />
     );
 
-  if (!data) {
-    return <Navigate to="/NotFoundPage"></Navigate>;
-  }
+  if (!data) return <NotFoundPage />;
 
   return (
     <div id="race-card-page" className="page-container">

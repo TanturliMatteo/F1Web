@@ -1,30 +1,20 @@
-import { Navigate } from "react-router";
 import PilotsTable from "../components/ui/PilotsTable";
+import { LoadingCard, ErrorCard } from "../components/ui/QueryState";
 import { usePilots } from "../hooks/usePilots";
+import NotFoundPage from "./NotFoundPage";
 
 const PilotsTablePage = () => {
   const { data, isLoading, isError, error } = usePilots();
 
-  if (isLoading)
-    return (
-      <div id="pilots-loading" className="display-card display-card-column">
-        Caricamento in corso...
-      </div>
-    );
+  if (isLoading) return <LoadingCard id="pilots-loading" />;
 
-  if (isError)
-    return (
-      <div id="pilots-error" className="display-card display-card-column">
-        Errore: {error?.message}
-      </div>
-    );
+  if (isError) return <ErrorCard id="pilots-error" message={error?.message} />;
 
-  if (!data) {
-    return <Navigate to="/NotFoundPage"></Navigate>;
-  }
+  if (!data) return <NotFoundPage />;
+
   return (
     <div id="pilots-page" className="page-container">
-      <PilotsTable data={data || []} />
+      <PilotsTable data={data} />
     </div>
   );
 };

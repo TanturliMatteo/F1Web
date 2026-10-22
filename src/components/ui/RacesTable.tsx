@@ -1,14 +1,12 @@
 import { Link } from "react-router";
 import type { Race } from "../../services/RacesServices";
 import { getNationToCode } from "../../utils/nationalityCode";
+import { flagUrl } from "../../utils/flagUrl";
 import isRaceCompleted from "../../utils/isRaceCompleted";
 
 interface RaceTableProps {
   data: Race[];
 }
-
-const flagUrl = (nationality: string) =>
-  `https://flagcdn.com/w40/${getNationToCode(nationality)}.png`;
 
 const RaceTable = ({ data }: RaceTableProps) => {
   return (
@@ -48,7 +46,7 @@ const RaceTable = ({ data }: RaceTableProps) => {
               <td>
                 <img
                   id={`races-table-flag-${race.round}`}
-                  src={flagUrl(race.country)}
+                  src={flagUrl(getNationToCode(race.country))}
                   alt={race.country}
                   className="flag"
                 />
