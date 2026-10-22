@@ -1,20 +1,15 @@
-import { fetchPilotStandings } from "../services/PilotStandingsServices";
-import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
+import { usePilots } from "./usePilots";
 
 export function usePilot(driverCode?: string | null) {
-  const query = useQuery({
-    queryKey: ["pilotStandings"],
-    queryFn: fetchPilotStandings,
-    staleTime: 1000 * 60 * 5,
-  });
+  const query = usePilots();
 
   const pilot = useMemo(() => {
     if (!driverCode || !query.data) return null;
 
     return (
       query.data.find(
-        (p) => p.code.toLocaleLowerCase() === driverCode.toLocaleLowerCase(),
+        (p) => p.code.toLowerCase() === driverCode.toLowerCase(),
       ) ?? null
     );
   }, [query.data, driverCode]);

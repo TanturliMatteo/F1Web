@@ -1,15 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
-import { fetchResults } from "../services/ResultServices";
 import { useMemo } from "react";
+import { useResults } from "./useResults";
+import { useRaces } from "./useRaces";
+
+// Max points available in a race, used for the efficiency stats
+const MAX_POINTS_PER_RACE = 26;
 
 export type UseResultsReturnType = ReturnType<typeof useResultsPilot>;
 
 export function useResultsPilot(code?: string) {
-  const query = useQuery({
-    queryKey: ["results"],
-    queryFn: fetchResults,
-    staleTime: 1000 * 60 * 5,
-  });
+  const query = useResults();
+  const { data: races } = useRaces();
+  const seasonRaces = races?.length ?? 0;
 
   const data = useMemo(() => {
     if (!query.data || !code) return null;
@@ -37,7 +38,7 @@ export function useResultsPilot(code?: string) {
       const teammateRace = query.data.find(
         (r) =>
           r.round === myRace.round &&
-          r.constructorId === driverResults[0].constructorId &&
+          r.constructorId === myRace.constructorId &&
           r.driverId.toLowerCase().trim() !== code.toLowerCase().trim(),
       );
 
@@ -58,6 +59,8 @@ export function useResultsPilot(code?: string) {
       totalRacesCompared > 0
         ? Math.round((driverWins / totalRacesCompared) * 100)
         : 0;
+
+    const maxPoints = totalRacesCompared * MAX_POINTS_PER_RACE;
 
     return {
       wins: clean.filter((p) => p.pos === 1).length,
@@ -84,14 +87,15 @@ export function useResultsPilot(code?: string) {
         (clean.filter((p) => p.pos > 0 && p.pos <= 10).length / clean.length) *
         100
       ).toFixed(2),
-      pointsToMax: Number(
-        ((points / (totalRacesCompared * 26)) * 100).toFixed(2),
-      ),
-      maxPoints: totalRacesCompared * 26,
-      pointsLost: totalRacesCompared * 26 - points,
-      remainingPoints: (19 - totalRacesCompared) * 26,
+      pointsToMax: maxPoints
+        ? Number(((points / maxPoints) * 100).toFixed(2))
+        : 0,
+      maxPoints,
+      pointsLost: maxPoints - points,
+      remainingPoints:
+        Math.max(0, seasonRaces - totalRacesCompared) * MAX_POINTS_PER_RACE,
     };
-  }, [query.data, code]);
+  }, [query.data, code, seasonRaces]);
 
   return {
     ...query,

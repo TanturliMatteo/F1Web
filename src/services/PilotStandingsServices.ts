@@ -1,3 +1,5 @@
+import { apiGet, SEASON } from "./api";
+
 interface ErgastResponse {
   MRData: {
     StandingsTable: {
@@ -38,19 +40,18 @@ export interface PilotStandings {
   dateOfBirth: string;
 }
 
-export async function fetchPilotStandings(): Promise<PilotStandings[]> {
-  const res = await fetch(
-    "https://api.jolpi.ca/ergast/f1/current/driverstandings",
+export async function fetchPilotStandings(
+  signal?: AbortSignal,
+): Promise<PilotStandings[]> {
+  const data = await apiGet<ErgastResponse>(
+    `/${SEASON}/driverstandings`,
+    signal,
   );
 
-  if (!res.ok) throw new Error("Failed to fetch");
-
-  const data: ErgastResponse = await res.json();
-
   const drivers =
-    data.MRData.StandingsTable.StandingsLists[0].DriverStandings ?? [];
+    data.MRData.StandingsTable.StandingsLists[0]?.DriverStandings ?? [];
 
-  const pilots = drivers.map((d) => ({
+  return drivers.map((d) => ({
     position: d.position ?? "0",
     name: d.Driver?.givenName ?? "Unknown",
     surname: d.Driver?.familyName ?? "",
@@ -63,5 +64,4 @@ export async function fetchPilotStandings(): Promise<PilotStandings[]> {
     permanentNumber: d.Driver?.permanentNumber ?? "Unknown",
     dateOfBirth: d.Driver?.dateOfBirth ?? "Unknown",
   }));
-  return pilots;
 }

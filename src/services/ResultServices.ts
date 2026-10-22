@@ -1,5 +1,11 @@
+import { apiGet, SEASON } from "./api";
+
+// Jolpica caps `limit` at 100 rows per request
+const PAGE_SIZE = 100;
+
 interface ErgastResponse {
   MRData: {
+    total: string;
     RaceTable: {
       Races: Array<{
         round: string;
@@ -40,7 +46,7 @@ interface ErgastResponse {
               time: string;
             };
           };
-          Time: {
+          Time?: {
             time: string;
           };
         }>;
@@ -77,27 +83,29 @@ export interface Results {
   time: string;
 }
 
-export async function fetchResults(): Promise<Results[]> {
-  const [res1, res2] = await Promise.all([
-    fetch(
-      "https://api.jolpi.ca/ergast/f1/2026/results/?format=json&limit=100&offset=0",
-    ),
-    fetch(
-      "https://api.jolpi.ca/ergast/f1/2026/results/?format=json&limit=100&offset=100",
-    ),
-  ]);
+const fetchResultsPage = (offset: number, signal?: AbortSignal) =>
+  apiGet<ErgastResponse>(
+    `/${SEASON}/results?limit=${PAGE_SIZE}&offset=${offset}`,
+    signal,
+  );
 
-  if (!res1.ok || !res2.ok) {
-    throw new Error("Failed to fetch results");
+export async function fetchResults(signal?: AbortSignal): Promise<Results[]> {
+  // The API paginates by result rows, so read the first page to learn the
+  // total and then fetch the remaining ones in parallel.
+  const first = await fetchResultsPage(0, signal);
+  const total = Number(first.MRData.total) || 0;
+
+  const offsets: number[] = [];
+  for (let offset = PAGE_SIZE; offset < total; offset += PAGE_SIZE) {
+    offsets.push(offset);
   }
+  const rest = await Promise.all(
+    offsets.map((offset) => fetchResultsPage(offset, signal)),
+  );
 
-  const data1: ErgastResponse = await res1.json();
-  const data2: ErgastResponse = await res2.json();
-
-  const allRaces = [
-    ...data1.MRData.RaceTable.Races,
-    ...data2.MRData.RaceTable.Races,
-  ];
+  // A race can straddle two pages: it then appears in both with partial
+  // Results, which the flatMap below simply concatenates.
+  const allRaces = [first, ...rest].flatMap((page) => page.MRData.RaceTable.Races);
 
   const results = allRaces.flatMap((race) => {
     return race.Results.map((result) => ({

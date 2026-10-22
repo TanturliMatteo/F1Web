@@ -1,22 +1,13 @@
-import { fetchRaces } from "../services/RacesServices";
-import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
+import { useRaces } from "./useRaces";
 
 export function useRace(round?: string | null) {
-  const query = useQuery({
-    queryKey: ["races"],
-    queryFn: fetchRaces,
-    staleTime: 1000 * 60 * 5,
-  });
+  const query = useRaces();
 
   const race = useMemo(() => {
     if (!round || !query.data) return null;
 
-    return (
-      query.data.find(
-        (r) => r.round.toLocaleLowerCase() === round.toLocaleLowerCase(),
-      ) ?? null
-    );
+    return query.data.find((r) => r.round === round) ?? null;
   }, [query.data, round]);
 
   return { ...query, data: race };

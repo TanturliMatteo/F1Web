@@ -1,3 +1,5 @@
+import { apiGet, SEASON } from "./api";
+
 interface ErgastRaceResponse {
   MRData: {
     RaceTable: {
@@ -26,16 +28,10 @@ export interface Race {
   country: string;
 }
 
-export async function fetchRaces(): Promise<Race[]> {
-  const res = await fetch("https://api.jolpi.ca/ergast/f1/2026/races/");
+export async function fetchRaces(signal?: AbortSignal): Promise<Race[]> {
+  const data = await apiGet<ErgastRaceResponse>(`/${SEASON}/races`, signal);
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch races data");
-  }
-
-  const data: ErgastRaceResponse = await res.json();
-
-  const races = data?.MRData?.RaceTable?.Races ?? [];
+  const races = data.MRData.RaceTable.Races ?? [];
 
   return races.map((r) => ({
     name: r.raceName ?? "Unknown Race",
