@@ -7,6 +7,7 @@ interface ErgastRaceResponse {
         raceName: string;
         round: string;
         date: string;
+        time?: string;
         Circuit: {
           circuitName: string;
           Location: {
@@ -23,6 +24,7 @@ export interface Race {
   name: string;
   round: string;
   date: string;
+  time?: string;
   circuit: string;
   locality: string;
   country: string;
@@ -37,6 +39,7 @@ export async function fetchRaces(signal?: AbortSignal): Promise<Race[]> {
     name: r.raceName ?? "Unknown Race",
     round: r.round ?? "0",
     date: r.date ?? "N/A",
+    time: r.time,
     circuit: r.Circuit?.circuitName ?? "Unknown Circuit",
     locality: r.Circuit?.Location?.locality ?? "Unknown Locality",
     country: r.Circuit?.Location?.country ?? "Unknown Country",

@@ -9,11 +9,11 @@ interface RaceTableProps {
 }
 
 const RaceTable = ({ data }: RaceTableProps) => {
+  const isDone = (race: Race) => isRaceCompleted(race.date, race.time);
+  const nextRound = data.find((race) => !isDone(race))?.round;
+
   return (
-    <div
-      id="races-table-card"
-      className="ui-card ui-row my-3"
-    >
+    <div id="races-table-card" className="ui-card ui-row my-3">
       <table id="races-table" className="w-100">
         <thead id="races-table-head">
           <tr>
@@ -22,39 +22,56 @@ const RaceTable = ({ data }: RaceTableProps) => {
             <th>Circuit</th>
             <th>Location</th>
             <th>Date</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody id="races-table-body">
-          {data.map((race) => (
-            <tr key={race.round} id={`races-table-row-${race.round}`}>
-              <td>{race.round}</td>
+          {data.map((race) => {
+            const status = isDone(race)
+              ? "completed"
+              : race.round === nextRound
+                ? "next"
+                : "upcoming";
 
-              <td>
-                {isRaceCompleted(race.date) ? (
-                  <Link
-                    id={`races-table-link-${race.round}`}
-                    to={`/races/${race.round}`}
+            return (
+              <tr key={race.round} id={`races-table-row-${race.round}`}>
+                <td>{race.round}</td>
+
+                <td>
+                  {status === "completed" ? (
+                    <Link
+                      id={`races-table-link-${race.round}`}
+                      to={`/races/${race.round}`}
+                    >
+                      {race.name}
+                    </Link>
+                  ) : (
+                    race.name
+                  )}
+                </td>
+
+                <td>{race.circuit}</td>
+                <td>
+                  <img
+                    id={`races-table-flag-${race.round}`}
+                    src={flagUrl(getNationToCode(race.country))}
+                    alt={race.country}
+                    className="flag"
+                  />
+                  {race.locality}, {race.country}
+                </td>
+                <td>{race.date}</td>
+                <td>
+                  <span
+                    id={`races-table-status-${race.round}`}
+                    className={`status-badge status-badge--${status}`}
                   >
-                    {race.name}
-                  </Link>
-                ) : (
-                  race.name
-                )}
-              </td>
-
-              <td>{race.circuit}</td>
-              <td>
-                <img
-                  id={`races-table-flag-${race.round}`}
-                  src={flagUrl(getNationToCode(race.country))}
-                  alt={race.country}
-                  className="flag"
-                />
-                {race.locality}, {race.country}
-              </td>
-              <td>{race.date}</td>
-            </tr>
-          ))}
+                    {status}
+                  </span>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { getNationalityToCode } from "../../utils/nationalityCode";
 import { flagUrl } from "../../utils/flagUrl";
+import getTeamColor from "../../utils/teamColors";
 import type { PilotStandings } from "../../services/PilotStandingsServices";
 
 interface PilotTableProps {
@@ -33,7 +34,12 @@ const PilotTable = ({ data: pilots = [] }: PilotTableProps) => {
         <tbody id="pilots-table-body">
           {pilots.map((pilot) => (
             <tr key={pilot.driverId} id={`pilots-table-row-${pilot.driverId}`}>
-              <td>{pilot.position}</td>
+              <td
+                className="team-stripe"
+                style={{ borderLeftColor: getTeamColor(pilot.constructorId) }}
+              >
+                {pilot.position}
+              </td>
               <td>
                 <Link
                   id={`pilots-table-link-${pilot.driverId}`}
