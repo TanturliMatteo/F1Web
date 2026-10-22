@@ -23,7 +23,7 @@ const FEATURES = [
 
 const HomeFeatures = () => (
   <section id="home-features" className="banner">
-    <div id="home-features-content" className="banner-content">
+    <div id="home-features-content" className="banner-content banner-content--wide">
       <p id="home-features-eyebrow" className="section-label">
         2026 season
       </p>

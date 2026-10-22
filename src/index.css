@@ -630,7 +630,8 @@ td:last-child {
 }
 
 .banner--left .banner-content,
-.banner--right .banner-content {
+.banner--right .banner-content,
+.banner-content--wide {
   width: 100%;
   max-width: none;
   padding-inline: 4vw;
