@@ -290,19 +290,33 @@ td:last-child {
   position: absolute;
   left: 50%;
   bottom: 0;
-  width: min(85%, 1200px);
+  width: min(72%, 1000px);
   height: auto;
   transform-origin: bottom center;
-  animation: hero-cars-expand 1s ease-out both;
+  /* Hero-cars.png has ~19% transparent space under the wheels:
+     push the image down so the tyres sit on the grid. */
+  --cars-drop: 14%;
+  --cars-bottom: 0%;
+  animation: hero-cars-expand 1.2s cubic-bezier(0.25, 0.6, 0.3, 1) both;
 }
 
+/* Cars start tiny at the road's vanishing point (~half the hero height)
+   and drive down the track, growing until they stop on the grid. */
 @keyframes hero-cars-expand {
   from {
-    transform: translateX(-50%) scale(0);
+    bottom: 52%;
+    opacity: 0;
+    transform: translateX(-50%) translateY(0) scale(0);
+  }
+
+  15% {
+    opacity: 1;
   }
 
   to {
-    transform: translateX(-50%) scale(1);
+    bottom: var(--cars-bottom);
+    opacity: 1;
+    transform: translateX(-50%) translateY(var(--cars-drop)) scale(1);
   }
 }
 
@@ -771,8 +785,12 @@ td:last-child {
     object-position: center 30%;
   }
 
+  /* Narrow screens crop the bg to its centre, so the road looks closer:
+     bigger cars, sitting a bit higher on the track. */
   .home-hero-cars {
-    width: 110%;
+    width: 120%;
+    --cars-drop: 0%;
+    --cars-bottom: 4%;
   }
 
   table {
