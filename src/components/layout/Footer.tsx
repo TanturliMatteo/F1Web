@@ -58,13 +58,13 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div id="footer-bottom" className="ui-row ui-row--around footer-bottom">
+      <div id="footer-bottom" className="ui-row ui-row--around ui-row--wrap footer-bottom">
         <p id="footer-copyright">© 2026 F1Web Statistics. </p>
-        <p>|</p>
+        <p className="footer-separator">|</p>
         <Link id="footer-privacy-link" to="/privacy" target="_blank">
           Privacy Policy
         </Link>
-        <p>|</p>
+        <p className="footer-separator">|</p>
         <p id="footer-credits">Powered by Ergast API</p>
       </div>
     </footer>

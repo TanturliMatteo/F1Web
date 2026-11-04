@@ -7,13 +7,13 @@ const HomeHero = () => {
       <img
         id="home-hero-bg"
         src="/HeroBg.png"
-        alt="HomeBg"
+        alt=""
         className="home-hero-bg"
       />
       <img
         id="home-hero-cars"
         src="/Hero-cars.png"
-        alt="Home HeroCars"
+        alt="Three Formula 1 cars on the grid"
         className="home-hero-cars"
       />
     </div>
