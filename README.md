@@ -1,31 +1,55 @@
 # 🏎️ F1Web - 2026 Telemetry & Driver Profile Dashboard
 
-Una dashboard interattiva e futuristica dedicata alla stagione di Formula 1. Il progetto si collega alle open API per estrarre, normalizzare e calcolare in tempo reale statistiche avanzate sui piloti, come confronti diretti, costanza di rendimento e profili di telemetria, il tutto con un'interfaccia dark reattiva personalizzata con i colori ufficiali dei team.
+**[🔴 Live demo](https://f1-web-three.vercel.app/)**
+
+An interactive, futuristic dashboard dedicated to the Formula 1 season. The project connects to open APIs to fetch, normalize and compute advanced driver statistics in real time, such as head-to-head comparisons, consistency and performance profiles, all inside a reactive dark UI themed with each team's official colors.
 
 ---
 
-## 🚀 Funzionalità Principali
+## 🚀 Key Features
 
-* **Dynamic UI Color Coding:** L'intera interfaccia cambia dinamicamente schema cromatico (tramite variabili CSS come `--team-color`) e asset visivi in base al pilota selezionato (es. Rosso Ferrari per Hamilton).
-* **Teammate Battle Matrix:** Algoritmo sviluppato lato frontend che analizza l'intero database dei risultati stagionali in cache per calcolare la percentuale reale di dominanza di un pilota sul proprio compagno di squadra, round dopo round.
-* **Performance Profile & Progress Bars:** Grafici visivi immediati (Top 10 Finish Ratio, Teammate Battle) studiati per valorizzare le prestazioni di tutti i 22 piloti in griglia, inclusi i team di centro-fondo classifica.
-* **Circuit Explorer:** Un layout fluido e responsive per scorrere i dettagli dei circuiti mondiali, con dati tecnici e curiosità storiche.
+* **Dynamic UI Color Coding:** The whole interface dynamically changes its color scheme (through CSS variables such as `--team-color`) and visual assets based on the selected driver (e.g. Ferrari red for Hamilton).
+* **Teammate Battle Matrix:** A front-end algorithm that analyzes the full cached season results to compute how often a driver actually beats their teammate, round by round.
+* **Performance Profile & Progress Bars:** At-a-glance visuals (Top 10 Finish Ratio, Teammate Battle) designed to highlight the performance of all 22 drivers on the grid, midfield and backmarker teams included.
+* **Circuit Explorer:** A fluid, responsive layout to browse the world's circuits, with technical data and historical trivia.
+* **Driver & Race Pages:** searchable driver standings, race calendar with live race status, and detailed driver and race cards.
 
 ---
 
 ## 🛠️ Tech Stack
 
-* **Frontend:** React + TypeScript + Vite
-* **State Management & Caching:** `@tanstack/react-query` (React Query) utilizzato per ottimizzare le performance, gestire lo stale time dei dati dell'API (evitando rate-limiting) e garantire un'esperienza utente istantanea senza caricamenti ripetuti.
-* **Styling:** CSS3 puro con design system basato su variabili dinamiche e layout flessibili (Flexbox/Grid).
-* **Data Source:** Open API (Ergast / Jolpi) per i risultati storici e stagionali in tempo reale.
+* **Frontend:** React + TypeScript + Vite, React Router
+* **State Management & Caching:** `@tanstack/react-query` (React Query), used to optimize performance, manage the stale time of API data (avoiding rate limiting) and provide an instant user experience without repeated loading.
+* **Styling:** Plain CSS3 with a design system based on dynamic variables and flexible layouts (Flexbox/Grid), plus Bootstrap.
+* **Data Source:** Open API (Ergast / [Jolpica](https://api.jolpi.ca/ergast/f1)) for historical and live season results.
 
 ---
 
-## 📦 Installazione e Avvio Locale
+## 📦 Local Installation
 
-Se vuoi testare il muretto box sul tuo computer:
+Want to run the pit wall on your own machine?
 
-1. **Clona la repository:**
 ```bash
-   git clone [https://github.com/TanturliMatteo/F1Web.git](https://github.com/TanturliMatteo/F1Web.git)
+git clone https://github.com/TanturliMatteo/F1Web.git
+cd F1Web
+npm install
+npm run dev       # development server
+npm run build     # typecheck + production build
+npm run lint      # eslint
+```
+
+No API key is needed: the data comes from the public Jolpica (Ergast-compatible) API.
+
+---
+
+## 📁 Project Structure
+
+```
+src/
+├── pages/      # Home, drivers table & driver card, races table & race card, privacy, errors
+├── components/ # layout and UI components
+├── hooks/      # React Query hooks (usePilots, useRaces, useResults, useRaceStatus, …)
+├── services/   # API client and endpoints (standings, races, results)
+├── data/       # static driver/circuit descriptions, photos and track maps
+└── utils/      # team & nation colors, flags, race helpers
+```
