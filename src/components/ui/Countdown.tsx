@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
+import { useI18n } from "../../i18n/i18n";
 
-// [label, seconds per unit, modulo]
+// [label key, seconds per unit, modulo]
 const UNITS = [
-  ["Days", 86400, Infinity],
-  ["Hours", 3600, 24],
-  ["Min", 60, 60],
-  ["Sec", 1, 60],
+  ["days", 86400, Infinity],
+  ["hours", 3600, 24],
+  ["min", 60, 60],
+  ["sec", 1, 60],
 ] as const;
 
 const Countdown = ({ target }: { target: Date }) => {
+  const { t } = useI18n();
   const [now, setNow] = useState(() => Date.now());
 
   useEffect(() => {
@@ -20,12 +22,12 @@ const Countdown = ({ target }: { target: Date }) => {
 
   return (
     <div id="countdown" className="countdown">
-      {UNITS.map(([label, seconds, modulo]) => (
-        <div key={label} className="countdown-unit">
+      {UNITS.map(([unit, seconds, modulo]) => (
+        <div key={unit} className="countdown-unit">
           <span className="countdown-value">
             {String(Math.floor(secondsLeft / seconds) % modulo).padStart(2, "0")}
           </span>
-          <span className="countdown-label">{label}</span>
+          <span className="countdown-label">{t(`countdown.${unit}`)}</span>
         </div>
       ))}
     </div>

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import logo from "../../assets/logo/logo_header.png";
+import { LANGUAGES, useI18n } from "../../i18n/i18n";
 
 const Header = () => {
+  const { t, lang, setLang } = useI18n();
   // Once the page scrolls, the sticky header turns see-through and blurred
   const [scrolled, setScrolled] = useState(false);
 
@@ -23,17 +25,38 @@ const Header = () => {
           <img
             id="header-logo"
             src={logo}
-            alt="F1 Logo"
+            alt={t("common.logoAlt")}
             className="header-logo"
           />
         </Link>
 
         <Link id="header-pilots-link" to="/pilots">
-          Pilot Table
+          {t("nav.pilots")}
         </Link>
         <Link id="header-races-link" to="/races">
-          Race Table
+          {t("nav.races")}
         </Link>
+
+        <div
+          id="header-lang"
+          className="lang-switch"
+          role="group"
+          aria-label={t("nav.language")}
+        >
+          {LANGUAGES.map((code) => (
+            <button
+              key={code}
+              id={`header-lang-${code}`}
+              type="button"
+              className="lang-switch-option"
+              aria-pressed={lang === code}
+              lang={code}
+              onClick={() => setLang(code)}
+            >
+              {code === "en" ? "ENG" : "IT"}
+            </button>
+          ))}
+        </div>
       </nav>
     </header>
   );

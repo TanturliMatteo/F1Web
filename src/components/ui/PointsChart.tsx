@@ -1,4 +1,5 @@
 import useInView from "../../hooks/useInView";
+import { useI18n } from "../../i18n/i18n";
 
 export interface ChartSeries {
   key: string;
@@ -19,6 +20,7 @@ interface PointsChartProps {
 // their width thanks to non-scaling-stroke) and the axis labels are HTML,
 // so text stays readable at any screen size.
 const PointsChart = ({ id, title, xLabels, series }: PointsChartProps) => {
+  const { t } = useI18n();
   const [ref, inView] = useInView<HTMLDivElement>();
   const max = Math.max(1, ...series.flatMap((s) => s.values));
   const count = xLabels.length;
@@ -37,7 +39,7 @@ const PointsChart = ({ id, title, xLabels, series }: PointsChartProps) => {
                 className={`legend-line${s.dashed ? " legend-line--dashed" : ""}`}
                 style={{ borderColor: s.color }}
               />
-              {s.label} · {s.values.at(-1) ?? 0} pts
+              {s.label} · {s.values.at(-1) ?? 0} {t("common.pts")}
             </li>
           ))}
         </ul>
@@ -56,7 +58,12 @@ const PointsChart = ({ id, title, xLabels, series }: PointsChartProps) => {
             preserveAspectRatio="none"
             role="img"
             aria-label={series
-              .map((s) => `${s.label}: ${s.values.at(-1) ?? 0} points`)
+              .map((s) =>
+                t("charts.pointsAria", {
+                  label: s.label,
+                  value: s.values.at(-1) ?? 0,
+                }),
+              )
               .join(", ")}
           >
             {ticks.map((t, i) => (

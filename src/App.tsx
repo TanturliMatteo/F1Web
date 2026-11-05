@@ -8,6 +8,7 @@ import RaceTablePage from "./pages/RacesTablePage";
 import RaceCardPage from "./pages/RaceCardPage";
 import PrivacyPage from "./pages/Privacy";
 import ErrorPage from "./pages/ErrorPage";
+import I18nProvider from "./i18n/I18nProvider";
 
 const router = createBrowserRouter([
   {
@@ -27,7 +28,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <I18nProvider>
+      <RouterProvider router={router} />
+    </I18nProvider>
+  );
 }
 
 export default App;

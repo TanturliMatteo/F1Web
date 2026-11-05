@@ -234,6 +234,44 @@ dd {
   font-size: clamp(0.95rem, 3.5vw, 1.5rem);
 }
 
+/* IT | ENG segmented switch */
+.lang-switch {
+  display: inline-flex;
+  padding: 2px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+}
+
+.lang-switch-option {
+  padding: var(--space-1) 0.65rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-family: inherit;
+  font-size: var(--fs-xs);
+  letter-spacing: 1px;
+  line-height: 1.5;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.lang-switch-option:hover {
+  color: var(--color-text);
+}
+
+.lang-switch-option[aria-pressed="true"] {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.lang-switch-option:focus-visible {
+  outline: 2px solid var(--color-primary-light);
+  outline-offset: 2px;
+}
+
 .header-logo {
   height: 60px;
   width: auto;

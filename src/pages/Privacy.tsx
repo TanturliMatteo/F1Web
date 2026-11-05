@@ -1,99 +1,62 @@
+import { useI18n } from "../i18n/i18n";
+import RichText from "../i18n/RichText";
+
 const PrivacyPage = () => {
+  const { t, tList } = useI18n();
+
   return (
-    <div id="privacy-page" className="page-container">
-      <div
-        id="privacy-card"
-        className="ui-card ui-stack ui-stack--start"
-      >
+    <div id="privacy-page" className="page-container page-state">
+      <div id="privacy-card" className="ui-card ui-stack ui-stack--start">
         <section id="privacy-header" className="privacy-section">
-          <h2>Privacy Policy di F1Web Statistics</h2>
+          <h1>{t("privacy.title")}</h1>
           <p>
-            <strong>Ultimo aggiornamento:</strong> 11 Giugno 2026
+            <RichText text={t("privacy.updated")} />
           </p>
-          <p>
-            Benvenuto su F1Web Statistics. La protezione dei tuoi dati è
-            importante. Questa pagina descrive come gestiamo le informazioni
-            relative alla tua navigazione sul nostro sito.
-          </p>
+          <p>{t("privacy.welcome")}</p>
         </section>
 
         <section id="privacy-introduction" className="privacy-section">
-          <h2>Introduzione</h2>
-          <p>
-            F1Web Statistics è un portale informativo dedicato alla
-            visualizzazione di dati e statistiche del campionato mondiale di
-            Formula 1. Il nostro obiettivo è fornire agli appassionati uno
-            strumento semplice e immediato per accedere a informazioni
-            aggiornate sulle gare, i piloti, le squadre e le classifiche.
-          </p>
+          <h2>{t("privacy.introTitle")}</h2>
+          <p>{t("privacy.intro")}</p>
         </section>
 
         <section id="privacy-data-collected" className="privacy-section">
-          <h2>Dati Raccolti</h2>
+          <h2>{t("privacy.dataTitle")}</h2>
           <p>
-            F1Web Statistics è un progetto informativo indipendente.{" "}
-            <strong>
-              Non raccogliamo, memorizziamo o trattiamo dati personali
-            </strong>{" "}
-            dei visitatori. Non utilizziamo cookie di profilazione, non
-            richiediamo registrazioni e non effettuiamo il tracciamento delle
-            attività degli utenti per scopi commerciali.
+            <RichText text={t("privacy.data")} />
           </p>
         </section>
 
         <section id="privacy-data-source" className="privacy-section">
-          <h2>Origine dei Dati (API)</h2>
+          <h2>{t("privacy.sourceTitle")}</h2>
           <p>
-            Le statistiche e i risultati visualizzati su questo portale sono
-            ottenuti in tempo reale tramite{" "}
-            <strong>Ergast Developer API</strong> (o Jolpica F1 API).
+            <RichText text={t("privacy.source")} />
           </p>
           <ul id="privacy-data-source-list">
-            <li>Questi dati sono di natura pubblica e sportiva.</li>
-            <li>
-              F1Web Statistics non manipola i risultati delle gare, ma si limita
-              a rielaborare le informazioni fornite dai provider sopra citati.
-            </li>
-            <li>
-              Non siamo affiliati, associati, autorizzati o approvati da Formula
-              One Management (FOM) o dalla FIA.
-            </li>
+            {tList("privacy.sourceList").map((item) => (
+              <li key={item}>{item}</li>
+            ))}
           </ul>
         </section>
 
         <section id="privacy-purpose" className="privacy-section">
-          <h2>3. Progetto Personale e Finalità</h2>
-          <p>
-            Questo sito è un progetto di sviluppo personale e non a scopo di
-            lucro, creato per finalità didattiche e di analisi statistica del
-            campionato mondiale di Formula 1.
-          </p>
+          <h2>{t("privacy.purposeTitle")}</h2>
+          <p>{t("privacy.purpose")}</p>
         </section>
 
         <section id="privacy-third-party-links" className="privacy-section">
-          <h2>4. Link a Siti Terzi</h2>
-          <p>
-            Il nostro sito contiene link verso risorse esterne. F1Web Statistics
-            non esercita alcun controllo su tali siti e non è responsabile per
-            le politiche di privacy adottate da terze parti.
-          </p>
+          <h2>{t("privacy.linksTitle")}</h2>
+          <p>{t("privacy.links")}</p>
         </section>
 
         <section id="privacy-changes" className="privacy-section">
-          <h2>5. Modifiche alla presente Privacy Policy</h2>
-          <p>
-            Ci riserviamo il diritto di aggiornare questa informativa in
-            qualsiasi momento per riflettere modifiche nelle funzionalità del
-            sito o negli obblighi normativi.
-          </p>
+          <h2>{t("privacy.changesTitle")}</h2>
+          <p>{t("privacy.changes")}</p>
         </section>
 
         <section id="privacy-contacts">
-          <h2>6. Contatti</h2>
-          <p>
-            Per qualsiasi domanda riguardante questa Privacy Policy, puoi
-            contattare lo sviluppatore all'indirizzo email indicato nel footer.
-          </p>
+          <h2>{t("privacy.contactTitle")}</h2>
+          <p>{t("privacy.contact")}</p>
         </section>
       </div>
     </div>

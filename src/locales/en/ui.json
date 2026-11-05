@@ -1,0 +1,301 @@
+{
+  "nav": {
+    "home": "Home",
+    "pilots": "Pilot Table",
+    "races": "Race Table",
+    "language": "Language"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error: {message}",
+    "errorFallback": "something went wrong",
+    "errorTitle": "Something went wrong",
+    "notFound": "404 - Not Found",
+    "backHome": "Go back to Home",
+    "viewAll": "View all",
+    "pts": "pts",
+    "season": "2026 season",
+    "logoAlt": "F1Web logo"
+  },
+  "status": {
+    "completed": "Completed",
+    "next": "Next",
+    "upcoming": "Upcoming"
+  },
+  "footer": {
+    "description": "Stats, averages and insights on the 2026 Formula 1 season, from the official results.",
+    "siteLinks": "Site",
+    "contactLinks": "Contact",
+    "copyright": "© 2026 F1Web Statistics",
+    "privacy": "Privacy Policy",
+    "credits": "Data: Jolpica (Ergast) API"
+  },
+  "countdown": {
+    "days": "Days",
+    "hours": "Hours",
+    "min": "Min",
+    "sec": "Sec"
+  },
+  "home": {
+    "heroTitle": "F1 Analytics Website",
+    "heroCarsAlt": "Three Formula 1 cars on the grid",
+    "featuresEyebrow": "2026 season",
+    "featuresTitle": "Formula 1, explained by the numbers",
+    "features": {
+      "standings": {
+        "title": "Live standings",
+        "text": "The drivers' championship, updated after every Grand Prix."
+      },
+      "calendar": {
+        "title": "Race calendar",
+        "text": "Every round of the 2026 season, with circuits, dates and results."
+      },
+      "analytics": {
+        "title": "Driver analytics",
+        "text": "Averages, teammate battles and points efficiency for each driver."
+      }
+    },
+    "nextRace": "Next race · Round {round}",
+    "championshipTop3": "Championship top 3",
+    "lastRace": "Last race: {name}",
+    "story": {
+      "eyebrow": "The story so far",
+      "title": "Twenty-two drivers, one season, a thousand tiny decisions",
+      "text": "Formula 1 is a sport of margins: a tenth in qualifying, a place gained at the start, a strategy call made in a heartbeat. Behind every Sunday there are numbers that tell the story lap times can't.",
+      "more": "F1Web turns the official results into something you can read at a glance: who is quietly consistent, who thrives against their teammate, who leaves points on the table. No hype, just the season as it unfolds, race after race."
+    },
+    "data": {
+      "eyebrow": "Under the hood",
+      "title": "Open data, honest numbers",
+      "text": "Every result on this site comes from the Jolpica API, the community-run successor of the Ergast project. No predictions, no spin: we read the official classification and look for the patterns hiding in it.",
+      "more": "F1Web is an independent, non-commercial project, not affiliated with Formula One Management or the FIA."
+    },
+    "cta": {
+      "eyebrow": "Your seat on the pit wall",
+      "title": "Follow a rivalry, replay a Sunday",
+      "text": "The season is long and there is plenty to explore. Open a driver for averages and teammate battles, or step into the calendar and relive a Grand Prix from the first corner to the flag.",
+      "drivers": "Drivers",
+      "races": "Races"
+    }
+  },
+  "pilots": {
+    "heroEyebrow": "Drivers' championship · 2026 season",
+    "heroTitle": "The 2026 grid",
+    "heroText": "Eleven teams and one title to settle. Search the grid, follow the standings and see who is carrying the momentum.",
+    "tiles": {
+      "leader": "Leader",
+      "lead": "Lead",
+      "leadOver": "over {name}",
+      "roundsRun": "Rounds run",
+      "toGo": "{count} to go",
+      "raceWinners": "Race winners",
+      "differentDrivers": "different drivers"
+    },
+    "sectionEyebrow": "Standings",
+    "sectionTitle": "Drivers' championship",
+    "search": "Search driver or team",
+    "noMatch": "No driver matches your search.",
+    "columns": {
+      "pos": "Pos",
+      "driver": "Driver",
+      "nationality": "Nationality",
+      "team": "Team",
+      "wins": "Wins",
+      "gap": "Gap",
+      "pts": "Pts"
+    },
+    "banner": {
+      "eyebrow": "Behind the points",
+      "title": "A championship is won in the details",
+      "text": "Every point on this table was earned somewhere: a clean launch, a late overtake, a patient one-stop. Open a driver to see how the season is really going, beyond the standings.",
+      "rules": "The winner takes 25 points, followed by 18, 15, 12, 10, 8, 6, 4, 2 and 1 down to tenth place. Sprint races reward the top eight."
+    }
+  },
+  "races": {
+    "heroEyebrow": "Season calendar · 2026 season",
+    "heroTitle": "Race calendar 2026",
+    "heroText": "From the first red light to the final chequered flag: street circuits, historic temples of speed and everything in between.",
+    "tiles": {
+      "rounds": "Rounds",
+      "sprintWeekends": "{count} sprint weekends",
+      "completed": "Completed",
+      "toGo": "{count} to go",
+      "nextRace": "Next race",
+      "seasonComplete": "Season complete",
+      "finale": "Season finale"
+    },
+    "sectionEyebrow": "Calendar",
+    "sectionTitle": "Every round",
+    "columns": {
+      "round": "Rd",
+      "grandPrix": "Grand Prix",
+      "location": "Location",
+      "date": "Date",
+      "winner": "Winner",
+      "status": "Status"
+    },
+    "banner": {
+      "eyebrow": "Every circuit has a personality",
+      "title": "Tight corners, long straights, no second chances",
+      "text": "Narrow street layouts punish the smallest mistake, fast sweeping bends reward bravery, and long straights are made for slipstreams. Open any race to meet the circuit: completed rounds tell how the afternoon unfolded, upcoming ones count down to lights out."
+    }
+  },
+  "pilot": {
+    "heroEyebrow": "{team} · 2026 season",
+    "yearsOld": "{age} years old",
+    "wikipedia": "Wikipedia ↗",
+    "tiles": {
+      "championship": "Championship",
+      "points": "Points",
+      "wins": "Wins",
+      "podiums": "Podiums",
+      "poles": "Poles",
+      "fastestLaps": "Fastest laps"
+    },
+    "profile": {
+      "eyebrow": "Profile",
+      "title": "Meet {name}",
+      "team": "Team",
+      "nationality": "Nationality",
+      "born": "Born",
+      "carNumber": "Car number",
+      "races": "Races this season"
+    },
+    "season": {
+      "eyebrow": "Race by race",
+      "title": "The season so far",
+      "pointsChart": "Grand Prix points",
+      "gainsChart": "Grid to flag"
+    },
+    "teammate": {
+      "eyebrow": "Same car, different driver",
+      "title": "Teammate battle",
+      "vs": "vs",
+      "rows": {
+        "raceAhead": "Race finishes ahead",
+        "gridAhead": "Starts ahead on the grid",
+        "points": "Points",
+        "podiums": "Podiums",
+        "pointsFinishes": "Points finishes"
+      }
+    },
+    "performance": {
+      "eyebrow": "Under the numbers",
+      "title": "Performance",
+      "pointsFinishRate": "Points finish rate",
+      "finishRate": "Finish rate",
+      "efficiency": "Pts efficiency",
+      "maxAvailable": "Max available",
+      "pointsLost": "Points lost",
+      "stillToPlay": "Still to play for",
+      "averageFinish": "Average finish",
+      "averageGrid": "Average grid",
+      "placesGained": "Places gained per race",
+      "bestFinish": "Best finish",
+      "notClassified": "Not classified",
+      "racesStarted": "Races started"
+    },
+    "navLabel": "Other drivers in the standings"
+  },
+  "race": {
+    "heroEyebrow": "Round {round} · 2026 season",
+    "tiles": {
+      "winner": "Winner",
+      "pole": "Pole position",
+      "fastestLap": "Fastest lap",
+      "classified": "Classified",
+      "notClassified": "{count} not classified"
+    },
+    "story": {
+      "eyebrow": "How it went",
+      "title": "The story of the race",
+      "podium": "Podium",
+      "climbers": "Biggest climbers",
+      "tough": "Tough afternoon"
+    },
+    "classification": {
+      "eyebrow": "Official result",
+      "title": "Full classification",
+      "pos": "Pos",
+      "driver": "Driver",
+      "team": "Team",
+      "grid": "Grid",
+      "pitLane": "Pit",
+      "time": "Time / Status",
+      "pts": "Pts"
+    },
+    "weekend": {
+      "eyebrow": "Race weekend",
+      "title": "Get ready",
+      "lightsOut": "Lights out in"
+    },
+    "sessions": {
+      "fp1": "Practice 1",
+      "fp2": "Practice 2",
+      "fp3": "Practice 3",
+      "sprintQualifying": "Sprint Qualifying",
+      "sprint": "Sprint",
+      "qualifying": "Qualifying",
+      "race": "Race"
+    },
+    "pending": {
+      "eyebrow": "Official result",
+      "title": "Results on the way",
+      "text": "The chequered flag has fallen: the classification will appear here as soon as it is published."
+    },
+    "circuit": {
+      "eyebrow": "The venue",
+      "title": "Meet the circuit",
+      "mapAlt": "Track map of {name}",
+      "noMap": "Track map not available yet.",
+      "noInfo": "No additional information available for this circuit yet.",
+      "didYouKnow": "Did you know?",
+      "lapLength": "Lap length",
+      "laps": "Laps",
+      "distance": "Race distance",
+      "location": "Location"
+    },
+    "roundLabel": "Round {round}",
+    "navLabel": "Other races in the calendar"
+  },
+  "charts": {
+    "legend": {
+      "win": "Win",
+      "p2": "P2",
+      "p3": "P3",
+      "points": "Points",
+      "noPoints": "No points",
+      "notClassified": "Not classified"
+    },
+    "resultTitle": "{race}: {result}, {points} pts",
+    "pointsAria": "{label}: {value} points",
+    "gainsNote": "Start vs finish position, round by round",
+    "gained": "Gained",
+    "lost": "Lost",
+    "axisRace": "Race"
+  },
+  "privacy": {
+    "title": "F1Web Statistics Privacy Policy",
+    "updated": "**Last updated:** 11 June 2026",
+    "welcome": "Welcome to F1Web Statistics. Protecting your data matters. This page explains how we handle information about your visit to our site.",
+    "introTitle": "Introduction",
+    "intro": "F1Web Statistics is an information portal that displays data and statistics from the Formula 1 World Championship. Our goal is to give fans a simple, immediate way to access up-to-date information on races, drivers, teams and standings.",
+    "dataTitle": "Data collected",
+    "data": "F1Web Statistics is an independent information project. **We do not collect, store or process visitors' personal data.** We do not use profiling cookies, require registration or track user activity for commercial purposes.",
+    "sourceTitle": "Data source (API)",
+    "source": "The statistics and results shown on this portal are fetched in real time from the **Ergast Developer API** (or Jolpica F1 API).",
+    "sourceList": [
+      "This data is public and sporting in nature.",
+      "F1Web Statistics does not alter race results; it only reworks the information supplied by the providers above.",
+      "We are not affiliated with, associated with, authorised or endorsed by Formula One Management (FOM) or the FIA."
+    ],
+    "purposeTitle": "3. Personal project and purpose",
+    "purpose": "This site is a personal, non-profit development project, created for learning and for statistical analysis of the Formula 1 World Championship.",
+    "linksTitle": "4. Links to third-party sites",
+    "links": "Our site contains links to external resources. F1Web Statistics has no control over those sites and is not responsible for the privacy policies of third parties.",
+    "changesTitle": "5. Changes to this Privacy Policy",
+    "changes": "We reserve the right to update this policy at any time to reflect changes in the site's features or legal obligations.",
+    "contactTitle": "6. Contact",
+    "contact": "For any question about this Privacy Policy, you can contact the developer at the email address shown in the footer."
+  }
+}

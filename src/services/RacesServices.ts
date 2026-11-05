@@ -32,8 +32,18 @@ interface ErgastRaceResponse {
   };
 }
 
+// Translation keys under race.sessions.*
+export type SessionKey =
+  | "fp1"
+  | "fp2"
+  | "fp3"
+  | "sprintQualifying"
+  | "sprint"
+  | "qualifying"
+  | "race";
+
 export interface RaceSession {
-  name: string;
+  key: SessionKey;
   date: string;
   time?: string;
 }
@@ -52,12 +62,12 @@ export interface Race {
 
 // Weekend sessions in running order; sprint weekends skip FP2/FP3
 const SESSIONS = [
-  ["FirstPractice", "Practice 1"],
-  ["SecondPractice", "Practice 2"],
-  ["ThirdPractice", "Practice 3"],
-  ["SprintQualifying", "Sprint Qualifying"],
-  ["Sprint", "Sprint"],
-  ["Qualifying", "Qualifying"],
+  ["FirstPractice", "fp1"],
+  ["SecondPractice", "fp2"],
+  ["ThirdPractice", "fp3"],
+  ["SprintQualifying", "sprintQualifying"],
+  ["Sprint", "sprint"],
+  ["Qualifying", "qualifying"],
 ] as const;
 
 export async function fetchRaces(signal?: AbortSignal): Promise<Race[]> {
@@ -75,11 +85,11 @@ export async function fetchRaces(signal?: AbortSignal): Promise<Race[]> {
     locality: r.Circuit?.Location?.locality ?? "Unknown Locality",
     country: r.Circuit?.Location?.country ?? "Unknown Country",
     sessions: [
-      ...SESSIONS.flatMap(([key, name]) => {
-        const session = r[key];
-        return session ? [{ name, date: session.date, time: session.time }] : [];
+      ...SESSIONS.flatMap(([field, key]) => {
+        const session = r[field];
+        return session ? [{ key, date: session.date, time: session.time }] : [];
       }),
-      { name: "Race", date: r.date, time: r.time },
+      { key: "race" as const, date: r.date, time: r.time },
     ],
   }));
 }

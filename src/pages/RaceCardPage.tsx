@@ -20,10 +20,16 @@ import { flagUrl } from "../utils/flagUrl";
 import { formatDate } from "../utils/formatDate";
 import isRaceCompleted from "../utils/isRaceCompleted";
 import { formatGain, isClassified } from "../utils/results";
+import { useI18n } from "../i18n/i18n";
 
 const fullName = (r: Results) => `${r.givenName} ${r.familyName}`;
 
-const toPodiumItem = (r: Results, position: string, detail: string, tone?: PodiumItem["tone"]) => ({
+const toPodiumItem = (
+  r: Results,
+  position: string,
+  detail: string,
+  tone?: PodiumItem["tone"],
+) => ({
   position,
   code: r.code,
   name: fullName(r),
@@ -33,6 +39,7 @@ const toPodiumItem = (r: Results, position: string, detail: string, tone?: Podiu
 });
 
 const RaceCardPage = () => {
+  const { t, locale } = useI18n();
   const { id } = useParams();
   const { data: races } = useRaces();
   const { data: race, isLoading, isError, error } = useRace(id);
@@ -84,7 +91,11 @@ const RaceCardPage = () => {
   const neighbour = (offset: number) => {
     const r = index >= 0 ? races?.[index + offset] : undefined;
     return r
-      ? { to: `/races/${r.round}`, label: `Round ${r.round}`, title: r.name }
+      ? {
+          to: `/races/${r.round}`,
+          label: t("race.roundLabel", { round: r.round }),
+          title: r.name,
+        }
       : null;
   };
 
@@ -96,7 +107,7 @@ const RaceCardPage = () => {
     >
       <DetailHero
         id="race-hero"
-        eyebrow={`Round ${race.round} · 2026 season`}
+        eyebrow={t("race.heroEyebrow", { round: race.round })}
         title={race.name}
         backdrop={race.round.padStart(2, "0")}
       >
@@ -109,13 +120,13 @@ const RaceCardPage = () => {
           <span>
             {race.locality}, {race.country}
           </span>
-          <span>{formatDate(race.date)}</span>
+          <span>{formatDate(race.date, locale)}</span>
         </p>
         <span
           id="race-hero-status"
           className={`status-badge status-badge--${completed ? "completed" : "next"}`}
         >
-          {completed ? "Completed" : "Upcoming"}
+          {t(completed ? "status.completed" : "status.upcoming")}
         </span>
       </DetailHero>
 
@@ -127,91 +138,126 @@ const RaceCardPage = () => {
               tiles={[
                 {
                   key: "winner",
-                  label: "Winner",
+                  label: t("race.tiles.winner"),
                   value: winner.familyName,
                   detail: winner.constructorName,
                 },
                 {
                   key: "pole",
-                  label: "Pole position",
+                  label: t("race.tiles.pole"),
                   value: pole?.familyName ?? "-",
                   detail: pole?.constructorName,
                 },
                 {
                   key: "fastest-lap",
-                  label: "Fastest lap",
+                  label: t("race.tiles.fastestLap"),
                   value: fastest?.fastestLapTime ?? "-",
                   detail: fastest && fastest.familyName,
                 },
                 {
                   key: "finishers",
-                  label: "Classified",
+                  label: t("race.tiles.classified"),
                   value: `${finishers.length}/${classification.length}`,
-                  detail: `${classification.length - finishers.length} not classified`,
+                  detail: t("race.tiles.notClassified", {
+                    count: classification.length - finishers.length,
+                  }),
                 },
               ]}
             />
 
-            <Section id="race-story" eyebrow="How it went" title="The story of the race">
+            <Section
+              id="race-story"
+              eyebrow={t("race.story.eyebrow")}
+              title={t("race.story.title")}
+            >
               <div className="ui-row ui-row--wrap ui-row--stretch">
                 <Podium
                   id="race-podium"
-                  title="Podium"
-                  items={classification.slice(0, 3).map((r) =>
-                    toPodiumItem(r, r.position, r.time !== "0" ? r.time : r.status),
-                  )}
+                  title={t("race.story.podium")}
+                  items={classification
+                    .slice(0, 3)
+                    .map((r) =>
+                      toPodiumItem(
+                        r,
+                        r.position,
+                        r.time !== "0" ? r.time : r.status,
+                      ),
+                    )}
                 />
                 {gainers.length > 0 && (
                   <Podium
                     id="race-gainers"
-                    title="Biggest climbers"
+                    title={t("race.story.climbers")}
                     items={gainers.map((m) =>
-                      toPodiumItem(m.r, formatGain(m.gain), moveDetail(m), "up"),
+                      toPodiumItem(
+                        m.r,
+                        formatGain(m.gain),
+                        moveDetail(m),
+                        "up",
+                      ),
                     )}
                   />
                 )}
                 {losers.length > 0 && (
                   <Podium
                     id="race-losers"
-                    title="Tough afternoon"
+                    title={t("race.story.tough")}
                     items={losers.map((m) =>
-                      toPodiumItem(m.r, formatGain(m.gain), moveDetail(m), "down"),
+                      toPodiumItem(
+                        m.r,
+                        formatGain(m.gain),
+                        moveDetail(m),
+                        "down",
+                      ),
                     )}
                   />
                 )}
               </div>
             </Section>
 
-            <Section id="race-classification" eyebrow="Official result" title="Full classification">
+            <Section
+              id="race-classification"
+              eyebrow={t("race.classification.eyebrow")}
+              title={t("race.classification.title")}
+            >
               <RaceCardTable data={classification} />
             </Section>
           </>
         )}
 
         {!hasResults && !completed && (
-          <Section id="race-weekend" eyebrow="Race weekend" title="Get ready">
+          <Section
+            id="race-weekend"
+            eyebrow={t("race.weekend.eyebrow")}
+            title={t("race.weekend.title")}
+          >
             <RaceSchedule race={race} />
           </Section>
         )}
 
         {!hasResults && completed && (
-          <Section id="race-pending" eyebrow="Official result" title="Results on the way">
+          <Section
+            id="race-pending"
+            eyebrow={t("race.pending.eyebrow")}
+            title={t("race.pending.title")}
+          >
             <div className="ui-card">
-              <p>
-                The chequered flag has fallen: the classification will appear
-                here as soon as it is published.
-              </p>
+              <p>{t("race.pending.text")}</p>
             </div>
           </Section>
         )}
 
-        <Section id="race-circuit-section" eyebrow="The venue" title="Meet the circuit">
+        <Section
+          id="race-circuit-section"
+          eyebrow={t("race.circuit.eyebrow")}
+          title={t("race.circuit.title")}
+        >
           <RaceCircuit race={race} />
         </Section>
 
         <PageNav
           id="race-nav"
-          ariaLabel="Other races in the calendar"
+          ariaLabel={t("race.navLabel")}
           prev={neighbour(-1)}
           next={neighbour(1)}
         />

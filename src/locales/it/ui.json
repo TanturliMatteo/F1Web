@@ -1,0 +1,301 @@
+{
+  "nav": {
+    "home": "Home",
+    "pilots": "Piloti",
+    "races": "Gare",
+    "language": "Lingua"
+  },
+  "common": {
+    "loading": "Caricamento in corso...",
+    "error": "Errore: {message}",
+    "errorFallback": "si è verificato un problema",
+    "errorTitle": "Qualcosa è andato storto",
+    "notFound": "404 - Pagina non trovata",
+    "backHome": "Torna alla Home",
+    "viewAll": "Vedi tutti",
+    "pts": "pt",
+    "season": "Stagione 2026",
+    "logoAlt": "Logo F1Web"
+  },
+  "status": {
+    "completed": "Conclusa",
+    "next": "Prossima",
+    "upcoming": "In arrivo"
+  },
+  "footer": {
+    "description": "Statistiche, medie e approfondimenti sulla stagione 2026 di Formula 1, dai risultati ufficiali.",
+    "siteLinks": "Sito",
+    "contactLinks": "Contatti",
+    "copyright": "© 2026 F1Web Statistics",
+    "privacy": "Privacy Policy",
+    "credits": "Dati: Jolpica (Ergast) API"
+  },
+  "countdown": {
+    "days": "Giorni",
+    "hours": "Ore",
+    "min": "Min",
+    "sec": "Sec"
+  },
+  "home": {
+    "heroTitle": "F1 Analytics Website",
+    "heroCarsAlt": "Tre monoposto di Formula 1 sulla griglia",
+    "featuresEyebrow": "Stagione 2026",
+    "featuresTitle": "La Formula 1 raccontata dai numeri",
+    "features": {
+      "standings": {
+        "title": "Classifica live",
+        "text": "Il mondiale piloti, aggiornato dopo ogni Gran Premio."
+      },
+      "calendar": {
+        "title": "Calendario gare",
+        "text": "Ogni round della stagione 2026, con circuiti, date e risultati."
+      },
+      "analytics": {
+        "title": "Analisi piloti",
+        "text": "Medie, sfide tra compagni di squadra ed efficienza punti per ogni pilota."
+      }
+    },
+    "nextRace": "Prossima gara · Round {round}",
+    "championshipTop3": "Top 3 del mondiale",
+    "lastRace": "Ultima gara: {name}",
+    "story": {
+      "eyebrow": "La storia finora",
+      "title": "Ventidue piloti, una stagione, mille piccole decisioni",
+      "text": "La Formula 1 è uno sport di margini: un decimo in qualifica, una posizione guadagnata al via, una strategia decisa in un attimo. Dietro ogni domenica ci sono numeri che raccontano ciò che i tempi sul giro non dicono.",
+      "more": "F1Web trasforma i risultati ufficiali in qualcosa che si legge a colpo d'occhio: chi è costante senza far rumore, chi brilla contro il compagno, chi lascia punti per strada. Niente clamore, solo la stagione che si svolge, gara dopo gara."
+    },
+    "data": {
+      "eyebrow": "Sotto il cofano",
+      "title": "Dati aperti, numeri onesti",
+      "text": "Ogni risultato di questo sito arriva dall'API Jolpica, l'erede del progetto Ergast gestito dalla community. Niente pronostici, niente propaganda: leggiamo la classifica ufficiale e cerchiamo gli schemi nascosti al suo interno.",
+      "more": "F1Web è un progetto indipendente e senza scopo di lucro, non affiliato a Formula One Management né alla FIA."
+    },
+    "cta": {
+      "eyebrow": "Il tuo posto al muretto box",
+      "title": "Segui una rivalità, rivivi una domenica",
+      "text": "La stagione è lunga e c'è molto da esplorare. Apri un pilota per medie e sfide col compagno, oppure entra nel calendario e rivivi un Gran Premio dalla prima curva alla bandiera a scacchi.",
+      "drivers": "Piloti",
+      "races": "Gare"
+    }
+  },
+  "pilots": {
+    "heroEyebrow": "Mondiale piloti · Stagione 2026",
+    "heroTitle": "La griglia 2026",
+    "heroText": "Undici squadre e un titolo da assegnare. Cerca nella griglia, segui la classifica e scopri chi ha il vento in poppa.",
+    "tiles": {
+      "leader": "In testa",
+      "lead": "Vantaggio",
+      "leadOver": "su {name}",
+      "roundsRun": "Gare corse",
+      "toGo": "{count} alla fine",
+      "raceWinners": "Vincitori",
+      "differentDrivers": "piloti diversi"
+    },
+    "sectionEyebrow": "Classifica",
+    "sectionTitle": "Mondiale piloti",
+    "search": "Cerca pilota o squadra",
+    "noMatch": "Nessun pilota corrisponde alla ricerca.",
+    "columns": {
+      "pos": "Pos",
+      "driver": "Pilota",
+      "nationality": "Nazionalità",
+      "team": "Squadra",
+      "wins": "Vittorie",
+      "gap": "Distacco",
+      "pts": "Pt"
+    },
+    "banner": {
+      "eyebrow": "Dietro i punti",
+      "title": "Un mondiale si vince nei dettagli",
+      "text": "Ogni punto in questa tabella è stato conquistato da qualche parte: una partenza pulita, un sorpasso all'ultimo, una sosta unica gestita con pazienza. Apri un pilota per vedere come sta andando davvero la stagione, oltre la classifica.",
+      "rules": "Il vincitore prende 25 punti, poi 18, 15, 12, 10, 8, 6, 4, 2 e 1 fino al decimo posto. Le gare Sprint premiano i primi otto."
+    }
+  },
+  "races": {
+    "heroEyebrow": "Calendario · Stagione 2026",
+    "heroTitle": "Calendario gare 2026",
+    "heroText": "Dal primo semaforo rosso all'ultima bandiera a scacchi: circuiti cittadini, templi storici della velocità e tutto quello che c'è in mezzo.",
+    "tiles": {
+      "rounds": "Gare",
+      "sprintWeekends": "{count} weekend Sprint",
+      "completed": "Concluse",
+      "toGo": "{count} alla fine",
+      "nextRace": "Prossima gara",
+      "seasonComplete": "Stagione conclusa",
+      "finale": "Ultima gara"
+    },
+    "sectionEyebrow": "Calendario",
+    "sectionTitle": "Tutte le gare",
+    "columns": {
+      "round": "Rd",
+      "grandPrix": "Gran Premio",
+      "location": "Luogo",
+      "date": "Data",
+      "winner": "Vincitore",
+      "status": "Stato"
+    },
+    "banner": {
+      "eyebrow": "Ogni circuito ha un carattere",
+      "title": "Curve strette, rettilinei lunghi, nessuna seconda occasione",
+      "text": "I tracciati cittadini stretti puniscono il minimo errore, le curve veloci premiano il coraggio e i lunghi rettilinei sono fatti per la scia. Apri una gara per conoscere il circuito: quelle concluse raccontano com'è andata, quelle in arrivo contano i secondi al via."
+    }
+  },
+  "pilot": {
+    "heroEyebrow": "{team} · Stagione 2026",
+    "yearsOld": "{age} anni",
+    "wikipedia": "Wikipedia ↗",
+    "tiles": {
+      "championship": "Mondiale",
+      "points": "Punti",
+      "wins": "Vittorie",
+      "podiums": "Podi",
+      "poles": "Pole",
+      "fastestLaps": "Giri veloci"
+    },
+    "profile": {
+      "eyebrow": "Profilo",
+      "title": "Conosci {name}",
+      "team": "Squadra",
+      "nationality": "Nazionalità",
+      "born": "Nato il",
+      "carNumber": "Numero",
+      "races": "Gare in stagione"
+    },
+    "season": {
+      "eyebrow": "Gara per gara",
+      "title": "La stagione finora",
+      "pointsChart": "Punti nei Gran Premi",
+      "gainsChart": "Dalla griglia al traguardo"
+    },
+    "teammate": {
+      "eyebrow": "Stessa macchina, altro pilota",
+      "title": "Sfida col compagno",
+      "vs": "vs",
+      "rows": {
+        "raceAhead": "Davanti all'arrivo",
+        "gridAhead": "Davanti in griglia",
+        "points": "Punti",
+        "podiums": "Podi",
+        "pointsFinishes": "Arrivi a punti"
+      }
+    },
+    "performance": {
+      "eyebrow": "Dentro i numeri",
+      "title": "Prestazioni",
+      "pointsFinishRate": "Arrivi a punti",
+      "finishRate": "Gare concluse",
+      "efficiency": "Efficienza punti",
+      "maxAvailable": "Massimo disponibile",
+      "pointsLost": "Punti persi",
+      "stillToPlay": "Ancora in palio",
+      "averageFinish": "Arrivo medio",
+      "averageGrid": "Griglia media",
+      "placesGained": "Posizioni guadagnate a gara",
+      "bestFinish": "Miglior arrivo",
+      "notClassified": "Non classificato",
+      "racesStarted": "Gare disputate"
+    },
+    "navLabel": "Altri piloti in classifica"
+  },
+  "race": {
+    "heroEyebrow": "Round {round} · Stagione 2026",
+    "tiles": {
+      "winner": "Vincitore",
+      "pole": "Pole position",
+      "fastestLap": "Giro veloce",
+      "classified": "Classificati",
+      "notClassified": "{count} non classificati"
+    },
+    "story": {
+      "eyebrow": "Com'è andata",
+      "title": "Il racconto della gara",
+      "podium": "Podio",
+      "climbers": "Le grandi rimonte",
+      "tough": "Pomeriggio difficile"
+    },
+    "classification": {
+      "eyebrow": "Risultato ufficiale",
+      "title": "Classifica completa",
+      "pos": "Pos",
+      "driver": "Pilota",
+      "team": "Squadra",
+      "grid": "Griglia",
+      "pitLane": "Box",
+      "time": "Tempo / Stato",
+      "pts": "Pt"
+    },
+    "weekend": {
+      "eyebrow": "Weekend di gara",
+      "title": "Preparati",
+      "lightsOut": "Semaforo verde tra"
+    },
+    "sessions": {
+      "fp1": "Prove libere 1",
+      "fp2": "Prove libere 2",
+      "fp3": "Prove libere 3",
+      "sprintQualifying": "Qualifiche Sprint",
+      "sprint": "Sprint",
+      "qualifying": "Qualifiche",
+      "race": "Gara"
+    },
+    "pending": {
+      "eyebrow": "Risultato ufficiale",
+      "title": "Risultati in arrivo",
+      "text": "La bandiera a scacchi è già sventolata: la classifica comparirà qui appena verrà pubblicata."
+    },
+    "circuit": {
+      "eyebrow": "Il circuito",
+      "title": "Conosci la pista",
+      "mapAlt": "Mappa del tracciato di {name}",
+      "noMap": "Mappa del tracciato non ancora disponibile.",
+      "noInfo": "Nessuna informazione aggiuntiva disponibile per questo circuito.",
+      "didYouKnow": "Lo sapevi?",
+      "lapLength": "Lunghezza giro",
+      "laps": "Giri",
+      "distance": "Distanza gara",
+      "location": "Luogo"
+    },
+    "roundLabel": "Round {round}",
+    "navLabel": "Altre gare in calendario"
+  },
+  "charts": {
+    "legend": {
+      "win": "Vittoria",
+      "p2": "P2",
+      "p3": "P3",
+      "points": "A punti",
+      "noPoints": "Senza punti",
+      "notClassified": "Non classificato"
+    },
+    "resultTitle": "{race}: {result}, {points} pt",
+    "pointsAria": "{label}: {value} punti",
+    "gainsNote": "Posizione in partenza e all'arrivo, gara per gara",
+    "gained": "Guadagnate",
+    "lost": "Perse",
+    "axisRace": "Gara"
+  },
+  "privacy": {
+    "title": "Privacy Policy di F1Web Statistics",
+    "updated": "**Ultimo aggiornamento:** 11 Giugno 2026",
+    "welcome": "Benvenuto su F1Web Statistics. La protezione dei tuoi dati è importante. Questa pagina descrive come gestiamo le informazioni relative alla tua navigazione sul nostro sito.",
+    "introTitle": "Introduzione",
+    "intro": "F1Web Statistics è un portale informativo dedicato alla visualizzazione di dati e statistiche del campionato mondiale di Formula 1. Il nostro obiettivo è fornire agli appassionati uno strumento semplice e immediato per accedere a informazioni aggiornate sulle gare, i piloti, le squadre e le classifiche.",
+    "dataTitle": "Dati Raccolti",
+    "data": "F1Web Statistics è un progetto informativo indipendente. **Non raccogliamo, memorizziamo o trattiamo dati personali** dei visitatori. Non utilizziamo cookie di profilazione, non richiediamo registrazioni e non effettuiamo il tracciamento delle attività degli utenti per scopi commerciali.",
+    "sourceTitle": "Origine dei Dati (API)",
+    "source": "Le statistiche e i risultati visualizzati su questo portale sono ottenuti in tempo reale tramite **Ergast Developer API** (o Jolpica F1 API).",
+    "sourceList": [
+      "Questi dati sono di natura pubblica e sportiva.",
+      "F1Web Statistics non manipola i risultati delle gare, ma si limita a rielaborare le informazioni fornite dai provider sopra citati.",
+      "Non siamo affiliati, associati, autorizzati o approvati da Formula One Management (FOM) o dalla FIA."
+    ],
+    "purposeTitle": "3. Progetto Personale e Finalità",
+    "purpose": "Questo sito è un progetto di sviluppo personale e non a scopo di lucro, creato per finalità didattiche e di analisi statistica del campionato mondiale di Formula 1.",
+    "linksTitle": "4. Link a Siti Terzi",
+    "links": "Il nostro sito contiene link verso risorse esterne. F1Web Statistics non esercita alcun controllo su tali siti e non è responsabile per le politiche di privacy adottate da terze parti.",
+    "changesTitle": "5. Modifiche alla presente Privacy Policy",
+    "changes": "Ci riserviamo il diritto di aggiornare questa informativa in qualsiasi momento per riflettere modifiche nelle funzionalità del sito o negli obblighi normativi.",
+    "contactTitle": "6. Contatti",
+    "contact": "Per qualsiasi domanda riguardante questa Privacy Policy, puoi contattare lo sviluppatore all'indirizzo email indicato nel footer."
+  }
+}

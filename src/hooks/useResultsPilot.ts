@@ -34,8 +34,9 @@ export interface PilotRace {
   teammate: TeammateRace | null;
 }
 
+// key: translation key under pilot.teammate.rows
 export interface HeadToHeadRow {
-  label: string;
+  key: "raceAhead" | "gridAhead" | "points" | "podiums" | "pointsFinishes";
   mine: number;
   theirs: number;
 }
@@ -116,7 +117,10 @@ function buildPilotStats(all: Results[], code: string, seasonRaces: number) {
 
   // Head-to-head only counts rounds where both cars took part
   const shared = races.filter((r) => r.teammate);
-  const h2h = (mineOf: (r: PilotRace) => number, theirsOf: (r: PilotRace) => number) => ({
+  const h2h = (
+    mineOf: (r: PilotRace) => number,
+    theirsOf: (r: PilotRace) => number,
+  ) => ({
     mine: shared.reduce((sum, r) => sum + mineOf(r), 0),
     theirs: shared.reduce((sum, r) => sum + theirsOf(r), 0),
   });
@@ -126,29 +130,35 @@ function buildPilotStats(all: Results[], code: string, seasonRaces: number) {
 
   const headToHead: HeadToHeadRow[] = [
     {
-      label: "Race finishes ahead",
+      key: "raceAhead",
       ...h2h(
         (r) => Number(r.position < mate(r).position),
         (r) => Number(mate(r).position < r.position),
       ),
     },
     {
-      label: "Starts ahead on the grid",
+      key: "gridAhead",
       ...h2h(
         (r) => Number(bothStarted(r) && r.grid < mate(r).grid),
         (r) => Number(bothStarted(r) && mate(r).grid < r.grid),
       ),
     },
-    { label: "Points", ...h2h((r) => r.points, (r) => mate(r).points) },
     {
-      label: "Podiums",
+      key: "points",
+      ...h2h(
+        (r) => r.points,
+        (r) => mate(r).points,
+      ),
+    },
+    {
+      key: "podiums",
       ...h2h(
         (r) => Number(isPodium(r.position, r.positionText)),
         (r) => Number(isPodium(mate(r).position, mate(r).positionText)),
       ),
     },
     {
-      label: "Points finishes",
+      key: "pointsFinishes",
       ...h2h(
         (r) => Number(r.points > 0),
         (r) => Number(mate(r).points > 0),
@@ -186,7 +196,10 @@ function buildPilotStats(all: Results[], code: string, seasonRaces: number) {
     dnfs: races.length - classifiedRaces.length,
     totalRaces: races.length,
     // Share of races finished in the points / classified at the flag
-    pointsFinishRate: percent(races.filter((r) => r.points > 0).length, races.length),
+    pointsFinishRate: percent(
+      races.filter((r) => r.points > 0).length,
+      races.length,
+    ),
     finishRate: percent(classifiedRaces.length, races.length),
     // Share of the points that were on offer in the races driven
     pointsToMax: percent(total, maxPoints),
@@ -204,7 +217,10 @@ export function useResultsPilot(code?: string) {
   const seasonRaces = races?.length ?? 0;
 
   const data = useMemo(
-    () => (query.data && code ? buildPilotStats(query.data, code, seasonRaces) : null),
+    () =>
+      query.data && code
+        ? buildPilotStats(query.data, code, seasonRaces)
+        : null,
     [query.data, code, seasonRaces],
   );
 

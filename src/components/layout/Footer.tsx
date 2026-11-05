@@ -1,7 +1,10 @@
 import logo from "../../assets/logo/logo.png";
 import { Link } from "react-router";
+import { useI18n } from "../../i18n/i18n";
 
 const Footer = () => {
+  const { t } = useI18n();
+
   return (
     <footer id="footer" className="footer">
       <div id="footer-top" className="footer-top divider-bottom">
@@ -9,26 +12,33 @@ const Footer = () => {
           <img
             id="footer-logo"
             src={logo}
-            alt="F1 Logo"
+            alt={t("common.logoAlt")}
             className="footer-logo"
           />
           <p id="footer-description" className="footer-description">
-            Statistiche, medie e approfondimenti sulla stagione 2026 di
-            Formula 1, dai risultati ufficiali.
+            {t("footer.description")}
           </p>
         </div>
-        <nav id="footer-links" className="footer-links" aria-label="Site">
+        <nav
+          id="footer-links"
+          className="footer-links"
+          aria-label={t("footer.siteLinks")}
+        >
           <Link id="footer-home-link" to="/">
-            Home
+            {t("nav.home")}
           </Link>
           <Link id="footer-pilots-link" to="/pilots">
-            Pilot Table
+            {t("nav.pilots")}
           </Link>
           <Link id="footer-races-link" to="/races">
-            Race Table
+            {t("nav.races")}
           </Link>
         </nav>
-        <nav id="footer-contact" className="footer-links" aria-label="Contact">
+        <nav
+          id="footer-contact"
+          className="footer-links"
+          aria-label={t("footer.contactLinks")}
+        >
           <a id="footer-email-link" href="mailto:matteotanturli@gmail.com">
             Email
           </a>
@@ -51,11 +61,11 @@ const Footer = () => {
         </nav>
       </div>
       <div id="footer-bottom" className="footer-bottom">
-        <p id="footer-copyright">© 2026 F1Web Statistics</p>
+        <p id="footer-copyright">{t("footer.copyright")}</p>
         <Link id="footer-privacy-link" to="/privacy" target="_blank">
-          Privacy Policy
+          {t("footer.privacy")}
         </Link>
-        <p id="footer-credits">Data: Jolpica (Ergast) API</p>
+        <p id="footer-credits">{t("footer.credits")}</p>
       </div>
     </footer>
   );

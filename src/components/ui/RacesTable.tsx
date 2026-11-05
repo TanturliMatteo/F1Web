@@ -6,6 +6,7 @@ import { flagUrl } from "../../utils/flagUrl";
 import isRaceCompleted from "../../utils/isRaceCompleted";
 import { formatDate } from "../../utils/formatDate";
 import getTeamColor from "../../utils/teamColors";
+import { useI18n } from "../../i18n/i18n";
 
 interface RaceTableProps {
   data: Race[];
@@ -14,6 +15,7 @@ interface RaceTableProps {
 }
 
 const RaceTable = ({ data, winners }: RaceTableProps) => {
+  const { t, locale } = useI18n();
   const isDone = (race: Race) => isRaceCompleted(race.date, race.time);
   const nextRound = data.find((race) => !isDone(race))?.round;
 
@@ -22,12 +24,12 @@ const RaceTable = ({ data, winners }: RaceTableProps) => {
       <table id="races-table" className="w-100">
         <thead id="races-table-head">
           <tr>
-            <th>Rd</th>
-            <th>Grand Prix</th>
-            <th className="hide-mobile">Location</th>
-            <th className="hide-mobile">Date</th>
-            <th>Winner</th>
-            <th>Status</th>
+            <th>{t("races.columns.round")}</th>
+            <th>{t("races.columns.grandPrix")}</th>
+            <th className="hide-mobile">{t("races.columns.location")}</th>
+            <th className="hide-mobile">{t("races.columns.date")}</th>
+            <th>{t("races.columns.winner")}</th>
+            <th>{t("races.columns.status")}</th>
           </tr>
         </thead>
         <tbody id="races-table-body">
@@ -59,7 +61,7 @@ const RaceTable = ({ data, winners }: RaceTableProps) => {
                   />
                   {race.locality}, {race.country}
                 </td>
-                <td className="hide-mobile">{formatDate(race.date)}</td>
+                <td className="hide-mobile">{formatDate(race.date, locale)}</td>
                 <td>
                   {winner ? (
                     <Link
@@ -79,7 +81,7 @@ const RaceTable = ({ data, winners }: RaceTableProps) => {
                     id={`races-table-status-${race.round}`}
                     className={`status-badge status-badge--${status}`}
                   >
-                    {status}
+                    {t(`status.${status}`)}
                   </span>
                 </td>
               </tr>

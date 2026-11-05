@@ -1,6 +1,7 @@
 import useInView from "../../hooks/useInView";
 import type { PilotRace } from "../../hooks/useResultsPilot";
 import { formatGain, resultLabel } from "../../utils/results";
+import { useI18n } from "../../i18n/i18n";
 
 interface GainsChartProps {
   id: string;
@@ -13,6 +14,7 @@ const BAR_MAX = 80;
 
 // Diverging bars: places gained (up) or lost (down) from grid to flag
 const GainsChart = ({ id, title, races }: GainsChartProps) => {
+  const { t } = useI18n();
   const [ref, inView] = useInView<HTMLDivElement>();
   const max = Math.max(1, ...races.map((r) => Math.abs(r.gained ?? 0)));
 
@@ -21,20 +23,20 @@ const GainsChart = ({ id, title, races }: GainsChartProps) => {
       <figcaption className="chart-header">
         <div>
           <h3 className="chart-title">{title}</h3>
-          <p className="chart-note">Start vs finish position, round by round</p>
+          <p className="chart-note">{t("charts.gainsNote")}</p>
         </div>
         <ul className="chart-legend">
           <li>
             <span className="legend-swatch gain-bar--up" />
-            Gained
+            {t("charts.gained")}
           </li>
           <li>
             <span className="legend-swatch gain-bar--down" />
-            Lost
+            {t("charts.lost")}
           </li>
           <li>
             <span className="gain-dnf" />
-            Not classified
+            {t("charts.legend.notClassified")}
           </li>
         </ul>
       </figcaption>
@@ -88,7 +90,7 @@ const GainsChart = ({ id, title, races }: GainsChartProps) => {
         })}
       </div>
       <p className="chart-axis-label" aria-hidden="true">
-        Race
+        {t("charts.axisRace")}
       </p>
     </figure>
   );

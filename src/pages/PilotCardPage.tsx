@@ -15,13 +15,14 @@ import PageNav from "../components/ui/PageNav";
 import { LoadingCard, ErrorCard } from "../components/ui/QueryState";
 import NotFoundPage from "./NotFoundPage";
 import getPilotPhoto from "../data/pilotPhoto";
-import getPilotDescription from "../data/pilotDescriptions";
 import getTeamColor from "../utils/teamColors";
 import { flagUrl } from "../utils/flagUrl";
 import { getNationalityToCode } from "../utils/nationalityCode";
 import { ageFrom, formatDate } from "../utils/formatDate";
+import { useI18n } from "../i18n/i18n";
 
 const PilotCardPage = () => {
+  const { t, locale, pilotDescription } = useI18n();
   const { id } = useParams();
   const { data: standings } = usePilots();
   const { data: pilot, isError, isLoading, error } = usePilot(id);
@@ -71,7 +72,7 @@ const PilotCardPage = () => {
     >
       <DetailHero
         id="pilot-hero"
-        eyebrow={`${pilot.team} · 2026 season`}
+        eyebrow={t("pilot.heroEyebrow", { team: pilot.team })}
         title={fullName}
         backdrop={pilot.permanentNumber}
         image={photo ? { src: photo, alt: fullName } : undefined}
@@ -84,7 +85,7 @@ const PilotCardPage = () => {
           />
           <span>{pilot.nationality}</span>
           <span>#{pilot.permanentNumber}</span>
-          {age !== null && <span>{age} years old</span>}
+          {age !== null && <span>{t("pilot.yearsOld", { age })}</span>}
         </p>
         <a
           id="pilot-hero-wikipedia"
@@ -93,7 +94,7 @@ const PilotCardPage = () => {
           rel="noreferrer"
           className="link-button"
         >
-          Wikipedia ↗
+          {t("pilot.wikipedia")}
         </a>
       </DetailHero>
 
@@ -101,53 +102,69 @@ const PilotCardPage = () => {
         <StatTiles
           id="pilot-tiles"
           tiles={[
-            { key: "position", label: "Championship", value: `P${pilot.position}` },
-            { key: "points", label: "Points", value: pilot.points },
-            { key: "wins", label: "Wins", value: stats.wins },
-            { key: "podiums", label: "Podiums", value: stats.podiums },
-            { key: "poles", label: "Poles", value: stats.poles },
-            { key: "fastest-laps", label: "Fastest laps", value: stats.fastestLaps },
+            {
+              key: "position",
+              label: t("pilot.tiles.championship"),
+              value: `P${pilot.position}`,
+            },
+            { key: "points", label: t("pilot.tiles.points"), value: pilot.points },
+            { key: "wins", label: t("pilot.tiles.wins"), value: stats.wins },
+            { key: "podiums", label: t("pilot.tiles.podiums"), value: stats.podiums },
+            { key: "poles", label: t("pilot.tiles.poles"), value: stats.poles },
+            {
+              key: "fastest-laps",
+              label: t("pilot.tiles.fastestLaps"),
+              value: stats.fastestLaps,
+            },
           ]}
         />
 
-        <Section id="pilot-profile" eyebrow="Profile" title={`Meet ${pilot.name}`}>
+        <Section
+          id="pilot-profile"
+          eyebrow={t("pilot.profile.eyebrow")}
+          title={t("pilot.profile.title", { name: pilot.name })}
+        >
           <div className="ui-row ui-row--stretch">
             <div id="pilot-profile-description" className="ui-card ui-grow-2">
-              <p className="prose">{getPilotDescription(pilot.code)}</p>
+              <p className="prose">{pilotDescription(pilot.code)}</p>
             </div>
             <dl id="pilot-profile-facts" className="ui-card info-list ui-grow-1">
               <div>
-                <dt>Team</dt>
+                <dt>{t("pilot.profile.team")}</dt>
                 <dd>{pilot.team}</dd>
               </div>
               <div>
-                <dt>Nationality</dt>
+                <dt>{t("pilot.profile.nationality")}</dt>
                 <dd>{pilot.nationality}</dd>
               </div>
               <div>
-                <dt>Born</dt>
-                <dd>{formatDate(pilot.dateOfBirth)}</dd>
+                <dt>{t("pilot.profile.born")}</dt>
+                <dd>{formatDate(pilot.dateOfBirth, locale)}</dd>
               </div>
               <div>
-                <dt>Car number</dt>
+                <dt>{t("pilot.profile.carNumber")}</dt>
                 <dd>{pilot.permanentNumber}</dd>
               </div>
               <div>
-                <dt>Races this season</dt>
+                <dt>{t("pilot.profile.races")}</dt>
                 <dd>{stats.totalRaces}</dd>
               </div>
             </dl>
           </div>
         </Section>
 
-        <Section id="pilot-season" eyebrow="Race by race" title="The season so far">
+        <Section
+          id="pilot-season"
+          eyebrow={t("pilot.season.eyebrow")}
+          title={t("pilot.season.title")}
+        >
           <div className="ui-stack">
             <ResultsStrip id="pilot-results-strip" races={stats.races} />
             <div className="ui-row ui-row--stretch w-100">
               <div className="ui-grow-1">
                 <PointsChart
                   id="pilot-points-chart"
-                  title="Grand Prix points"
+                  title={t("pilot.season.pointsChart")}
                   xLabels={stats.races.map((r) => r.round)}
                   series={[
                     {
@@ -175,7 +192,7 @@ const PilotCardPage = () => {
               <div className="ui-grow-1">
                 <GainsChart
                   id="pilot-gains-chart"
-                  title="Grid to flag"
+                  title={t("pilot.season.gainsChart")}
                   races={stats.races}
                 />
               </div>
@@ -186,8 +203,8 @@ const PilotCardPage = () => {
         {stats.teammate && (
           <Section
             id="pilot-teammate"
-            eyebrow="Same car, different driver"
-            title="Teammate battle"
+            eyebrow={t("pilot.teammate.eyebrow")}
+            title={t("pilot.teammate.title")}
           >
             <HeadToHead
               id="pilot-h2h"
@@ -198,13 +215,17 @@ const PilotCardPage = () => {
           </Section>
         )}
 
-        <Section id="pilot-performance" eyebrow="Under the numbers" title="Performance">
+        <Section
+          id="pilot-performance"
+          eyebrow={t("pilot.performance.eyebrow")}
+          title={t("pilot.performance.title")}
+        >
           <PilotCardStats stats={stats} />
         </Section>
 
         <PageNav
           id="pilot-nav"
-          ariaLabel="Other drivers in the standings"
+          ariaLabel={t("pilot.navLabel")}
           prev={neighbour(-1)}
           next={neighbour(1)}
         />

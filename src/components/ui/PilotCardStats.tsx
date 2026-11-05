@@ -1,5 +1,6 @@
 import type { PilotStats } from "../../hooks/useResultsPilot";
 import useInView from "../../hooks/useInView";
+import { useI18n } from "../../i18n/i18n";
 import StatBar from "./StatBar";
 
 interface PilotCardStatsProps {
@@ -9,18 +10,20 @@ interface PilotCardStatsProps {
 const GAUGE_LENGTH = 282.7; // circumference of the r=45 gauge circle
 
 const PilotCardStats = ({ stats }: PilotCardStatsProps) => {
+  const { t } = useI18n();
   // Bars and gauge fill from 0 the first time they scroll into view
   const [barsRef, barsInView] = useInView<HTMLDivElement>();
   const [gaugeRef, gaugeInView] = useInView<HTMLDivElement>();
+  const pts = t("common.pts");
 
   const averages = [
-    { label: "Average finish", value: stats.averageFinish },
-    { label: "Average grid", value: stats.averageGrid },
-    { label: "Places gained per race", value: stats.positionsGained },
-    { label: "Best finish", value: stats.bestFinish },
-    { label: "Not classified", value: stats.dnfs },
-    { label: "Races started", value: stats.totalRaces },
-  ];
+    { key: "averageFinish", value: stats.averageFinish },
+    { key: "averageGrid", value: stats.averageGrid },
+    { key: "placesGained", value: stats.positionsGained },
+    { key: "bestFinish", value: stats.bestFinish },
+    { key: "notClassified", value: stats.dnfs },
+    { key: "racesStarted", value: stats.totalRaces },
+  ] as const;
 
   return (
     <div id="pilot-card-stats" className="ui-row ui-row--stretch">
@@ -32,13 +35,13 @@ const PilotCardStats = ({ stats }: PilotCardStatsProps) => {
         >
           <StatBar
             id="pilot-card-stats-points-rate"
-            label="Points finish rate"
+            label={t("pilot.performance.pointsFinishRate")}
             value={stats.pointsFinishRate}
             animate={barsInView}
           />
           <StatBar
             id="pilot-card-stats-finish-rate"
-            label="Finish rate"
+            label={t("pilot.performance.finishRate")}
             value={stats.finishRate}
             animate={barsInView}
           />
@@ -78,22 +81,28 @@ const PilotCardStats = ({ stats }: PilotCardStatsProps) => {
                 {stats.pointsToMax}%
               </span>
               <span id="pilot-card-stats-gauge-label" className="gauge-label">
-                Pts efficiency
+                {t("pilot.performance.efficiency")}
               </span>
             </div>
           </div>
           <dl id="pilot-card-stats-points-summary" className="info-list ui-grow-1">
             <div>
-              <dt>Max available</dt>
-              <dd>{stats.maxPoints} pts</dd>
+              <dt>{t("pilot.performance.maxAvailable")}</dt>
+              <dd>
+                {stats.maxPoints} {pts}
+              </dd>
             </div>
             <div>
-              <dt>Points lost</dt>
-              <dd>{stats.pointsLost} pts</dd>
+              <dt>{t("pilot.performance.pointsLost")}</dt>
+              <dd>
+                {stats.pointsLost} {pts}
+              </dd>
             </div>
             <div>
-              <dt>Still to play for</dt>
-              <dd>{stats.remainingPoints} pts</dd>
+              <dt>{t("pilot.performance.stillToPlay")}</dt>
+              <dd>
+                {stats.remainingPoints} {pts}
+              </dd>
             </div>
           </dl>
         </div>
@@ -102,8 +111,8 @@ const PilotCardStats = ({ stats }: PilotCardStatsProps) => {
         <table id="pilot-card-stats-table" className="w-100">
           <tbody id="pilot-card-stats-table-body">
             {averages.map((stat, index) => (
-              <tr key={stat.label} id={`pilot-card-stats-row-${index}`}>
-                <td>{stat.label}</td>
+              <tr key={stat.key} id={`pilot-card-stats-row-${index}`}>
+                <td>{t(`pilot.performance.${stat.key}`)}</td>
                 <td>{stat.value}</td>
               </tr>
             ))}

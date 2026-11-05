@@ -3,6 +3,7 @@ import { getNationalityToCode } from "../../utils/nationalityCode";
 import { flagUrl } from "../../utils/flagUrl";
 import getTeamColor from "../../utils/teamColors";
 import type { PilotStandings } from "../../services/PilotStandingsServices";
+import { useI18n } from "../../i18n/i18n";
 
 interface PilotTableProps {
   data: PilotStandings[];
@@ -11,10 +12,11 @@ interface PilotTableProps {
 }
 
 const PilotTable = ({ data: pilots = [], leaderPoints }: PilotTableProps) => {
+  const { t } = useI18n();
   if (pilots.length === 0) {
     return (
       <div id="pilots-table-empty" className="ui-card">
-        <p>No driver matches your search.</p>
+        <p>{t("pilots.noMatch")}</p>
       </div>
     );
   }
@@ -23,13 +25,13 @@ const PilotTable = ({ data: pilots = [], leaderPoints }: PilotTableProps) => {
       <table id="pilots-table" className="w-100">
         <thead id="pilots-table-head">
           <tr>
-            <th>Pos</th>
-            <th>Driver</th>
-            <th className="hide-mobile">Nationality</th>
-            <th className="hide-mobile">Team</th>
-            <th>Wins</th>
-            <th className="hide-mobile">Gap</th>
-            <th>Pts</th>
+            <th>{t("pilots.columns.pos")}</th>
+            <th>{t("pilots.columns.driver")}</th>
+            <th className="hide-mobile">{t("pilots.columns.nationality")}</th>
+            <th className="hide-mobile">{t("pilots.columns.team")}</th>
+            <th>{t("pilots.columns.wins")}</th>
+            <th className="hide-mobile">{t("pilots.columns.gap")}</th>
+            <th>{t("pilots.columns.pts")}</th>
           </tr>
         </thead>
         <tbody id="pilots-table-body">

@@ -8,9 +8,11 @@ import { LoadingCard, ErrorCard } from "../components/ui/QueryState";
 import { usePilots } from "../hooks/usePilots";
 import { useRaceStatus } from "../hooks/useRaceStatus";
 import { useRaces } from "../hooks/useRaces";
+import { useI18n } from "../i18n/i18n";
 import NotFoundPage from "./NotFoundPage";
 
 const PilotsTablePage = () => {
+  const { t } = useI18n();
   const { data, isLoading, isError, error } = usePilots();
   const { data: races } = useRaces();
   const {
@@ -39,13 +41,12 @@ const PilotsTablePage = () => {
     <div id="pilots-page" className="detail-page">
       <DetailHero
         id="pilots-hero"
-        eyebrow="Drivers' championship · 2026 season"
-        title="The 2026 grid"
+        eyebrow={t("pilots.heroEyebrow")}
+        title={t("pilots.heroTitle")}
         backdrop="P1"
       >
         <p id="pilots-hero-text" className="prose">
-          Eleven teams and one title to settle. Search the grid, follow the
-          standings and see who is carrying the momentum.
+          {t("pilots.heroText")}
         </p>
       </DetailHero>
 
@@ -56,40 +57,50 @@ const PilotsTablePage = () => {
             tiles={[
               {
                 key: "leader",
-                label: "Leader",
+                label: t("pilots.tiles.leader"),
                 value: leader.surname,
-                detail: `${leader.points} pts · ${leader.team}`,
+                detail: `${leader.points} ${t("common.pts")} · ${leader.team}`,
               },
               {
                 key: "gap",
-                label: "Lead",
-                value: second ? `+${leaderPoints - Number(second.points)}` : "-",
-                detail: second ? `over ${second.surname}` : undefined,
+                label: t("pilots.tiles.lead"),
+                value: second
+                  ? `+${leaderPoints - Number(second.points)}`
+                  : "-",
+                detail: second
+                  ? t("pilots.tiles.leadOver", { name: second.surname })
+                  : undefined,
               },
               {
                 key: "rounds",
-                label: "Rounds run",
+                label: t("pilots.tiles.roundsRun"),
                 value: totalRounds ? `${roundsDone}/${totalRounds}` : roundsDone,
-                detail: totalRounds ? `${totalRounds - roundsDone} to go` : undefined,
+                detail: totalRounds
+                  ? t("pilots.tiles.toGo", { count: totalRounds - roundsDone })
+                  : undefined,
               },
               {
                 key: "winners",
-                label: "Race winners",
+                label: t("pilots.tiles.raceWinners"),
                 value: winners,
-                detail: "different drivers",
+                detail: t("pilots.tiles.differentDrivers"),
               },
             ]}
           />
         )}
 
-        <Section id="pilots-standings" eyebrow="Standings" title="Drivers' championship">
+        <Section
+          id="pilots-standings"
+          eyebrow={t("pilots.sectionEyebrow")}
+          title={t("pilots.sectionTitle")}
+        >
           <div className="ui-stack">
             <input
               id="pilots-search"
               type="search"
               className="search-input"
-              placeholder="Search driver or team"
-              aria-label="Search driver or team"
+              placeholder={t("pilots.search")}
+              aria-label={t("pilots.search")}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -102,13 +113,12 @@ const PilotsTablePage = () => {
         id="pilots-points-banner"
         mirrored
         side="right"
-        eyebrow="Behind the points"
-        title="A championship is won in the details"
-        text="Every point on this table was earned somewhere: a clean launch, a late overtake, a patient one-stop. Open a driver to see how the season is really going, beyond the standings."
+        eyebrow={t("pilots.banner.eyebrow")}
+        title={t("pilots.banner.title")}
+        text={t("pilots.banner.text")}
       >
         <p id="pilots-points-banner-rules" className="banner-text">
-          The winner takes 25 points, followed by 18, 15, 12, 10, 8, 6, 4, 2
-          and 1 down to tenth place. Sprint races reward the top eight.
+          {t("pilots.banner.rules")}
         </p>
       </PageBanner>
     </div>
