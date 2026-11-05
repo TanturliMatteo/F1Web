@@ -22,28 +22,29 @@ import track22 from "../assets/traks/2023_Las_Vegas_street_circuit.svg.png";
 import track23 from "../assets/traks/Lusail_International_Circuit_2023.svg.png";
 import track24 from "../assets/traks/Yas_Marina_Circuit.png";
 
-// Mappatura definitiva sui Round ufficiali 2026
+// Keys are the Ergast/Jolpica circuitId values, so the map survives calendar changes
+// (no image yet for sepang: the race page falls back gracefully)
 export const circuitImages: Record<string, string> = {
-  "1": track1, // Melbourne
-  "2": track2, // Shanghai
-  "3": track3, // Suzuka
-  "4": track6, // Miami
-  "5": track7, // Montreal
-  "6": track8, // Monaco
-  "7": track9, // Barcellona
-  "8": track10, // Red Bull Ring
-  "9": track11, // Silverstone
-  "10": track12, // Spa
-  "11": track13, // Hungaroring
-  "12": track14, // Zandvoort
-  "13": track15, // Monza
-  "14": track16, // Madrid
-  "15": track17, // Baku
-  "16": track18, // Singapore
-  "17": track19, // Austin
-  "18": track20, // Messico
-  "19": track21, // Interlagos
-  "20": track22, // Las Vegas
-  "21": track23, // Lusail
-  "22": track24, // Abu Dhabi
+  albert_park: track1, // Melbourne
+  shanghai: track2, // Shanghai
+  suzuka: track3, // Suzuka
+  miami: track6, // Miami
+  villeneuve: track7, // Montreal
+  monaco: track8, // Monaco
+  catalunya: track9, // Barcellona
+  red_bull_ring: track10, // Red Bull Ring
+  silverstone: track11, // Silverstone
+  spa: track12, // Spa
+  hungaroring: track13, // Hungaroring
+  zandvoort: track14, // Zandvoort
+  monza: track15, // Monza
+  madring: track16, // Madrid
+  baku: track17, // Baku
+  marina_bay: track18, // Singapore
+  americas: track19, // Austin
+  rodriguez: track20, // Messico
+  interlagos: track21, // Interlagos
+  vegas: track22, // Las Vegas
+  losail: track23, // Lusail
+  yas_marina: track24, // Abu Dhabi
 };

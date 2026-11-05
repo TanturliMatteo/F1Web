@@ -22,6 +22,7 @@ interface ErgastResponse {
         Results: Array<{
           number: string;
           position: string;
+          positionText: string;
           points: string;
           Driver: {
             driverId: string;
@@ -64,6 +65,9 @@ export interface Results {
   country: string;
   number: string;
   position: string;
+  // Numeric when classified, otherwise R (retired), W (did not start),
+  // D (disqualified) or N (not classified)
+  positionText: string;
   points: string;
   driverId: string;
   permanentNumber: string;
@@ -117,6 +121,7 @@ export async function fetchResults(signal?: AbortSignal): Promise<Results[]> {
       country: race.Circuit.Location.country ?? "Unknown",
       number: result.number ?? "0",
       position: result.position ?? "0",
+      positionText: result.positionText ?? result.position ?? "0",
       points: result.points ?? "0",
       driverId: result.Driver.driverId ?? "Unknown",
       permanentNumber: result.Driver.permanentNumber ?? "Unknown",

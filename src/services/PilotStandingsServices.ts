@@ -7,6 +7,7 @@ interface ErgastResponse {
         DriverStandings: Array<{
           position: string;
           points: string;
+          wins: string;
           Driver: {
             permanentNumber: string;
             givenName: string;
@@ -34,6 +35,7 @@ export interface PilotStandings {
   team: string;
   driverId: string;
   points: string;
+  wins: string;
   code: string;
   constructorId: string;
   permanentNumber: string;
@@ -58,6 +60,7 @@ export async function fetchPilotStandings(
     nationality: d.Driver?.nationality ?? "Unknown",
     team: d.Constructors?.[0]?.name ?? "Unknown",
     points: d.points ?? "0",
+    wins: d.wins ?? "0",
     driverId: d.Driver?.driverId ?? "Unknown",
     code: d.Driver?.code ?? "Unknown",
     constructorId: d.Constructors?.[0]?.constructorId ?? "Unknown",

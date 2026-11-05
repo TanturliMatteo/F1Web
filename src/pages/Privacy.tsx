@@ -79,11 +79,7 @@ const PrivacyPage = () => {
           </p>
         </section>
 
-        <section
-          id="privacy-changes"
-          className="privacy-section"
-          style={{ marginBottom: "2rem" }}
-        >
+        <section id="privacy-changes" className="privacy-section">
           <h2>5. Modifiche alla presente Privacy Policy</h2>
           <p>
             Ci riserviamo il diritto di aggiornare questa informativa in
