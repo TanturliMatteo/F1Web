@@ -31,12 +31,15 @@ export const formatSessionTime = (
 };
 
 // Whole years between a birth date and today
+// The birth date is a bare "YYYY-MM-DD" (UTC midnight): read its parts in
+// UTC, compare them with today's local date
 export const ageFrom = (dateOfBirth: string) => {
   const born = new Date(dateOfBirth);
   if (Number.isNaN(born.getTime())) return null;
   const now = new Date();
   const hadBirthday =
-    now.getMonth() > born.getMonth() ||
-    (now.getMonth() === born.getMonth() && now.getDate() >= born.getDate());
-  return now.getFullYear() - born.getFullYear() - (hadBirthday ? 0 : 1);
+    now.getMonth() > born.getUTCMonth() ||
+    (now.getMonth() === born.getUTCMonth() &&
+      now.getDate() >= born.getUTCDate());
+  return now.getFullYear() - born.getUTCFullYear() - (hadBirthday ? 0 : 1);
 };
