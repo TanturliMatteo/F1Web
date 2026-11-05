@@ -47,7 +47,8 @@ export async function fetchPilotStandings(
 ): Promise<PilotStandings[]> {
   // The default page is 30 rows: reserve drivers could push the grid past it
   const data = await apiGet<ErgastResponse>(
-    `/${SEASON}/driverstandings?limit=100`,
+    `/${SEASON}/driverstandings`,
+    { limit: 100 },
     signal,
   );
 

@@ -34,20 +34,19 @@
       "id": "third-parties",
       "title": "4. Third-party services",
       "body": [
-        "The site relies on the services listed below. Whenever a page contacts them, your browser sends them, as with any web request, your IP address and technical browser data."
+        "The site relies on the services listed below. Typefaces are hosted on the site itself and sports data goes through our own server: your browser only contacts our domain and the flag service."
       ],
       "list": [
         "**Vercel Inc.** (United States): hosts the site, records server logs and monitors traffic. It processes data on our behalf as a processor (Art. 28 GDPR), under its Data Processing Addendum. [Vercel privacy policy](https://vercel.com/legal/privacy-policy)",
-        "**Google Fonts** (Google Ireland Limited / Google LLC): the site's typefaces are downloaded from Google's servers (fonts.googleapis.com and fonts.gstatic.com). Google receives your IP address and processes it as an independent controller. [Google privacy policy](https://policies.google.com/privacy)",
-        "**Jolpica F1 API** (api.jolpi.ca): provides the sports data (calendar, standings, results), which your browser requests directly from this service.",
-        "**Flagpedia / flagcdn.com**: provides the national flag images, loaded directly by your browser."
+        "**Jolpica F1 API** (api.jolpi.ca): source of the sports data (calendar, standings, results). Requests are made by our server on Vercel and responses are cached: Jolpica **does not receive** your IP address or any other data about you.",
+        "**Flagpedia / flagcdn.com**: provides the national flag images, loaded directly by your browser. As with any web request, it receives your IP address and technical browser data."
       ]
     },
     {
       "id": "transfers",
       "title": "5. Transfers outside the EU",
       "body": [
-        "Vercel and Google are based in, or have servers in, the United States. Transfers rely on the safeguards in Chapter V of the GDPR: the European Commission's adequacy decision for companies certified under the EU-U.S. Data Privacy Framework and/or the Standard Contractual Clauses approved by the Commission."
+        "Vercel is based in, and has servers in, the United States. Transfers rely on the safeguards in Chapter V of the GDPR: the European Commission's adequacy decision for companies certified under the EU-U.S. Data Privacy Framework and/or the Standard Contractual Clauses approved by the Commission."
       ]
     },
     {

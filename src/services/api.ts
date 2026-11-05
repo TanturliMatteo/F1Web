@@ -1,15 +1,24 @@
-const BASE_URL = "https://api.jolpi.ca/ergast/f1";
+// All F1 data goes through our own endpoint (api/f1.ts on Vercel, proxied to
+// Jolpica by Vite in development), never straight to the external API
+const ENDPOINT = "/api/f1";
 
 export const SEASON = 2026;
 
+// apiGet("/2026/results", { limit: 100, offset: 0 })
 export async function apiGet<T>(
-  path: string,
+  resource: string,
+  params: Record<string, number> = {},
   signal?: AbortSignal,
 ): Promise<T> {
-  const res = await fetch(`${BASE_URL}${path}`, { signal });
+  const query = new URLSearchParams({ path: resource });
+  for (const [name, value] of Object.entries(params)) {
+    query.set(name, String(value));
+  }
+
+  const res = await fetch(`${ENDPOINT}?${query}`, { signal });
 
   if (!res.ok) {
-    throw new Error(`Request failed (${res.status}): ${path}`);
+    throw new Error(`Request failed (${res.status}): ${resource}`);
   }
 
   return res.json() as Promise<T>;

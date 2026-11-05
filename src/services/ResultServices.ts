@@ -64,7 +64,8 @@ export interface Results {
 
 const fetchResultsPage = (offset: number, signal?: AbortSignal) =>
   apiGet<ErgastResponse>(
-    `/${SEASON}/results?limit=${PAGE_SIZE}&offset=${offset}`,
+    `/${SEASON}/results`,
+    { limit: PAGE_SIZE, offset },
     signal,
   );
 

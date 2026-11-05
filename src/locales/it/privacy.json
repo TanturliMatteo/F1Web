@@ -34,20 +34,19 @@
       "id": "third-parties",
       "title": "4. Servizi di terze parti",
       "body": [
-        "Per funzionare il sito si appoggia ai servizi elencati qui sotto. Ogni volta che una pagina li contatta, il tuo browser invia loro, come per qualsiasi richiesta web, il tuo indirizzo IP e i dati tecnici del browser."
+        "Il sito si appoggia ai servizi elencati qui sotto. I caratteri tipografici sono ospitati direttamente sul sito e i dati sportivi passano dal nostro server: il tuo browser contatta solo il nostro dominio e il servizio delle bandiere."
       ],
       "list": [
         "**Vercel Inc.** (Stati Uniti): hosting del sito, registrazione dei log del server e monitoraggio del traffico. Tratta i dati per nostro conto come responsabile del trattamento (art. 28 GDPR), in base al proprio Data Processing Addendum. [Privacy policy di Vercel](https://vercel.com/legal/privacy-policy)",
-        "**Google Fonts** (Google Ireland Limited / Google LLC): i caratteri tipografici del sito vengono scaricati dai server di Google (fonts.googleapis.com e fonts.gstatic.com). Google riceve il tuo indirizzo IP e lo tratta come titolare autonomo. [Privacy policy di Google](https://policies.google.com/privacy)",
-        "**Jolpica F1 API** (api.jolpi.ca): fornisce i dati sportivi (calendario, classifiche, risultati), che il tuo browser richiede direttamente a questo servizio.",
-        "**Flagpedia / flagcdn.com**: fornisce le immagini delle bandiere nazionali, caricate direttamente dal tuo browser."
+        "**Jolpica F1 API** (api.jolpi.ca): fonte dei dati sportivi (calendario, classifiche, risultati). Le richieste partono dal nostro server su Vercel e le risposte vengono conservate in cache: Jolpica **non riceve** il tuo indirizzo IP né altri dati che ti riguardano.",
+        "**Flagpedia / flagcdn.com**: fornisce le immagini delle bandiere nazionali, caricate direttamente dal tuo browser. Come per qualsiasi richiesta web, riceve il tuo indirizzo IP e i dati tecnici del browser."
       ]
     },
     {
       "id": "transfers",
       "title": "5. Trasferimento dei dati fuori dall'UE",
       "body": [
-        "Vercel e Google hanno sede o server anche negli Stati Uniti. I trasferimenti avvengono sulla base delle garanzie previste dal Capo V del GDPR: la decisione di adeguatezza della Commissione europea per le società aderenti all'EU-U.S. Data Privacy Framework e/o le Clausole Contrattuali Standard approvate dalla Commissione."
+        "Vercel ha sede e server anche negli Stati Uniti. I trasferimenti avvengono sulla base delle garanzie previste dal Capo V del GDPR: la decisione di adeguatezza della Commissione europea per le società aderenti all'EU-U.S. Data Privacy Framework e/o le Clausole Contrattuali Standard approvate dalla Commissione."
       ]
     },
     {

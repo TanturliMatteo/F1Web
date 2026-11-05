@@ -69,7 +69,8 @@ const MAX_ROUNDS = 100;
 export async function fetchRaces(signal?: AbortSignal): Promise<Race[]> {
   // The default page is 30 rows: ask for more so a long calendar is never cut
   const data = await apiGet<ErgastRaceResponse>(
-    `/${SEASON}/races?limit=${MAX_ROUNDS}`,
+    `/${SEASON}/races`,
+    { limit: MAX_ROUNDS },
     signal,
   );
 
