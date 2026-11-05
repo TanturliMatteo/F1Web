@@ -104,9 +104,13 @@ function buildPilotStats(all: Results[], code: string, seasonRaces: number) {
     };
   });
 
-  // Head-to-head only counts rounds where both cars took part
+  // Head-to-head only counts rounds against the main teammate, the one named
+  // in its header: races against a stand-in are left out
+  const mateCode = mate?.[0].code;
   const shared = races.flatMap((r) =>
-    r.teammate ? [{ me: r, other: r.teammate }] : [],
+    r.teammate && r.teammate.code === mateCode
+      ? [{ me: r, other: r.teammate }]
+      : [],
   );
   const headToHead: HeadToHeadRow[] = HEAD_TO_HEAD.map(([key, score]) => ({
     key,
