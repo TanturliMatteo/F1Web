@@ -4,33 +4,31 @@ import HomeHero from "../components/ui/HomeHero";
 import HomeFeatures from "../components/ui/HomeFeatures";
 import HomeNextRace from "../components/ui/HomeNextRace";
 import Podium from "../components/ui/Podium";
-import { usePilots } from "../hooks/usePilots";
+import { usePilots, useResultsRace } from "../hooks/queries";
 import { useRaceStatus } from "../hooks/useRaceStatus";
-import { useResultsRace } from "../hooks/useResultsRace";
 import { useI18n } from "../i18n/i18n";
+import { timeOrStatus } from "../utils/raceSummary";
 
 const Home = () => {
   const { t } = useI18n();
   const { data: pilots } = usePilots();
-  const {
-    data: { next, last },
-  } = useRaceStatus();
+  const { next, last } = useRaceStatus();
   const { data: lastResults } = useResultsRace(last?.round);
 
   return (
     <div id="home-page">
       <HomeHero />
       <HomeFeatures />
-      <div id="home-sections" className="page-container">
+      <div id="home-sections" className="page-container page-stack">
         {next && <HomeNextRace race={next} />}
-        <div id="home-podiums" className="ui-row ui-row--wrap my-3">
+        <div id="home-podiums" className="ui-row ui-row--wrap">
           {pilots && (
             <Podium
               id="home-championship"
               title={t("home.championshipTop3")}
               linkTo="/pilots"
               items={pilots.slice(0, 3).map((p) => ({
-                position: p.position,
+                position: String(p.position),
                 code: p.code,
                 name: `${p.name} ${p.surname}`,
                 detail: `${p.points} ${t("common.pts")}`,
@@ -44,10 +42,10 @@ const Home = () => {
               title={t("home.lastRace", { name: last.name })}
               linkTo={`/races/${last.round}`}
               items={lastResults.slice(0, 3).map((r) => ({
-                position: r.position,
+                position: String(r.position),
                 code: r.code,
                 name: `${r.givenName} ${r.familyName}`,
-                detail: r.time !== "0" ? r.time : r.status,
+                detail: timeOrStatus(r),
                 teamId: r.constructorId,
               }))}
             />
@@ -85,7 +83,7 @@ const Home = () => {
         title={t("home.cta.title")}
         text={t("home.cta.text")}
       >
-        <div id="home-cta-links" className="mt-3">
+        <div id="home-cta-links" className="banner-actions">
           <Link id="home-cta-pilots" to="/pilots" className="link-button">
             {t("home.cta.drivers")}
           </Link>

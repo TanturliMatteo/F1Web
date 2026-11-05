@@ -2,6 +2,7 @@ import useInView from "../../hooks/useInView";
 import type { PilotRace } from "../../hooks/useResultsPilot";
 import { formatGain, resultLabel } from "../../utils/results";
 import { useI18n } from "../../i18n/i18n";
+import { cx } from "../../utils/cx";
 
 interface GainsChartProps {
   id: string;
@@ -42,7 +43,7 @@ const GainsChart = ({ id, title, races }: GainsChartProps) => {
       </figcaption>
       <div
         ref={ref}
-        className={`gain-chart${inView ? " is-visible" : ""}`}
+        className={cx("gain-chart", inView && "is-visible")}
         style={{ gridTemplateColumns: `repeat(${races.length}, 1fr)` }}
       >
         {races.map((race) => {

@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "bootstrap/dist/css/bootstrap.min.css";
+// Only the reset: every component and utility style lives in index.css
+import "bootstrap/dist/css/bootstrap-reboot.min.css";
 import App from "./App.tsx";
 import "./index.css";
 

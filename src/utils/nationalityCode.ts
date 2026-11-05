@@ -111,10 +111,9 @@ const nationToCode: Record<string, string> = {
   Venezuela: "ve",
 };
 
-export function getNationalityToCode(nationality: string): string {
-  return nationalityToCode[nationality] || "unknown";
-}
+// ISO code for flagcdn.com, undefined when the name is not mapped yet
+export const getNationalityToCode = (nationality: string): string | undefined =>
+  nationalityToCode[nationality];
 
-export function getNationToCode(nation: string): string {
-  return nationToCode[nation] || "unknown";
-}
+export const getNationToCode = (nation: string): string | undefined =>
+  nationToCode[nation];

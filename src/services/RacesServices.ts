@@ -34,13 +34,7 @@ interface ErgastRaceResponse {
 
 // Translation keys under race.sessions.*
 export type SessionKey =
-  | "fp1"
-  | "fp2"
-  | "fp3"
-  | "sprintQualifying"
-  | "sprint"
-  | "qualifying"
-  | "race";
+  "fp1" | "fp2" | "fp3" | "sprintQualifying" | "sprint" | "qualifying" | "race";
 
 export interface RaceSession {
   key: SessionKey;
@@ -70,20 +64,24 @@ const SESSIONS = [
   ["Qualifying", "qualifying"],
 ] as const;
 
+const MAX_ROUNDS = 100;
+
 export async function fetchRaces(signal?: AbortSignal): Promise<Race[]> {
-  const data = await apiGet<ErgastRaceResponse>(`/${SEASON}/races`, signal);
+  // The default page is 30 rows: ask for more so a long calendar is never cut
+  const data = await apiGet<ErgastRaceResponse>(
+    `/${SEASON}/races?limit=${MAX_ROUNDS}`,
+    signal,
+  );
 
-  const races = data.MRData.RaceTable.Races ?? [];
-
-  return races.map((r) => ({
-    name: r.raceName ?? "Unknown Race",
-    round: r.round ?? "0",
-    date: r.date ?? "N/A",
+  return data.MRData.RaceTable.Races.map((r) => ({
+    name: r.raceName,
+    round: r.round,
+    date: r.date,
     time: r.time,
-    circuitId: r.Circuit?.circuitId ?? "unknown",
-    circuit: r.Circuit?.circuitName ?? "Unknown Circuit",
-    locality: r.Circuit?.Location?.locality ?? "Unknown Locality",
-    country: r.Circuit?.Location?.country ?? "Unknown Country",
+    circuitId: r.Circuit.circuitId,
+    circuit: r.Circuit.circuitName,
+    locality: r.Circuit.Location.locality,
+    country: r.Circuit.Location.country,
     sessions: [
       ...SESSIONS.flatMap(([field, key]) => {
         const session = r[field];

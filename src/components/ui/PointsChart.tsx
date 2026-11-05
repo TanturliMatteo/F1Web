@@ -1,5 +1,6 @@
 import useInView from "../../hooks/useInView";
 import { useI18n } from "../../i18n/i18n";
+import { cx } from "../../utils/cx";
 
 export interface ChartSeries {
   key: string;
@@ -36,7 +37,7 @@ const PointsChart = ({ id, title, xLabels, series }: PointsChartProps) => {
           {series.map((s) => (
             <li key={s.key}>
               <span
-                className={`legend-line${s.dashed ? " legend-line--dashed" : ""}`}
+                className={cx("legend-line", s.dashed && "legend-line--dashed")}
                 style={{ borderColor: s.color }}
               />
               {s.label} · {s.values.at(-1) ?? 0} {t("common.pts")}
@@ -52,7 +53,7 @@ const PointsChart = ({ id, title, xLabels, series }: PointsChartProps) => {
             </span>
           ))}
         </div>
-        <div className={`line-chart-plot${inView ? " is-visible" : ""}`}>
+        <div className={cx("line-chart-plot", inView && "is-visible")}>
           <svg
             viewBox="0 0 100 100"
             preserveAspectRatio="none"

@@ -1,6 +1,5 @@
 import { Link } from "react-router";
-import { getNationalityToCode } from "../../utils/nationalityCode";
-import { flagUrl } from "../../utils/flagUrl";
+import Flag from "./Flag";
 import getTeamColor from "../../utils/teamColors";
 import type { PilotStandings } from "../../services/PilotStandingsServices";
 import { useI18n } from "../../i18n/i18n";
@@ -36,9 +35,12 @@ const PilotTable = ({ data: pilots = [], leaderPoints }: PilotTableProps) => {
         </thead>
         <tbody id="pilots-table-body">
           {pilots.map((pilot) => {
-            const gap = leaderPoints - Number(pilot.points);
+            const gap = leaderPoints - pilot.points;
             return (
-              <tr key={pilot.driverId} id={`pilots-table-row-${pilot.driverId}`}>
+              <tr
+                key={pilot.driverId}
+                id={`pilots-table-row-${pilot.driverId}`}
+              >
                 <td
                   className="team-stripe"
                   style={{ borderLeftColor: getTeamColor(pilot.constructorId) }}
@@ -54,12 +56,7 @@ const PilotTable = ({ data: pilots = [], leaderPoints }: PilotTableProps) => {
                   </Link>
                 </td>
                 <td className="hide-mobile">
-                  <img
-                    id={`pilots-table-flag-${pilot.driverId}`}
-                    src={flagUrl(getNationalityToCode(pilot.nationality))}
-                    alt=""
-                    className="flag"
-                  />
+                  <Flag nationality={pilot.nationality} />
                   {pilot.nationality}
                 </td>
                 <td className="hide-mobile">{pilot.team}</td>

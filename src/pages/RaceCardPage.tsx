@@ -1,8 +1,6 @@
 import type { CSSProperties } from "react";
 import { useParams } from "react-router";
-import { useRaces } from "../hooks/useRaces";
-import { useRace } from "../hooks/useRace";
-import { useResultsRace } from "../hooks/useResultsRace";
+import { useRace, useRaces, useResultsRace } from "../hooks/queries";
 import DetailHero from "../components/ui/DetailHero";
 import Section from "../components/ui/Section";
 import StatTiles from "../components/ui/StatTiles";
@@ -11,116 +9,92 @@ import RaceCardTable from "../components/ui/RaceCardTable";
 import RaceCircuit from "../components/ui/RaceCircuit";
 import RaceSchedule from "../components/ui/RaceSchedule";
 import PageNav from "../components/ui/PageNav";
+import Flag from "../components/ui/Flag";
 import { LoadingCard, ErrorCard } from "../components/ui/QueryState";
 import NotFoundPage from "./NotFoundPage";
 import type { Results } from "../services/ResultServices";
-import { getNationToCode } from "../utils/nationalityCode";
+import type { Race } from "../services/RacesServices";
 import { getNationColor } from "../utils/nationColors";
-import { flagUrl } from "../utils/flagUrl";
 import { formatDate } from "../utils/formatDate";
 import isRaceCompleted from "../utils/isRaceCompleted";
-import { formatGain, isClassified } from "../utils/results";
+import { formatGain } from "../utils/results";
+import { summarizeRace, timeOrStatus, type Mover } from "../utils/raceSummary";
+import { adjacent } from "../utils/adjacent";
 import { useI18n } from "../i18n/i18n";
-
-const fullName = (r: Results) => `${r.givenName} ${r.familyName}`;
 
 const toPodiumItem = (
   r: Results,
   position: string,
   detail: string,
   tone?: PodiumItem["tone"],
-) => ({
+): PodiumItem => ({
   position,
   code: r.code,
-  name: fullName(r),
+  name: `${r.givenName} ${r.familyName}`,
   detail,
   teamId: r.constructorId,
   tone,
 });
 
+const moverItem = ({ result, gain }: Mover) =>
+  toPodiumItem(
+    result,
+    formatGain(gain),
+    `P${result.grid} → P${result.position}`,
+    gain > 0 ? "up" : "down",
+  );
+
 const RaceCardPage = () => {
   const { t, locale } = useI18n();
   const { id } = useParams();
   const { data: races } = useRaces();
-  const { data: race, isLoading, isError, error } = useRace(id);
-  const {
-    data: results,
-    isLoading: isResultsLoading,
-    isError: isResultsError,
-    error: resultsError,
-  } = useResultsRace(id);
+  const race = useRace(id);
+  const results = useResultsRace(id);
 
-  if (isLoading || isResultsLoading)
+  if (race.isLoading || results.isLoading)
     return <LoadingCard id="race-card-loading" />;
 
-  if (isError || isResultsError)
+  if (race.isError || results.isError)
     return (
       <ErrorCard
         id="race-card-error"
-        message={(error ?? resultsError)?.message}
+        message={(race.error ?? results.error)?.message}
       />
     );
 
-  if (!race) return <NotFoundPage />;
+  if (!race.data) return <NotFoundPage />;
 
-  const completed = isRaceCompleted(race.date, race.time);
-  const classification = results ?? [];
-  const hasResults = classification.length > 0;
+  const { round, name, country, locality, date, time } = race.data;
+  const completed = isRaceCompleted(date, time);
+  const classification = results.data ?? [];
+  const summary = classification.length ? summarizeRace(classification) : null;
 
-  const winner = classification[0];
-  const pole = classification.find((r) => r.grid === "1");
-  const fastest = classification.find((r) => r.fastestLapRank === "1");
-  const finishers = classification.filter((r) => isClassified(r.positionText));
-
-  // Places gained from the grid: only classified cars that started from a slot
-  const movers = finishers
-    .filter((r) => Number(r.grid) > 0)
-    .map((r) => ({ r, gain: Number(r.grid) - Number(r.position) }));
-  const gainers = movers
-    .filter((m) => m.gain > 0)
-    .sort((a, b) => b.gain - a.gain)
-    .slice(0, 3);
-  const losers = movers
-    .filter((m) => m.gain < 0)
-    .sort((a, b) => a.gain - b.gain)
-    .slice(0, 3);
-  const moveDetail = (m: (typeof movers)[number]) =>
-    `P${m.r.grid} → P${m.r.position}`;
-
-  const index = races?.findIndex((r) => r.round === race.round) ?? -1;
-  const neighbour = (offset: number) => {
-    const r = index >= 0 ? races?.[index + offset] : undefined;
-    return r
-      ? {
-          to: `/races/${r.round}`,
-          label: t("race.roundLabel", { round: r.round }),
-          title: r.name,
-        }
-      : null;
-  };
+  const { prev, next } = adjacent(races, (r) => r.round === round);
+  const navTarget = (r?: Race) =>
+    r && {
+      to: `/races/${r.round}`,
+      label: t("race.roundLabel", { round: r.round }),
+      title: r.name,
+    };
 
   return (
     <div
       id="race-card-page"
       className="detail-page"
-      style={{ "--accent": getNationColor(race.country) } as CSSProperties}
+      style={{ "--accent": getNationColor(country) } as CSSProperties}
     >
       <DetailHero
         id="race-hero"
-        eyebrow={t("race.heroEyebrow", { round: race.round })}
-        title={race.name}
-        backdrop={race.round.padStart(2, "0")}
+        eyebrow={t("race.heroEyebrow", { round })}
+        title={name}
+        backdrop={round.padStart(2, "0")}
       >
         <p id="race-hero-meta" className="detail-hero-meta">
-          <img
-            src={flagUrl(getNationToCode(race.country))}
-            alt=""
-            className="flag"
-          />
+          <Flag country={country} />
           <span>
-            {race.locality}, {race.country}
+            {locality}, {country}
           </span>
-          <span>{formatDate(race.date, locale)}</span>
+          <span>{formatDate(date, locale)}</span>
         </p>
         <span
           id="race-hero-status"
@@ -131,7 +105,7 @@ const RaceCardPage = () => {
       </DetailHero>
 
       <div id="race-card-content" className="page-container">
-        {hasResults && winner && (
+        {summary && (
           <>
             <StatTiles
               id="race-tiles"
@@ -139,27 +113,27 @@ const RaceCardPage = () => {
                 {
                   key: "winner",
                   label: t("race.tiles.winner"),
-                  value: winner.familyName,
-                  detail: winner.constructorName,
+                  value: summary.winner.familyName,
+                  detail: summary.winner.constructorName,
                 },
                 {
                   key: "pole",
                   label: t("race.tiles.pole"),
-                  value: pole?.familyName ?? "-",
-                  detail: pole?.constructorName,
+                  value: summary.pole?.familyName ?? "-",
+                  detail: summary.pole?.constructorName,
                 },
                 {
                   key: "fastest-lap",
                   label: t("race.tiles.fastestLap"),
-                  value: fastest?.fastestLapTime ?? "-",
-                  detail: fastest && fastest.familyName,
+                  value: summary.fastest?.fastestLapTime ?? "-",
+                  detail: summary.fastest?.familyName,
                 },
                 {
                   key: "finishers",
                   label: t("race.tiles.classified"),
-                  value: `${finishers.length}/${classification.length}`,
+                  value: `${summary.finishers}/${classification.length}`,
                   detail: t("race.tiles.notClassified", {
-                    count: classification.length - finishers.length,
+                    count: summary.notClassified,
                   }),
                 },
               ]}
@@ -174,42 +148,22 @@ const RaceCardPage = () => {
                 <Podium
                   id="race-podium"
                   title={t("race.story.podium")}
-                  items={classification
-                    .slice(0, 3)
-                    .map((r) =>
-                      toPodiumItem(
-                        r,
-                        r.position,
-                        r.time !== "0" ? r.time : r.status,
-                      ),
-                    )}
+                  items={summary.podium.map((r) =>
+                    toPodiumItem(r, String(r.position), timeOrStatus(r)),
+                  )}
                 />
-                {gainers.length > 0 && (
+                {summary.gainers.length > 0 && (
                   <Podium
                     id="race-gainers"
                     title={t("race.story.climbers")}
-                    items={gainers.map((m) =>
-                      toPodiumItem(
-                        m.r,
-                        formatGain(m.gain),
-                        moveDetail(m),
-                        "up",
-                      ),
-                    )}
+                    items={summary.gainers.map(moverItem)}
                   />
                 )}
-                {losers.length > 0 && (
+                {summary.losers.length > 0 && (
                   <Podium
                     id="race-losers"
                     title={t("race.story.tough")}
-                    items={losers.map((m) =>
-                      toPodiumItem(
-                        m.r,
-                        formatGain(m.gain),
-                        moveDetail(m),
-                        "down",
-                      ),
-                    )}
+                    items={summary.losers.map(moverItem)}
                   />
                 )}
               </div>
@@ -225,17 +179,17 @@ const RaceCardPage = () => {
           </>
         )}
 
-        {!hasResults && !completed && (
+        {!summary && !completed && (
           <Section
             id="race-weekend"
             eyebrow={t("race.weekend.eyebrow")}
             title={t("race.weekend.title")}
           >
-            <RaceSchedule race={race} />
+            <RaceSchedule race={race.data} />
           </Section>
         )}
 
-        {!hasResults && completed && (
+        {!summary && completed && (
           <Section
             id="race-pending"
             eyebrow={t("race.pending.eyebrow")}
@@ -252,14 +206,14 @@ const RaceCardPage = () => {
           eyebrow={t("race.circuit.eyebrow")}
           title={t("race.circuit.title")}
         >
-          <RaceCircuit race={race} />
+          <RaceCircuit race={race.data} />
         </Section>
 
         <PageNav
           id="race-nav"
           ariaLabel={t("race.navLabel")}
-          prev={neighbour(-1)}
-          next={neighbour(1)}
+          prev={navTarget(prev)}
+          next={navTarget(next)}
         />
       </div>
     </div>

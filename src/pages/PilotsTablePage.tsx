@@ -5,9 +5,8 @@ import DetailHero from "../components/ui/DetailHero";
 import Section from "../components/ui/Section";
 import StatTiles from "../components/ui/StatTiles";
 import { LoadingCard, ErrorCard } from "../components/ui/QueryState";
-import { usePilots } from "../hooks/usePilots";
+import { usePilots, useRaces } from "../hooks/queries";
 import { useRaceStatus } from "../hooks/useRaceStatus";
-import { useRaces } from "../hooks/useRaces";
 import { useI18n } from "../i18n/i18n";
 import NotFoundPage from "./NotFoundPage";
 
@@ -15,9 +14,7 @@ const PilotsTablePage = () => {
   const { t } = useI18n();
   const { data, isLoading, isError, error } = usePilots();
   const { data: races } = useRaces();
-  const {
-    data: { last },
-  } = useRaceStatus();
+  const { last } = useRaceStatus();
   const [search, setSearch] = useState("");
 
   if (isLoading) return <LoadingCard id="pilots-loading" />;
@@ -32,10 +29,10 @@ const PilotsTablePage = () => {
   );
 
   const [leader, second] = data;
-  const leaderPoints = Number(leader?.points ?? 0);
+  const leaderPoints = leader?.points ?? 0;
   const roundsDone = Number(last?.round ?? 0);
   const totalRounds = races?.length ?? 0;
-  const winners = data.filter((p) => Number(p.wins) > 0).length;
+  const winners = data.filter((p) => p.wins > 0).length;
 
   return (
     <div id="pilots-page" className="detail-page">
@@ -64,9 +61,7 @@ const PilotsTablePage = () => {
               {
                 key: "gap",
                 label: t("pilots.tiles.lead"),
-                value: second
-                  ? `+${leaderPoints - Number(second.points)}`
-                  : "-",
+                value: second ? `+${leaderPoints - second.points}` : "-",
                 detail: second
                   ? t("pilots.tiles.leadOver", { name: second.surname })
                   : undefined,
@@ -74,7 +69,9 @@ const PilotsTablePage = () => {
               {
                 key: "rounds",
                 label: t("pilots.tiles.roundsRun"),
-                value: totalRounds ? `${roundsDone}/${totalRounds}` : roundsDone,
+                value: totalRounds
+                  ? `${roundsDone}/${totalRounds}`
+                  : roundsDone,
                 detail: totalRounds
                   ? t("pilots.tiles.toGo", { count: totalRounds - roundsDone })
                   : undefined,

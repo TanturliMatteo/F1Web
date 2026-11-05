@@ -1,14 +1,16 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./queryClient";
+import I18nProvider from "./i18n/I18nProvider";
+import RootLayout from "./RootLayout";
 import Home from "./pages/Home";
 import PilotTablePage from "./pages/PilotsTablePage";
-import RootLayout from "./RootLayout";
-import NotFoundPage from "./pages/NotFoundPage";
 import PilotCardPage from "./pages/PilotCardPage";
 import RaceTablePage from "./pages/RacesTablePage";
 import RaceCardPage from "./pages/RaceCardPage";
 import PrivacyPage from "./pages/Privacy";
+import NotFoundPage from "./pages/NotFoundPage";
 import ErrorPage from "./pages/ErrorPage";
-import I18nProvider from "./i18n/I18nProvider";
 
 const router = createBrowserRouter([
   {
@@ -27,11 +29,15 @@ const router = createBrowserRouter([
   },
 ]);
 
+// App-wide providers live here, above the router, so every route (the error
+// page included) gets data and translations
 function App() {
   return (
-    <I18nProvider>
-      <RouterProvider router={router} />
-    </I18nProvider>
+    <QueryClientProvider client={queryClient}>
+      <I18nProvider>
+        <RouterProvider router={router} />
+      </I18nProvider>
+    </QueryClientProvider>
   );
 }
 

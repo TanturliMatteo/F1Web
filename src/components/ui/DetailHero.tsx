@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { cx } from "../../utils/cx";
 
 interface DetailHeroProps {
   id: string;
@@ -22,9 +23,7 @@ const DetailHero = ({
 }: DetailHeroProps) => (
   <section
     id={id}
-    className={["detail-hero", image && "detail-hero--with-image"]
-      .filter(Boolean)
-      .join(" ")}
+    className={cx("detail-hero", image && "detail-hero--with-image")}
   >
     <span className="detail-hero-backdrop" aria-hidden="true">
       {backdrop}

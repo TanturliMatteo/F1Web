@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import logo from "../../assets/logo/logo_header.png";
 import { LANGUAGES, useI18n } from "../../i18n/i18n";
+import { cx } from "../../utils/cx";
 
 const Header = () => {
   const { t, lang, setLang } = useI18n();
@@ -18,7 +19,7 @@ const Header = () => {
   return (
     <header
       id="header"
-      className={`header${scrolled ? " header--scrolled" : ""}`}
+      className={cx("header", scrolled && "header--scrolled")}
     >
       <nav id="header-nav" className="header-nav">
         <Link id="header-home-link" to="/">

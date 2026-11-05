@@ -1,8 +1,8 @@
 import type { CSSProperties } from "react";
 import { useParams } from "react-router";
-import { usePilots } from "../hooks/usePilots";
-import { usePilot } from "../hooks/usePilot";
+import { usePilot, usePilots } from "../hooks/queries";
 import { useResultsPilot } from "../hooks/useResultsPilot";
+import type { PilotStandings } from "../services/PilotStandingsServices";
 import DetailHero from "../components/ui/DetailHero";
 import Section from "../components/ui/Section";
 import StatTiles from "../components/ui/StatTiles";
@@ -12,13 +12,13 @@ import GainsChart from "../components/ui/GainsChart";
 import HeadToHead from "../components/ui/HeadToHead";
 import PilotCardStats from "../components/ui/PilotCardStats";
 import PageNav from "../components/ui/PageNav";
+import Flag from "../components/ui/Flag";
 import { LoadingCard, ErrorCard } from "../components/ui/QueryState";
 import NotFoundPage from "./NotFoundPage";
 import getPilotPhoto from "../data/pilotPhoto";
 import getTeamColor from "../utils/teamColors";
-import { flagUrl } from "../utils/flagUrl";
-import { getNationalityToCode } from "../utils/nationalityCode";
 import { ageFrom, formatDate } from "../utils/formatDate";
+import { adjacent } from "../utils/adjacent";
 import { useI18n } from "../i18n/i18n";
 
 const PilotCardPage = () => {
@@ -52,17 +52,13 @@ const PilotCardPage = () => {
   const age = ageFrom(pilot.dateOfBirth);
 
   // Neighbours in the championship, for the bottom navigation
-  const index = standings?.findIndex((p) => p.code === pilot.code) ?? -1;
-  const neighbour = (offset: number) => {
-    const p = index >= 0 ? standings?.[index + offset] : undefined;
-    return p
-      ? {
-          to: `/pilots/${p.code.toLowerCase()}`,
-          label: `P${p.position}`,
-          title: `${p.name} ${p.surname}`,
-        }
-      : null;
-  };
+  const { prev, next } = adjacent(standings, (p) => p.code === pilot.code);
+  const navTarget = (p?: PilotStandings) =>
+    p && {
+      to: `/pilots/${p.code.toLowerCase()}`,
+      label: `P${p.position}`,
+      title: `${p.name} ${p.surname}`,
+    };
 
   return (
     <div
@@ -78,11 +74,7 @@ const PilotCardPage = () => {
         image={photo ? { src: photo, alt: fullName } : undefined}
       >
         <p id="pilot-hero-meta" className="detail-hero-meta">
-          <img
-            src={flagUrl(getNationalityToCode(pilot.nationality))}
-            alt=""
-            className="flag"
-          />
+          <Flag nationality={pilot.nationality} />
           <span>{pilot.nationality}</span>
           <span>#{pilot.permanentNumber}</span>
           {age !== null && <span>{t("pilot.yearsOld", { age })}</span>}
@@ -107,9 +99,17 @@ const PilotCardPage = () => {
               label: t("pilot.tiles.championship"),
               value: `P${pilot.position}`,
             },
-            { key: "points", label: t("pilot.tiles.points"), value: pilot.points },
+            {
+              key: "points",
+              label: t("pilot.tiles.points"),
+              value: pilot.points,
+            },
             { key: "wins", label: t("pilot.tiles.wins"), value: stats.wins },
-            { key: "podiums", label: t("pilot.tiles.podiums"), value: stats.podiums },
+            {
+              key: "podiums",
+              label: t("pilot.tiles.podiums"),
+              value: stats.podiums,
+            },
             { key: "poles", label: t("pilot.tiles.poles"), value: stats.poles },
             {
               key: "fastest-laps",
@@ -128,7 +128,10 @@ const PilotCardPage = () => {
             <div id="pilot-profile-description" className="ui-card ui-grow-2">
               <p className="prose">{pilotDescription(pilot.code)}</p>
             </div>
-            <dl id="pilot-profile-facts" className="ui-card info-list ui-grow-1">
+            <dl
+              id="pilot-profile-facts"
+              className="ui-card info-list ui-grow-1"
+            >
               <div>
                 <dt>{t("pilot.profile.team")}</dt>
                 <dd>{pilot.team}</dd>
@@ -226,8 +229,8 @@ const PilotCardPage = () => {
         <PageNav
           id="pilot-nav"
           ariaLabel={t("pilot.navLabel")}
-          prev={neighbour(-1)}
-          next={neighbour(1)}
+          prev={navTarget(prev)}
+          next={navTarget(next)}
         />
       </div>
     </div>

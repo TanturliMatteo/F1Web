@@ -1,70 +1,75 @@
-import { apiGet, SEASON } from "./api";
+import { apiGet, SEASON, toNumber } from "./api";
 
 interface ErgastResponse {
   MRData: {
     StandingsTable: {
-      StandingsLists: {
+      StandingsLists: Array<{
         DriverStandings: Array<{
-          position: string;
+          position?: string;
           points: string;
           wins: string;
           Driver: {
-            permanentNumber: string;
+            driverId: string;
+            code: string;
+            permanentNumber?: string;
             givenName: string;
             familyName: string;
             dateOfBirth: string;
             nationality: string;
-            driverId: string;
-            code: string;
           };
           Constructors: Array<{
             constructorId: string;
             name: string;
           }>;
         }>;
-      }[];
+      }>;
     };
   };
 }
 
 export interface PilotStandings {
-  position: string;
+  position: number;
+  points: number;
+  wins: number;
+  driverId: string;
+  code: string;
+  permanentNumber: string;
   name: string;
   surname: string;
+  dateOfBirth: string;
   nationality: string;
   team: string;
-  driverId: string;
-  points: string;
-  wins: string;
-  code: string;
   constructorId: string;
-  permanentNumber: string;
-  dateOfBirth: string;
 }
 
 export async function fetchPilotStandings(
   signal?: AbortSignal,
 ): Promise<PilotStandings[]> {
+  // The default page is 30 rows: reserve drivers could push the grid past it
   const data = await apiGet<ErgastResponse>(
-    `/${SEASON}/driverstandings`,
+    `/${SEASON}/driverstandings?limit=100`,
     signal,
   );
 
   const drivers =
     data.MRData.StandingsTable.StandingsLists[0]?.DriverStandings ?? [];
 
-  return drivers.map((d) => ({
-    position: d.position ?? "0",
-    name: d.Driver?.givenName ?? "Unknown",
-    surname: d.Driver?.familyName ?? "",
-    nationality: d.Driver?.nationality ?? "Unknown",
-    team: d.Constructors?.[0]?.name ?? "Unknown",
-    points: d.points ?? "0",
-    wins: d.wins ?? "0",
-    driverId: d.Driver?.driverId ?? "Unknown",
-    code: d.Driver?.code ?? "Unknown",
-    constructorId: d.Constructors?.[0]?.constructorId ?? "Unknown",
-    permanentNumber: d.Driver?.permanentNumber ?? "Unknown",
-    dateOfBirth: d.Driver?.dateOfBirth ?? "Unknown",
-  }));
+  return drivers.map((d, index) => {
+    const team = d.Constructors[0];
+    return {
+      // Drivers without a classified result have no position: keep the order
+      position: toNumber(d.position) || index + 1,
+      points: toNumber(d.points),
+      wins: toNumber(d.wins),
+      driverId: d.Driver.driverId,
+      code: d.Driver.code,
+      permanentNumber: d.Driver.permanentNumber ?? "",
+      name: d.Driver.givenName,
+      surname: d.Driver.familyName,
+      dateOfBirth: d.Driver.dateOfBirth,
+      nationality: d.Driver.nationality,
+      team: team?.name ?? "",
+      constructorId: team?.constructorId ?? "",
+    };
+  });
 }

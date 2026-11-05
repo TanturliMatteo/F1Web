@@ -12,17 +12,17 @@ const HomeFeatures = () => {
 
   return (
     <section id="home-features" className="banner">
-      <div
-        id="home-features-content"
-        className="banner-content banner-content--wide"
-      >
+      <div id="home-features-content" className="banner-content">
         <p id="home-features-eyebrow" className="section-label">
           {t("home.featuresEyebrow")}
         </p>
         <h2 id="home-features-title" className="banner-title">
           {t("home.featuresTitle")}
         </h2>
-        <div id="home-features-list" className="ui-row ui-row--wrap mt-3">
+        <div
+          id="home-features-list"
+          className="ui-row ui-row--wrap feature-list"
+        >
           {FEATURES.map((f, index) => (
             <Link
               key={f.key}

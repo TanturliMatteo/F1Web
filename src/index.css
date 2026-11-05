@@ -71,9 +71,14 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --duration: 1s;
 
+  /* Page frame. Every full-width block (header, hero, content, banners,
+     footer) uses --page-inline as side padding, so their edges line up and
+     content stops growing past --content-max on very wide screens. */
   --header-h: 92px;
   --card-padding: var(--space-5);
   --gutter: 4vw;
+  --content-max: 1320px;
+  --page-inline: max(var(--gutter), calc((100% - var(--content-max)) / 2));
 }
 
 @media (max-width: 576px) {
@@ -161,21 +166,53 @@ dd {
   color: var(--color-white);
 }
 
+.w-100 {
+  width: 100%;
+}
+
+/* Read by screen readers, invisible on screen */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ==========================================================================
    LAYOUT
    ========================================================================== */
+/* Header, page, footer: the footer stays at the bottom on short pages */
 .app-layout {
   position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   overflow-x: clip;
 }
 
+.app-main {
+  flex: 1;
+}
+
 .page-container {
-  width: 98%;
-  margin: 0 auto;
+  padding-inline: var(--page-inline);
+}
+
+/* Plain pages (home widgets, privacy, loading and error states) */
+.page-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-block: var(--space-5);
 }
 
 .page-state {
-  margin-block: var(--space-4);
+  padding-block: var(--space-5);
 }
 
 .divider-bottom {
@@ -186,7 +223,6 @@ dd {
   display: inline-block;
   border: 2px solid var(--border-subtle);
   border-radius: var(--radius-sm);
-  margin: var(--space-2);
   padding: var(--space-2) var(--space-3);
 }
 
@@ -197,6 +233,8 @@ dd {
 /* Titled blocks on detail pages */
 .page-section {
   margin-top: var(--section-gap);
+  /* Jumping to a section must not hide its title under the sticky header */
+  scroll-margin-top: calc(var(--header-h) + var(--space-3));
 }
 
 .section-header {
@@ -230,7 +268,7 @@ dd {
   align-items: center;
   gap: var(--space-3);
   height: var(--header-h);
-  padding: 0 var(--space-3);
+  padding-inline: var(--page-inline);
   font-size: clamp(0.95rem, 3.5vw, 1.5rem);
 }
 
@@ -287,7 +325,7 @@ dd {
   color: var(--color-text-muted);
   font-size: var(--fs-sm);
   border-top: 2px solid var(--color-primary);
-  padding: var(--space-3) var(--gutter) var(--space-2);
+  padding: var(--space-3) var(--page-inline) var(--space-2);
 }
 
 .footer p {
@@ -405,6 +443,7 @@ dd {
 .info-list dt,
 .h2h-label,
 .chart-legend,
+.chart-axis-label,
 .gauge-label,
 .countdown-label,
 .status-badge {
@@ -424,6 +463,7 @@ dd {
 .info-list dt,
 .h2h-label,
 .chart-legend,
+.chart-axis-label,
 .gauge-label,
 .countdown-label {
   color: var(--color-text-muted);
@@ -646,7 +686,8 @@ td:last-child {
   display: grid;
   align-items: center;
   min-height: clamp(260px, 36vw, 420px);
-  padding: var(--space-6) var(--gutter) calc(var(--space-6) + var(--space-5));
+  padding: var(--space-6) var(--page-inline)
+    calc(var(--space-6) + var(--space-5));
   background:
     radial-gradient(
       circle at 85% 15%,
@@ -671,7 +712,7 @@ td:last-child {
 .detail-hero-backdrop {
   position: absolute;
   z-index: -1;
-  right: var(--gutter);
+  right: var(--page-inline);
   bottom: -0.15em;
   font-family: var(--font-display);
   font-size: var(--fs-backdrop);
@@ -709,10 +750,6 @@ td:last-child {
   content: "·";
   margin-inline: 0.75rem;
   color: var(--color-text-muted);
-}
-
-.detail-hero .link-button {
-  margin: 0;
 }
 
 /* Cut-out portrait: show head and shoulders, fade into the page */
@@ -1051,15 +1088,10 @@ td:last-child {
   background: var(--color-text-muted);
 }
 
-/* Axis title under the round numbers */
+/* Axis title under the round numbers (type style: SMALL UPPERCASE LABELS) */
 .chart-axis-label {
   margin-top: calc(-1 * var(--space-3));
   text-align: center;
-  font-size: var(--fs-xs);
-  line-height: 1.5;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--color-text-muted);
 }
 
 .chart-legend .gain-dnf {
@@ -1335,7 +1367,7 @@ td:last-child {
    ========================================================================== */
 .banner {
   width: 100%;
-  padding: var(--space-6) var(--space-3);
+  padding: var(--section-gap) var(--page-inline);
   background:
     radial-gradient(circle at 85% 0%, rgba(225, 6, 0, 0.35), transparent 55%),
     linear-gradient(120deg, #1b0709 0%, #2a0a10 50%, #0b1220 100%);
@@ -1353,12 +1385,6 @@ td:last-child {
   background: linear-gradient(135deg, #121216 0%, #23232b 100%);
 }
 
-.banner-content {
-  width: 98%;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
 .banner-title {
   margin: var(--space-1) 0 var(--space-2);
   font-size: var(--fs-2xl);
@@ -1368,24 +1394,27 @@ td:last-child {
   max-width: 60ch;
 }
 
+.banner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
 /* BANNER SIDES: aligned to an edge and slid in from outside the screen */
 .banner--left,
 .banner--center,
 .banner--right {
-  padding: 5rem var(--space-3);
+  padding-block: calc(var(--section-gap) + var(--space-3));
   overflow: hidden;
-}
-
-.banner--left .banner-content,
-.banner--right .banner-content,
-.banner-content--wide {
-  width: 100%;
-  max-width: none;
-  padding-inline: var(--gutter);
 }
 
 .banner--right .banner-content {
   text-align: right;
+}
+
+.banner--right .banner-actions {
+  justify-content: flex-end;
 }
 
 .banner--center .banner-content {
@@ -1446,6 +1475,10 @@ td:last-child {
   border-color: var(--color-primary);
 }
 
+.feature-list {
+  margin-top: var(--space-4);
+}
+
 .feature-card {
   flex: 1 1 240px;
 }
@@ -1492,12 +1525,6 @@ td:last-child {
   .ui-row > .ui-grow-2,
   .ui-row > .ui-grow-3 {
     flex-basis: 100%;
-  }
-
-  .banner--left,
-  .banner--center,
-  .banner--right {
-    padding-block: 3.5rem;
   }
 
   /* Portrait goes under the name */
@@ -1566,14 +1593,6 @@ td:last-child {
   .podium-avatar {
     width: 40px;
     height: 40px;
-  }
-
-  .banner {
-    padding: 2.5rem 0;
-  }
-
-  .link-button {
-    margin: var(--space-2) var(--space-2) 0 0;
   }
 
   .detail-hero-media {

@@ -2,7 +2,10 @@ const BASE_URL = "https://api.jolpi.ca/ergast/f1";
 
 export const SEASON = 2026;
 
-export async function apiGet<T>(path: string, signal?: AbortSignal): Promise<T> {
+export async function apiGet<T>(
+  path: string,
+  signal?: AbortSignal,
+): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`, { signal });
 
   if (!res.ok) {
@@ -11,3 +14,6 @@ export async function apiGet<T>(path: string, signal?: AbortSignal): Promise<T> 
 
   return res.json() as Promise<T>;
 }
+
+// The API sends every number as a string; missing ones become 0
+export const toNumber = (value: string | undefined) => Number(value) || 0;

@@ -1,4 +1,4 @@
-import { apiGet, SEASON } from "./api";
+import { apiGet, SEASON, toNumber } from "./api";
 
 // Jolpica caps `limit` at 100 rows per request
 const PAGE_SIZE = 100;
@@ -10,81 +10,56 @@ interface ErgastResponse {
       Races: Array<{
         round: string;
         raceName: string;
-        Circuit: {
-          circuitId: string;
-          circuitName: string;
-          Location: {
-            locality: string;
-            country: string;
-          };
-        };
-
         Results: Array<{
-          number: string;
           position: string;
           positionText: string;
           points: string;
+          grid: string;
+          status: string;
           Driver: {
             driverId: string;
-            permanentNumber: string;
             code: string;
             givenName: string;
             familyName: string;
-            dateOfBirth: string;
-            nationality: string;
           };
           Constructor: {
             constructorId: string;
             name: string;
           };
-          grid: string;
-          laps: string;
-          status: string;
           FastestLap?: {
-            rank: string;
-            lap: string;
-            Time: {
-              time: string;
-            };
+            rank?: string;
+            Time?: { time: string };
           };
-          Time?: {
-            time: string;
-          };
+          Time?: { time: string };
         }>;
       }>;
     };
   };
 }
 
+// One row of a race classification
 export interface Results {
   round: string;
   raceName: string;
-  circuitId: string;
-  circuitName: string;
-  locality: string;
-  country: string;
-  number: string;
-  position: string;
-  // Numeric when classified, otherwise R (retired), W (did not start),
-  // D (disqualified) or N (not classified)
-  positionText: string;
-  points: string;
   driverId: string;
-  permanentNumber: string;
   code: string;
   givenName: string;
   familyName: string;
-  dateOfBirth: string;
-  nationality: string;
   constructorId: string;
   constructorName: string;
-  grid: string;
-  laps: string;
+  // Classification order: also set for retirements
+  position: number;
+  // Numeric when classified, otherwise R (retired), W (did not start),
+  // D (disqualified) or N (not classified)
+  positionText: string;
+  points: number;
+  // 0 = started from the pit lane
+  grid: number;
   status: string;
-  fastestLapRank: string;
-  fastestLapLap: string;
-  fastestLapTime: string;
-  time: string;
+  // Winner's race time or gap ("+2.307"); missing for lapped/retired cars
+  time?: string;
+  fastestLapRank?: number;
+  fastestLapTime?: string;
 }
 
 const fetchResultsPage = (offset: number, signal?: AbortSignal) =>
@@ -94,10 +69,10 @@ const fetchResultsPage = (offset: number, signal?: AbortSignal) =>
   );
 
 export async function fetchResults(signal?: AbortSignal): Promise<Results[]> {
-  // The API paginates by result rows, so read the first page to learn the
-  // total and then fetch the remaining ones in parallel.
+  // The API paginates by result rows: read the first page to learn the total,
+  // then fetch the remaining ones in parallel
   const first = await fetchResultsPage(0, signal);
-  const total = Number(first.MRData.total) || 0;
+  const total = toNumber(first.MRData.total);
 
   const offsets: number[] = [];
   for (let offset = PAGE_SIZE; offset < total; offset += PAGE_SIZE) {
@@ -107,40 +82,30 @@ export async function fetchResults(signal?: AbortSignal): Promise<Results[]> {
     offsets.map((offset) => fetchResultsPage(offset, signal)),
   );
 
-  // A race can straddle two pages: it then appears in both with partial
-  // Results, which the flatMap below simply concatenates.
-  const allRaces = [first, ...rest].flatMap((page) => page.MRData.RaceTable.Races);
-
-  const results = allRaces.flatMap((race) => {
-    return race.Results.map((result) => ({
-      round: race.round ?? "0",
-      raceName: race.raceName ?? "Unknown",
-      circuitId: race.Circuit.circuitId ?? "Unknown",
-      circuitName: race.Circuit.circuitName ?? "Unknown",
-      locality: race.Circuit.Location.locality ?? "Unknown",
-      country: race.Circuit.Location.country ?? "Unknown",
-      number: result.number ?? "0",
-      position: result.position ?? "0",
-      positionText: result.positionText ?? result.position ?? "0",
-      points: result.points ?? "0",
-      driverId: result.Driver.driverId ?? "Unknown",
-      permanentNumber: result.Driver.permanentNumber ?? "Unknown",
-      code: result.Driver.code ?? "Unknown",
-      givenName: result.Driver.givenName ?? "Unknown",
-      familyName: result.Driver.familyName ?? "Unknown",
-      dateOfBirth: result.Driver.dateOfBirth ?? "Unknown",
-      nationality: result.Driver.nationality ?? "Unknown",
-      constructorId: result.Constructor.constructorId ?? "Unknown",
-      constructorName: result.Constructor.name ?? "Unknown",
-      grid: result.grid ?? "0",
-      laps: result.laps ?? "0",
-      status: result.status ?? "Unknown",
-      fastestLapRank: result.FastestLap?.rank ?? "0",
-      fastestLapLap: result.FastestLap?.lap ?? "0",
-      fastestLapTime: result.FastestLap?.Time.time ?? "0",
-      time: result.Time?.time ?? "0",
-    }));
-  });
-
-  return results;
+  // A race can straddle two pages: it then appears in both with part of its
+  // Results each, and flattening simply joins the two halves
+  return [first, ...rest]
+    .flatMap((page) => page.MRData.RaceTable.Races)
+    .flatMap((race) =>
+      race.Results.map((r) => ({
+        round: race.round,
+        raceName: race.raceName,
+        driverId: r.Driver.driverId,
+        code: r.Driver.code,
+        givenName: r.Driver.givenName,
+        familyName: r.Driver.familyName,
+        constructorId: r.Constructor.constructorId,
+        constructorName: r.Constructor.name,
+        position: toNumber(r.position),
+        positionText: r.positionText,
+        points: toNumber(r.points),
+        grid: toNumber(r.grid),
+        status: r.status,
+        time: r.Time?.time,
+        fastestLapRank: r.FastestLap?.rank
+          ? toNumber(r.FastestLap.rank)
+          : undefined,
+        fastestLapTime: r.FastestLap?.Time?.time,
+      })),
+    );
 }

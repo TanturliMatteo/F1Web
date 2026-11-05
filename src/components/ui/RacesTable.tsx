@@ -1,8 +1,7 @@
 import { Link } from "react-router";
 import type { Race } from "../../services/RacesServices";
 import type { Results } from "../../services/ResultServices";
-import { getNationToCode } from "../../utils/nationalityCode";
-import { flagUrl } from "../../utils/flagUrl";
+import Flag from "./Flag";
 import isRaceCompleted from "../../utils/isRaceCompleted";
 import { formatDate } from "../../utils/formatDate";
 import getTeamColor from "../../utils/teamColors";
@@ -53,12 +52,7 @@ const RaceTable = ({ data, winners }: RaceTableProps) => {
                   </Link>
                 </td>
                 <td className="hide-mobile">
-                  <img
-                    id={`races-table-flag-${race.round}`}
-                    src={flagUrl(getNationToCode(race.country))}
-                    alt=""
-                    className="flag"
-                  />
+                  <Flag country={race.country} />
                   {race.locality}, {race.country}
                 </td>
                 <td className="hide-mobile">{formatDate(race.date, locale)}</td>
@@ -68,7 +62,9 @@ const RaceTable = ({ data, winners }: RaceTableProps) => {
                       id={`races-table-winner-${race.round}`}
                       to={`/pilots/${winner.code.toLowerCase()}`}
                       className="team-stripe"
-                      style={{ borderLeftColor: getTeamColor(winner.constructorId) }}
+                      style={{
+                        borderLeftColor: getTeamColor(winner.constructorId),
+                      }}
                     >
                       {winner.familyName}
                     </Link>

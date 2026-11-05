@@ -1,28 +1,17 @@
 import { useMemo } from "react";
-import { useResults } from "./useResults";
-import { useRaces } from "./useRaces";
+import { useRaces, useResults } from "./queries";
 import type { Results } from "../services/ResultServices";
-import { isClassified } from "../utils/results";
+import { isClassified, placesGained } from "../utils/results";
 
 // Max points from a Grand Prix since 2025 (no more fastest-lap point).
 // Sprint points are not part of the race results, so they are left out.
 const MAX_POINTS_PER_RACE = 25;
 
-export interface TeammateRace {
-  code: string;
-  position: number;
-  positionText: string;
-  grid: number;
-  points: number;
-}
+type RaceRow = Pick<Results, "position" | "positionText" | "grid" | "points">;
 
-export interface PilotRace {
+export interface PilotRace extends RaceRow {
   round: string;
   raceName: string;
-  position: number;
-  positionText: string;
-  grid: number;
-  points: number;
   classified: boolean;
   // grid - finish: positive when places were gained. null for retirements
   // and pit-lane starts, where the number would only be noise
@@ -31,140 +20,99 @@ export interface PilotRace {
   // Main teammate's running total, aligned with this round (chart series)
   teammateCumulativePoints: number;
   // Whoever drove the sister car in this round
-  teammate: TeammateRace | null;
+  teammate: Results | null;
 }
+
+type HeadToHeadKey =
+  "raceAhead" | "gridAhead" | "points" | "podiums" | "pointsFinishes";
 
 // key: translation key under pilot.teammate.rows
 export interface HeadToHeadRow {
-  key: "raceAhead" | "gridAhead" | "points" | "podiums" | "pointsFinishes";
+  key: HeadToHeadKey;
   mine: number;
   theirs: number;
 }
 
-const toNumber = (value: string) => Number(value) || 0;
-const sameCode = (a: string, b: string) =>
-  a.toLowerCase().trim() === b.toLowerCase().trim();
+const isPodium = (r: RaceRow) =>
+  isClassified(r.positionText) && r.position <= 3;
+
+// What one driver scores against the other in a single race. Applied both
+// ways round, so the two columns of the head-to-head are always symmetric.
+const HEAD_TO_HEAD: Array<
+  [HeadToHeadKey, (me: RaceRow, other: RaceRow) => number]
+> = [
+  ["raceAhead", (me, other) => Number(me.position < other.position)],
+  [
+    "gridAhead",
+    (me, other) =>
+      Number(me.grid > 0 && other.grid > 0 && me.grid < other.grid),
+  ],
+  ["points", (me) => me.points],
+  ["podiums", (me) => Number(isPodium(me))],
+  ["pointsFinishes", (me) => Number(me.points > 0)],
+];
+
+const sum = <T>(items: T[], value: (item: T) => number) =>
+  items.reduce((total, item) => total + value(item), 0);
 const average = (values: number[]) =>
-  values.length
-    ? (values.reduce((sum, v) => sum + v, 0) / values.length).toFixed(2)
-    : "-";
+  values.length ? (sum(values, (v) => v) / values.length).toFixed(2) : "-";
 const percent = (part: number, total: number) =>
   total ? Math.round((part / total) * 100) : 0;
 
 function buildPilotStats(all: Results[], code: string, seasonRaces: number) {
+  const isMe = (r: Results) => r.code.toLowerCase() === code.toLowerCase();
   const mine = all
-    .filter((r) => sameCode(r.code, code))
-    .sort((a, b) => toNumber(a.round) - toNumber(b.round));
+    .filter(isMe)
+    .sort((a, b) => Number(a.round) - Number(b.round));
 
   if (mine.length === 0) return null;
 
-  const current = mine[mine.length - 1];
-
   // Main teammate: who shared the current car for the most rounds
-  const mateCounts = new Map<string, Results>();
-  const counts = new Map<string, number>();
-  all.forEach((r) => {
-    if (r.constructorId !== current.constructorId || sameCode(r.code, code))
-      return;
-    counts.set(r.code, (counts.get(r.code) ?? 0) + 1);
-    mateCounts.set(r.code, r);
-  });
-  const mateCode = [...counts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0];
-  const mateRow = mateCode ? mateCounts.get(mateCode) : undefined;
-  const mateByRound = new Map(
-    all.filter((r) => r.code === mateCode).map((r) => [r.round, r]),
-  );
+  const currentTeam = mine[mine.length - 1].constructorId;
+  const mateRows = new Map<string, Results[]>();
+  all
+    .filter((r) => r.constructorId === currentTeam && !isMe(r))
+    .forEach((r) => mateRows.set(r.code, [...(mateRows.get(r.code) ?? []), r]));
+  const mate = [...mateRows.values()].sort((a, b) => b.length - a.length)[0];
+  const matePoints = new Map(mate?.map((r) => [r.round, r.points]));
 
   let total = 0;
   let mateTotal = 0;
   const races: PilotRace[] = mine.map((r) => {
-    const position = toNumber(r.position);
-    const grid = toNumber(r.grid);
-    const points = toNumber(r.points);
     const classified = isClassified(r.positionText);
-    total += points;
-    mateTotal += toNumber(mateByRound.get(r.round)?.points ?? "0");
-
-    const sister = all.find(
-      (t) =>
-        t.round === r.round &&
-        t.constructorId === r.constructorId &&
-        !sameCode(t.code, code),
-    );
+    total += r.points;
+    mateTotal += matePoints.get(r.round) ?? 0;
 
     return {
       round: r.round,
       raceName: r.raceName,
-      position,
+      position: r.position,
       positionText: r.positionText,
-      grid,
-      points,
+      grid: r.grid,
+      points: r.points,
       classified,
-      gained: classified && grid > 0 ? grid - position : null,
+      gained: placesGained(r),
       cumulativePoints: total,
       teammateCumulativePoints: mateTotal,
-      teammate: sister
-        ? {
-            code: sister.code,
-            position: toNumber(sister.position),
-            positionText: sister.positionText,
-            grid: toNumber(sister.grid),
-            points: toNumber(sister.points),
-          }
-        : null,
+      teammate:
+        all.find(
+          (t) =>
+            t.round === r.round &&
+            t.constructorId === r.constructorId &&
+            !isMe(t),
+        ) ?? null,
     };
   });
 
   // Head-to-head only counts rounds where both cars took part
-  const shared = races.filter((r) => r.teammate);
-  const h2h = (
-    mineOf: (r: PilotRace) => number,
-    theirsOf: (r: PilotRace) => number,
-  ) => ({
-    mine: shared.reduce((sum, r) => sum + mineOf(r), 0),
-    theirs: shared.reduce((sum, r) => sum + theirsOf(r), 0),
-  });
-  const mate = (r: PilotRace) => r.teammate!;
-  const bothStarted = (r: PilotRace) => r.grid > 0 && mate(r).grid > 0;
-  const isPodium = (p: number, text: string) => isClassified(text) && p <= 3;
-
-  const headToHead: HeadToHeadRow[] = [
-    {
-      key: "raceAhead",
-      ...h2h(
-        (r) => Number(r.position < mate(r).position),
-        (r) => Number(mate(r).position < r.position),
-      ),
-    },
-    {
-      key: "gridAhead",
-      ...h2h(
-        (r) => Number(bothStarted(r) && r.grid < mate(r).grid),
-        (r) => Number(bothStarted(r) && mate(r).grid < r.grid),
-      ),
-    },
-    {
-      key: "points",
-      ...h2h(
-        (r) => r.points,
-        (r) => mate(r).points,
-      ),
-    },
-    {
-      key: "podiums",
-      ...h2h(
-        (r) => Number(isPodium(r.position, r.positionText)),
-        (r) => Number(isPodium(mate(r).position, mate(r).positionText)),
-      ),
-    },
-    {
-      key: "pointsFinishes",
-      ...h2h(
-        (r) => Number(r.points > 0),
-        (r) => Number(mate(r).points > 0),
-      ),
-    },
-  ];
+  const shared = races.flatMap((r) =>
+    r.teammate ? [{ me: r, other: r.teammate }] : [],
+  );
+  const headToHead: HeadToHeadRow[] = HEAD_TO_HEAD.map(([key, score]) => ({
+    key,
+    mine: sum(shared, ({ me, other }) => score(me, other)),
+    theirs: sum(shared, ({ me, other }) => score(other, me)),
+  }));
 
   const classifiedRaces = races.filter((r) => r.classified);
   const gains = races.flatMap((r) => (r.gained === null ? [] : [r.gained]));
@@ -173,20 +121,17 @@ function buildPilotStats(all: Results[], code: string, seasonRaces: number) {
 
   return {
     races,
-    teammate:
-      mateRow && mateCode
-        ? {
-            code: mateCode,
-            name: `${mateRow.givenName} ${mateRow.familyName}`,
-            constructorId: mateRow.constructorId,
-          }
-        : null,
+    teammate: mate
+      ? {
+          code: mate[0].code,
+          name: `${mate[0].givenName} ${mate[0].familyName}`,
+        }
+      : null,
     headToHead,
     wins: races.filter((r) => r.classified && r.position === 1).length,
-    podiums: races.filter((r) => isPodium(r.position, r.positionText)).length,
+    podiums: races.filter(isPodium).length,
     poles: races.filter((r) => r.grid === 1).length,
-    fastestLaps: mine.filter((r) => r.fastestLapRank === "1").length,
-    racePoints: total,
+    fastestLaps: mine.filter((r) => r.fastestLapRank === 1).length,
     bestFinish: classifiedRaces.length
       ? `P${Math.min(...classifiedRaces.map((r) => r.position))}`
       : "-",
@@ -213,8 +158,7 @@ export type PilotStats = NonNullable<ReturnType<typeof buildPilotStats>>;
 
 export function useResultsPilot(code?: string) {
   const query = useResults();
-  const { data: races } = useRaces();
-  const seasonRaces = races?.length ?? 0;
+  const seasonRaces = useRaces().data?.length ?? 0;
 
   const data = useMemo(
     () =>
@@ -224,9 +168,5 @@ export function useResultsPilot(code?: string) {
     [query.data, code, seasonRaces],
   );
 
-  return {
-    ...query,
-    isLoading: query.isLoading || !code,
-    data,
-  };
+  return { ...query, data };
 }

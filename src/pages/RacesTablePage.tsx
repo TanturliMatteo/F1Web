@@ -5,8 +5,7 @@ import DetailHero from "../components/ui/DetailHero";
 import Section from "../components/ui/Section";
 import StatTiles from "../components/ui/StatTiles";
 import { LoadingCard, ErrorCard } from "../components/ui/QueryState";
-import { useRaces } from "../hooks/useRaces";
-import { useResults } from "../hooks/useResults";
+import { useRaces, useResults } from "../hooks/queries";
 import { useRaceStatus } from "../hooks/useRaceStatus";
 import type { Results } from "../services/ResultServices";
 import { formatDate } from "../utils/formatDate";
@@ -17,9 +16,7 @@ const RaceTablePage = () => {
   const { t, locale } = useI18n();
   const { data, isError, isLoading, error } = useRaces();
   const { data: results } = useResults();
-  const {
-    data: { next, last },
-  } = useRaceStatus();
+  const { next, last } = useRaceStatus();
 
   // Winners appear as soon as the results load; the calendar doesn't wait
   const winners = useMemo(
@@ -71,7 +68,9 @@ const RaceTablePage = () => {
               key: "completed",
               label: t("races.tiles.completed"),
               value: roundsDone,
-              detail: t("races.tiles.toGo", { count: data.length - roundsDone }),
+              detail: t("races.tiles.toGo", {
+                count: data.length - roundsDone,
+              }),
             },
             {
               key: "next",

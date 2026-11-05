@@ -1,7 +1,14 @@
 import { Link } from "react-router";
 import type { Results } from "../../services/ResultServices";
 import getTeamColor from "../../utils/teamColors";
-import { formatGain, isClassified, resultLabel } from "../../utils/results";
+import {
+  formatGain,
+  gainClass,
+  isClassified,
+  placesGained,
+  resultLabel,
+} from "../../utils/results";
+import { timeOrStatus } from "../../utils/raceSummary";
 import { useI18n } from "../../i18n/i18n";
 
 interface RaceCardTableProps {
@@ -27,11 +34,7 @@ const RaceCardTable = ({ data: results }: RaceCardTableProps) => {
         </thead>
         <tbody id="race-card-table-body">
           {results.map((res) => {
-            const grid = Number(res.grid) || 0;
-            const gain =
-              isClassified(res.positionText) && grid > 0
-                ? grid - Number(res.position)
-                : null;
+            const gain = placesGained(res);
 
             return (
               <tr key={res.driverId} id={`race-card-table-row-${res.position}`}>
@@ -52,21 +55,11 @@ const RaceCardTable = ({ data: results }: RaceCardTableProps) => {
                   </Link>
                 </td>
                 <td className="hide-mobile">{res.constructorName}</td>
-                <td>{grid > 0 ? grid : t("race.classification.pitLane")}</td>
-                <td
-                  className={
-                    gain === null || gain === 0
-                      ? "text-muted-soft"
-                      : gain > 0
-                        ? "text-gain"
-                        : "text-loss"
-                  }
-                >
+                <td>{res.grid || t("race.classification.pitLane")}</td>
+                <td className={gainClass(gain)}>
                   {gain === null ? "-" : formatGain(gain)}
                 </td>
-                <td className="hide-mobile">
-                  {res.time !== "0" ? res.time : res.status}
-                </td>
+                <td className="hide-mobile">{timeOrStatus(res)}</td>
                 <td>{res.points}</td>
               </tr>
             );
