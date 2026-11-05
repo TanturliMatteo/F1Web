@@ -1,64 +1,48 @@
 import { useI18n } from "../i18n/i18n";
 import RichText from "../i18n/RichText";
 
+const Paragraphs = ({ items }: { items?: string[] }) =>
+  items?.map((text) => (
+    <p key={text}>
+      <RichText text={text} />
+    </p>
+  ));
+
 const PrivacyPage = () => {
-  const { t, tList } = useI18n();
+  const { privacy } = useI18n();
 
   return (
     <div id="privacy-page" className="page-container page-state">
-      <div id="privacy-card" className="ui-card ui-stack ui-stack--start">
-        <section id="privacy-header" className="privacy-section">
-          <h1>{t("privacy.title")}</h1>
-          <p>
-            <RichText text={t("privacy.updated")} />
+      <article id="privacy-card" className="ui-card legal-text">
+        <header id="privacy-header">
+          <h1>{privacy.title}</h1>
+          <p className="text-muted-soft">
+            <RichText text={privacy.updated} />
           </p>
-          <p>{t("privacy.welcome")}</p>
-        </section>
+          <Paragraphs items={privacy.intro} />
+        </header>
 
-        <section id="privacy-introduction" className="privacy-section">
-          <h2>{t("privacy.introTitle")}</h2>
-          <p>{t("privacy.intro")}</p>
-        </section>
-
-        <section id="privacy-data-collected" className="privacy-section">
-          <h2>{t("privacy.dataTitle")}</h2>
-          <p>
-            <RichText text={t("privacy.data")} />
-          </p>
-        </section>
-
-        <section id="privacy-data-source" className="privacy-section">
-          <h2>{t("privacy.sourceTitle")}</h2>
-          <p>
-            <RichText text={t("privacy.source")} />
-          </p>
-          <ul id="privacy-data-source-list">
-            {tList("privacy.sourceList").map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </section>
-
-        <section id="privacy-purpose" className="privacy-section">
-          <h2>{t("privacy.purposeTitle")}</h2>
-          <p>{t("privacy.purpose")}</p>
-        </section>
-
-        <section id="privacy-third-party-links" className="privacy-section">
-          <h2>{t("privacy.linksTitle")}</h2>
-          <p>{t("privacy.links")}</p>
-        </section>
-
-        <section id="privacy-changes" className="privacy-section">
-          <h2>{t("privacy.changesTitle")}</h2>
-          <p>{t("privacy.changes")}</p>
-        </section>
-
-        <section id="privacy-contacts">
-          <h2>{t("privacy.contactTitle")}</h2>
-          <p>{t("privacy.contact")}</p>
-        </section>
-      </div>
+        {privacy.sections.map((section) => (
+          <section
+            key={section.id}
+            id={`privacy-${section.id}`}
+            aria-labelledby={`privacy-${section.id}-title`}
+          >
+            <h2 id={`privacy-${section.id}-title`}>{section.title}</h2>
+            <Paragraphs items={section.body} />
+            {section.list && (
+              <ul>
+                {section.list.map((item) => (
+                  <li key={item}>
+                    <RichText text={item} />
+                  </li>
+                ))}
+              </ul>
+            )}
+            <Paragraphs items={section.after} />
+          </section>
+        ))}
+      </article>
     </div>
   );
 };

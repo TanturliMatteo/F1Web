@@ -273,29 +273,5 @@
     "gained": "Guadagnate",
     "lost": "Perse",
     "axisRace": "Gara"
-  },
-  "privacy": {
-    "title": "Privacy Policy di F1Web Statistics",
-    "updated": "**Ultimo aggiornamento:** 11 Giugno 2026",
-    "welcome": "Benvenuto su F1Web Statistics. La protezione dei tuoi dati è importante. Questa pagina descrive come gestiamo le informazioni relative alla tua navigazione sul nostro sito.",
-    "introTitle": "Introduzione",
-    "intro": "F1Web Statistics è un portale informativo dedicato alla visualizzazione di dati e statistiche del campionato mondiale di Formula 1. Il nostro obiettivo è fornire agli appassionati uno strumento semplice e immediato per accedere a informazioni aggiornate sulle gare, i piloti, le squadre e le classifiche.",
-    "dataTitle": "Dati Raccolti",
-    "data": "F1Web Statistics è un progetto informativo indipendente. **Non raccogliamo, memorizziamo o trattiamo dati personali** dei visitatori. Non utilizziamo cookie di profilazione, non richiediamo registrazioni e non effettuiamo il tracciamento delle attività degli utenti per scopi commerciali.",
-    "sourceTitle": "Origine dei Dati (API)",
-    "source": "Le statistiche e i risultati visualizzati su questo portale sono ottenuti in tempo reale tramite **Ergast Developer API** (o Jolpica F1 API).",
-    "sourceList": [
-      "Questi dati sono di natura pubblica e sportiva.",
-      "F1Web Statistics non manipola i risultati delle gare, ma si limita a rielaborare le informazioni fornite dai provider sopra citati.",
-      "Non siamo affiliati, associati, autorizzati o approvati da Formula One Management (FOM) o dalla FIA."
-    ],
-    "purposeTitle": "3. Progetto Personale e Finalità",
-    "purpose": "Questo sito è un progetto di sviluppo personale e non a scopo di lucro, creato per finalità didattiche e di analisi statistica del campionato mondiale di Formula 1.",
-    "linksTitle": "4. Link a Siti Terzi",
-    "links": "Il nostro sito contiene link verso risorse esterne. F1Web Statistics non esercita alcun controllo su tali siti e non è responsabile per le politiche di privacy adottate da terze parti.",
-    "changesTitle": "5. Modifiche alla presente Privacy Policy",
-    "changes": "Ci riserviamo il diritto di aggiornare questa informativa in qualsiasi momento per riflettere modifiche nelle funzionalità del sito o negli obblighi normativi.",
-    "contactTitle": "6. Contatti",
-    "contact": "Per qualsiasi domanda riguardante questa Privacy Policy, puoi contattare lo sviluppatore all'indirizzo email indicato nel footer."
   }
 }

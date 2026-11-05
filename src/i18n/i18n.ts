@@ -5,6 +5,8 @@ import enPilots from "../locales/en/pilots.json";
 import itPilots from "../locales/it/pilots.json";
 import enCircuits from "../locales/en/circuits.json";
 import itCircuits from "../locales/it/circuits.json";
+import enPrivacy from "../locales/en/privacy.json";
+import itPrivacy from "../locales/it/privacy.json";
 
 // English is the reference: the Italian file must have exactly the same keys
 type UiDictionary = typeof enUi;
@@ -18,17 +20,47 @@ interface CircuitText {
   trivia: string;
 }
 
+// Privacy policy: free text split in sections. Strings may contain
+// **bold** and [links](https://...), rendered by <RichText>.
+export interface PrivacySection {
+  id: string;
+  title: string;
+  body: string[];
+  list?: string[];
+  after?: string[];
+}
+
+export interface PrivacyContent {
+  title: string;
+  updated: string;
+  intro: string[];
+  sections: PrivacySection[];
+}
+
 const DICTIONARIES: Record<
   Lang,
   {
     ui: UiDictionary;
     pilots: Record<string, string>;
     circuits: Record<string, CircuitText>;
+    privacy: PrivacyContent;
     locale: string;
   }
 > = {
-  en: { ui: enUi, pilots: enPilots, circuits: enCircuits, locale: "en-GB" },
-  it: { ui: it, pilots: itPilots, circuits: itCircuits, locale: "it-IT" },
+  en: {
+    ui: enUi,
+    pilots: enPilots,
+    circuits: enCircuits,
+    privacy: enPrivacy,
+    locale: "en-GB",
+  },
+  it: {
+    ui: it,
+    pilots: itPilots,
+    circuits: itCircuits,
+    privacy: itPrivacy,
+    locale: "it-IT",
+  },
 };
 
 // Every dot path that leads to a string ("pilot.tiles.wins"): a typo in a
@@ -41,16 +73,7 @@ type Paths<T> = {
       : `${K}.${Paths<T[K]>}`;
 }[keyof T & string];
 
-type ListPaths<T> = {
-  [K in keyof T & string]: T[K] extends readonly string[]
-    ? K
-    : T[K] extends string
-      ? never
-      : `${K}.${ListPaths<T[K]>}`;
-}[keyof T & string];
-
 export type TranslationKey = Paths<UiDictionary>;
-export type TranslationListKey = ListPaths<UiDictionary>;
 export type TranslationVars = Record<string, string | number>;
 
 const lookup = (dictionary: unknown, key: string): unknown =>
@@ -82,10 +105,7 @@ export const createTranslator = (lang: Lang) => {
       const text = lookup(dictionary.ui, key) ?? lookup(enUi, key);
       return typeof text === "string" ? interpolate(text, vars) : key;
     },
-    tList: (key: TranslationListKey) => {
-      const list = lookup(dictionary.ui, key);
-      return Array.isArray(list) ? (list as string[]) : [];
-    },
+    privacy: dictionary.privacy,
     pilotDescription: (code: string) => {
       const pilots = dictionary.pilots;
       return pilots[code.toLowerCase().trim()] ?? pilots.default;

@@ -273,29 +273,5 @@
     "gained": "Gained",
     "lost": "Lost",
     "axisRace": "Race"
-  },
-  "privacy": {
-    "title": "F1Web Statistics Privacy Policy",
-    "updated": "**Last updated:** 11 June 2026",
-    "welcome": "Welcome to F1Web Statistics. Protecting your data matters. This page explains how we handle information about your visit to our site.",
-    "introTitle": "Introduction",
-    "intro": "F1Web Statistics is an information portal that displays data and statistics from the Formula 1 World Championship. Our goal is to give fans a simple, immediate way to access up-to-date information on races, drivers, teams and standings.",
-    "dataTitle": "Data collected",
-    "data": "F1Web Statistics is an independent information project. **We do not collect, store or process visitors' personal data.** We do not use profiling cookies, require registration or track user activity for commercial purposes.",
-    "sourceTitle": "Data source (API)",
-    "source": "The statistics and results shown on this portal are fetched in real time from the **Ergast Developer API** (or Jolpica F1 API).",
-    "sourceList": [
-      "This data is public and sporting in nature.",
-      "F1Web Statistics does not alter race results; it only reworks the information supplied by the providers above.",
-      "We are not affiliated with, associated with, authorised or endorsed by Formula One Management (FOM) or the FIA."
-    ],
-    "purposeTitle": "3. Personal project and purpose",
-    "purpose": "This site is a personal, non-profit development project, created for learning and for statistical analysis of the Formula 1 World Championship.",
-    "linksTitle": "4. Links to third-party sites",
-    "links": "Our site contains links to external resources. F1Web Statistics has no control over those sites and is not responsible for the privacy policies of third parties.",
-    "changesTitle": "5. Changes to this Privacy Policy",
-    "changes": "We reserve the right to update this policy at any time to reflect changes in the site's features or legal obligations.",
-    "contactTitle": "6. Contact",
-    "contact": "For any question about this Privacy Policy, you can contact the developer at the email address shown in the footer."
   }
 }

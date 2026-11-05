@@ -1,0 +1,105 @@
+{
+  "title": "Informativa sulla privacy",
+  "updated": "**Ultimo aggiornamento:** 5 novembre 2026",
+  "intro": [
+    "Questa informativa spiega quali dati personali vengono trattati quando visiti F1Web Statistics, perché, per quanto tempo e quali diritti hai. È resa ai sensi degli articoli 13 e 14 del Regolamento (UE) 2016/679 (GDPR) e del Codice in materia di protezione dei dati personali (D.Lgs. 196/2003).",
+    "In breve: il sito **non usa cookie**, non chiede registrazioni e non ha moduli. Gli unici dati trattati sono quelli tecnici che ogni browser invia quando carica una pagina, come l'indirizzo IP."
+  ],
+  "sections": [
+    {
+      "id": "controller",
+      "title": "1. Titolare del trattamento",
+      "body": [
+        "Il titolare del trattamento è Matteo Tanturli, persona fisica che gestisce F1Web Statistics come progetto personale e non commerciale.",
+        "Contatto: [matteotanturli@gmail.com](mailto:matteotanturli@gmail.com). Non è stato nominato un Responsabile della protezione dei dati (DPO), perché non è obbligatorio per questo tipo di attività."
+      ]
+    },
+    {
+      "id": "data",
+      "title": "2. Quali dati trattiamo e perché",
+      "body": [
+        "**Dati di navigazione (log del server).** Quando visiti il sito, il fornitore di hosting registra automaticamente i dati tecnici della richiesta: indirizzo IP, data e ora, pagina richiesta, codice di risposta, tipo e versione del browser e del sistema operativo, sito di provenienza (referrer). Servono a mostrarti le pagine, a garantire sicurezza e funzionamento del servizio (ad esempio contro abusi e attacchi) e a produrre statistiche aggregate sul traffico, come il numero di visite. Non vengono usati per identificarti né per profilarti.",
+        "**Messaggi email.** Se scrivi all'indirizzo indicato, tratteremo il tuo indirizzo email e il contenuto del messaggio solo per risponderti."
+      ]
+    },
+    {
+      "id": "legal-basis",
+      "title": "3. Basi giuridiche",
+      "body": [
+        "**Dati di navigazione:** legittimo interesse del titolare a rendere disponibile il sito in modo sicuro ed efficiente e a conoscerne l'utilizzo in forma aggregata (art. 6, par. 1, lett. f GDPR).",
+        "**Messaggi email:** esecuzione di misure richieste da te, cioè la risposta al tuo messaggio (art. 6, par. 1, lett. b GDPR), e legittimo interesse a gestire la corrispondenza (art. 6, par. 1, lett. f GDPR)."
+      ]
+    },
+    {
+      "id": "third-parties",
+      "title": "4. Servizi di terze parti",
+      "body": [
+        "Per funzionare il sito si appoggia ai servizi elencati qui sotto. Ogni volta che una pagina li contatta, il tuo browser invia loro, come per qualsiasi richiesta web, il tuo indirizzo IP e i dati tecnici del browser."
+      ],
+      "list": [
+        "**Vercel Inc.** (Stati Uniti): hosting del sito, registrazione dei log del server e monitoraggio del traffico. Tratta i dati per nostro conto come responsabile del trattamento (art. 28 GDPR), in base al proprio Data Processing Addendum. [Privacy policy di Vercel](https://vercel.com/legal/privacy-policy)",
+        "**Google Fonts** (Google Ireland Limited / Google LLC): i caratteri tipografici del sito vengono scaricati dai server di Google (fonts.googleapis.com e fonts.gstatic.com). Google riceve il tuo indirizzo IP e lo tratta come titolare autonomo. [Privacy policy di Google](https://policies.google.com/privacy)",
+        "**Jolpica F1 API** (api.jolpi.ca): fornisce i dati sportivi (calendario, classifiche, risultati), che il tuo browser richiede direttamente a questo servizio.",
+        "**Flagpedia / flagcdn.com**: fornisce le immagini delle bandiere nazionali, caricate direttamente dal tuo browser."
+      ]
+    },
+    {
+      "id": "transfers",
+      "title": "5. Trasferimento dei dati fuori dall'UE",
+      "body": [
+        "Vercel e Google hanno sede o server anche negli Stati Uniti. I trasferimenti avvengono sulla base delle garanzie previste dal Capo V del GDPR: la decisione di adeguatezza della Commissione europea per le società aderenti all'EU-U.S. Data Privacy Framework e/o le Clausole Contrattuali Standard approvate dalla Commissione."
+      ]
+    },
+    {
+      "id": "retention",
+      "title": "6. Per quanto tempo conserviamo i dati",
+      "body": [
+        "**Dati di navigazione:** conservati dal fornitore di hosting per il periodo limitato previsto dal suo servizio di log e poi cancellati; le statistiche di traffico vengono conservate solo in forma aggregata e anonima.",
+        "**Messaggi email:** per il tempo necessario a gestire la tua richiesta e, al massimo, per 12 mesi dall'ultimo scambio, salvo esigenze di tutela legale."
+      ]
+    },
+    {
+      "id": "cookies",
+      "title": "7. Cookie e memoria del browser",
+      "body": [
+        "Il sito **non installa cookie**, né tecnici né analitici né di profilazione, e non usa strumenti di tracciamento pubblicitario. Per questo non viene mostrato alcun banner per il consenso.",
+        "L'unica informazione salvata sul tuo dispositivo è la **lingua scelta** (italiano o inglese), conservata nella memoria locale del browser (localStorage, voce \"f1web-lang\") per mostrarti il sito nella lingua che hai selezionato. È uno strumento tecnico necessario alla funzione che hai richiesto, non viene mai inviato a nessun server e puoi cancellarlo in qualsiasi momento dalle impostazioni del browser (cancellando i dati del sito)."
+      ]
+    },
+    {
+      "id": "rights",
+      "title": "8. I tuoi diritti",
+      "body": [
+        "In qualsiasi momento puoi esercitare, scrivendo all'indirizzo email del titolare, i diritti previsti dagli articoli 15-22 del GDPR:"
+      ],
+      "list": [
+        "**accesso** ai tuoi dati e alle informazioni sul loro trattamento;",
+        "**rettifica** dei dati inesatti;",
+        "**cancellazione** dei dati;",
+        "**limitazione** del trattamento;",
+        "**portabilità** dei dati, nei casi previsti;",
+        "**opposizione** al trattamento basato sul legittimo interesse, per motivi legati alla tua situazione particolare."
+      ],
+      "after": [
+        "Risponderemo entro un mese dalla richiesta. Se ritieni che il trattamento violi il GDPR, hai il diritto di proporre reclamo al [Garante per la protezione dei dati personali](https://www.garanteprivacy.it) o all'autorità di controllo del Paese in cui vivi o lavori."
+      ]
+    },
+    {
+      "id": "other",
+      "title": "9. Altre informazioni",
+      "body": [
+        "**Obbligo di fornire i dati:** i dati di navigazione sono necessari per visualizzare il sito; senza di essi le pagine non possono essere caricate. Inviare un'email è facoltativo.",
+        "**Decisioni automatizzate:** non viene effettuata alcuna profilazione né alcuna decisione basata unicamente su un trattamento automatizzato.",
+        "**Link esterni:** il sito contiene link a siti di terzi (ad esempio Wikipedia, LinkedIn, GitHub), che hanno informative proprie e su cui non abbiamo alcun controllo.",
+        "**Non affiliazione:** F1Web Statistics è un progetto indipendente e non è affiliato, associato, autorizzato o approvato da Formula One Management (FOM), dalla FIA o dalle squadre citate. I marchi appartengono ai rispettivi proprietari."
+      ]
+    },
+    {
+      "id": "changes",
+      "title": "10. Modifiche a questa informativa",
+      "body": [
+        "L'informativa può essere aggiornata, ad esempio se cambiano le funzioni del sito, i servizi usati o la normativa. La data dell'ultimo aggiornamento è indicata in cima alla pagina."
+      ]
+    }
+  ]
+}

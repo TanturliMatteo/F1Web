@@ -1,0 +1,105 @@
+{
+  "title": "Privacy Policy",
+  "updated": "**Last updated:** 5 November 2026",
+  "intro": [
+    "This policy explains which personal data is processed when you visit F1Web Statistics, why, for how long and what your rights are. It is provided under Articles 13 and 14 of Regulation (EU) 2016/679 (GDPR) and the Italian Personal Data Protection Code (Legislative Decree 196/2003).",
+    "In short: the site **does not use cookies**, requires no registration and has no forms. The only data processed is the technical data every browser sends when it loads a page, such as the IP address."
+  ],
+  "sections": [
+    {
+      "id": "controller",
+      "title": "1. Data controller",
+      "body": [
+        "The data controller is Matteo Tanturli, a private individual who runs F1Web Statistics as a personal, non-commercial project.",
+        "Contact: [matteotanturli@gmail.com](mailto:matteotanturli@gmail.com). No Data Protection Officer (DPO) has been appointed, as one is not required for this kind of activity."
+      ]
+    },
+    {
+      "id": "data",
+      "title": "2. What data we process and why",
+      "body": [
+        "**Browsing data (server logs).** When you visit the site, the hosting provider automatically records the technical data of the request: IP address, date and time, requested page, response code, browser and operating system type and version, and referring site. This data is used to serve the pages, to keep the service secure and working (for example against abuse and attacks) and to produce aggregate traffic statistics, such as the number of visits. It is not used to identify or profile you.",
+        "**Emails.** If you write to the address provided, we will process your email address and the content of your message only to reply to you."
+      ]
+    },
+    {
+      "id": "legal-basis",
+      "title": "3. Legal bases",
+      "body": [
+        "**Browsing data:** the controller's legitimate interest in making the site available securely and efficiently and in understanding its use in aggregate form (Art. 6(1)(f) GDPR).",
+        "**Emails:** steps taken at your request, namely replying to your message (Art. 6(1)(b) GDPR), and legitimate interest in handling correspondence (Art. 6(1)(f) GDPR)."
+      ]
+    },
+    {
+      "id": "third-parties",
+      "title": "4. Third-party services",
+      "body": [
+        "The site relies on the services listed below. Whenever a page contacts them, your browser sends them, as with any web request, your IP address and technical browser data."
+      ],
+      "list": [
+        "**Vercel Inc.** (United States): hosts the site, records server logs and monitors traffic. It processes data on our behalf as a processor (Art. 28 GDPR), under its Data Processing Addendum. [Vercel privacy policy](https://vercel.com/legal/privacy-policy)",
+        "**Google Fonts** (Google Ireland Limited / Google LLC): the site's typefaces are downloaded from Google's servers (fonts.googleapis.com and fonts.gstatic.com). Google receives your IP address and processes it as an independent controller. [Google privacy policy](https://policies.google.com/privacy)",
+        "**Jolpica F1 API** (api.jolpi.ca): provides the sports data (calendar, standings, results), which your browser requests directly from this service.",
+        "**Flagpedia / flagcdn.com**: provides the national flag images, loaded directly by your browser."
+      ]
+    },
+    {
+      "id": "transfers",
+      "title": "5. Transfers outside the EU",
+      "body": [
+        "Vercel and Google are based in, or have servers in, the United States. Transfers rely on the safeguards in Chapter V of the GDPR: the European Commission's adequacy decision for companies certified under the EU-U.S. Data Privacy Framework and/or the Standard Contractual Clauses approved by the Commission."
+      ]
+    },
+    {
+      "id": "retention",
+      "title": "6. How long we keep data",
+      "body": [
+        "**Browsing data:** kept by the hosting provider for the limited period set by its logging service, then deleted; traffic statistics are kept only in aggregate, anonymous form.",
+        "**Emails:** for as long as needed to handle your request and at most 12 months after the last exchange, unless needed to protect our legal rights."
+      ]
+    },
+    {
+      "id": "cookies",
+      "title": "7. Cookies and browser storage",
+      "body": [
+        "The site **sets no cookies**, whether technical, analytics or profiling, and uses no advertising trackers. That is why no consent banner is shown.",
+        "The only information saved on your device is your **chosen language** (Italian or English), kept in your browser's local storage (localStorage, key \"f1web-lang\") so the site appears in the language you selected. It is a technical tool needed for a feature you asked for, it is never sent to any server, and you can delete it at any time from your browser settings (by clearing the site's data)."
+      ]
+    },
+    {
+      "id": "rights",
+      "title": "8. Your rights",
+      "body": [
+        "At any time you can exercise the rights set out in Articles 15-22 GDPR by writing to the controller's email address:"
+      ],
+      "list": [
+        "**access** to your data and to information about how it is processed;",
+        "**rectification** of inaccurate data;",
+        "**erasure** of your data;",
+        "**restriction** of processing;",
+        "**data portability**, where applicable;",
+        "**objection** to processing based on legitimate interest, on grounds relating to your particular situation."
+      ],
+      "after": [
+        "We will reply within one month of your request. If you believe the processing breaches the GDPR, you have the right to lodge a complaint with the Italian supervisory authority, the [Garante per la protezione dei dati personali](https://www.garanteprivacy.it), or with the authority of the country where you live or work."
+      ]
+    },
+    {
+      "id": "other",
+      "title": "9. Other information",
+      "body": [
+        "**Whether you must provide data:** browsing data is needed to display the site; without it the pages cannot load. Sending an email is optional.",
+        "**Automated decisions:** there is no profiling and no decision based solely on automated processing.",
+        "**External links:** the site links to third-party sites (for example Wikipedia, LinkedIn, GitHub), which have their own policies and over which we have no control.",
+        "**No affiliation:** F1Web Statistics is an independent project and is not affiliated with, associated with, authorised or endorsed by Formula One Management (FOM), the FIA or the teams mentioned. Trademarks belong to their respective owners."
+      ]
+    },
+    {
+      "id": "changes",
+      "title": "10. Changes to this policy",
+      "body": [
+        "This policy may be updated, for example if the site's features, the services it uses or the law change. The date of the last update is shown at the top of the page."
+      ]
+    }
+  ]
+}
