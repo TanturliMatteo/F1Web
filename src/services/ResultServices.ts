@@ -1,4 +1,4 @@
-import { apiGet, SEASON, toNumber } from "./api";
+import { apiGet, driverCode, SEASON, toNumber } from "./api";
 
 // Jolpica caps `limit` at 100 rows per request
 const PAGE_SIZE = 100;
@@ -18,7 +18,7 @@ interface ErgastResponse {
           status: string;
           Driver: {
             driverId: string;
-            code: string;
+            code?: string;
             givenName: string;
             familyName: string;
           };
@@ -92,7 +92,7 @@ export async function fetchResults(signal?: AbortSignal): Promise<Results[]> {
         round: race.round,
         raceName: race.raceName,
         driverId: r.Driver.driverId,
-        code: r.Driver.code,
+        code: driverCode(r.Driver),
         givenName: r.Driver.givenName,
         familyName: r.Driver.familyName,
         constructorId: r.Constructor.constructorId,

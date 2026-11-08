@@ -1,4 +1,4 @@
-import { apiGet, SEASON, toNumber } from "./api";
+import { apiGet, driverCode, SEASON, toNumber } from "./api";
 
 interface ErgastResponse {
   MRData: {
@@ -10,7 +10,7 @@ interface ErgastResponse {
           wins: string;
           Driver: {
             driverId: string;
-            code: string;
+            code?: string;
             permanentNumber?: string;
             givenName: string;
             familyName: string;
@@ -63,7 +63,7 @@ export async function fetchPilotStandings(
       points: toNumber(d.points),
       wins: toNumber(d.wins),
       driverId: d.Driver.driverId,
-      code: d.Driver.code,
+      code: driverCode(d.Driver),
       permanentNumber: d.Driver.permanentNumber ?? "",
       name: d.Driver.givenName,
       surname: d.Driver.familyName,
