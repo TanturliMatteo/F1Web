@@ -4,6 +4,7 @@ import HomeHero from "../components/ui/HomeHero";
 import HomeFeatures from "../components/ui/HomeFeatures";
 import HomeNextRace from "../components/ui/HomeNextRace";
 import Podium from "../components/ui/Podium";
+import ErrorBoundary from "../components/ErrorBoundary";
 import { usePilots, useResultsRace } from "../hooks/queries";
 import { useRaceStatus } from "../hooks/useRaceStatus";
 import { useI18n } from "../i18n/i18n";
@@ -19,39 +20,43 @@ const Home = () => {
     <div id="home-page">
       <HomeHero />
       <HomeFeatures />
-      <div id="home-sections" className="page-container page-stack">
-        {next && <HomeNextRace race={next} />}
-        <div id="home-podiums" className="ui-row ui-row--wrap">
-          {pilots && (
-            <Podium
-              id="home-championship"
-              title={t("home.championshipTop3")}
-              linkTo="/pilots"
-              items={pilots.slice(0, 3).map((p) => ({
-                position: String(p.position),
-                code: p.code,
-                name: `${p.name} ${p.surname}`,
-                detail: `${p.points} ${t("common.pts")}`,
-                teamId: p.constructorId,
-              }))}
-            />
-          )}
-          {last && lastResults && lastResults.length > 0 && (
-            <Podium
-              id="home-last-race"
-              title={t("home.lastRace", { name: last.name })}
-              linkTo={`/races/${last.round}`}
-              items={lastResults.slice(0, 3).map((r) => ({
-                position: String(r.position),
-                code: r.code,
-                name: `${r.givenName} ${r.familyName}`,
-                detail: timeOrStatus(r),
-                teamId: r.constructorId,
-              }))}
-            />
-          )}
+      {/* Live data blocks: if they fail to render they are simply left out,
+          the rest of the home page still works */}
+      <ErrorBoundary fallback={null}>
+        <div id="home-sections" className="page-container page-stack">
+          {next && <HomeNextRace race={next} />}
+          <div id="home-podiums" className="ui-row ui-row--wrap">
+            {pilots && (
+              <Podium
+                id="home-championship"
+                title={t("home.championshipTop3")}
+                linkTo="/pilots"
+                items={pilots.slice(0, 3).map((p) => ({
+                  position: String(p.position),
+                  code: p.code,
+                  name: `${p.name} ${p.surname}`,
+                  detail: `${p.points} ${t("common.pts")}`,
+                  teamId: p.constructorId,
+                }))}
+              />
+            )}
+            {last && lastResults && lastResults.length > 0 && (
+              <Podium
+                id="home-last-race"
+                title={t("home.lastRace", { name: last.name })}
+                linkTo={`/races/${last.round}`}
+                items={lastResults.slice(0, 3).map((r) => ({
+                  position: String(r.position),
+                  code: r.code,
+                  name: `${r.givenName} ${r.familyName}`,
+                  detail: timeOrStatus(r),
+                  teamId: r.constructorId,
+                }))}
+              />
+            )}
+          </div>
         </div>
-      </div>
+      </ErrorBoundary>
       <PageBanner
         id="home-story-banner"
         mirrored

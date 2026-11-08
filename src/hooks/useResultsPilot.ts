@@ -24,7 +24,11 @@ export interface PilotRace extends RaceRow {
 }
 
 type HeadToHeadKey =
-  "raceAhead" | "gridAhead" | "points" | "podiums" | "pointsFinishes";
+  | "raceAhead"
+  | "gridAhead"
+  | "points"
+  | "podiums"
+  | "pointsFinishes";
 
 // key: translation key under pilot.teammate.rows
 export interface HeadToHeadRow {

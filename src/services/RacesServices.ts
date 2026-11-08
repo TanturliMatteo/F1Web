@@ -74,19 +74,27 @@ export async function fetchRaces(signal?: AbortSignal): Promise<Race[]> {
     signal,
   );
 
-  return data.MRData.RaceTable.Races.map((r) => ({
-    name: r.raceName,
+  // Missing pieces in the response become empty values, never a crash;
+  // a race without round or date cannot be placed, so it is skipped
+  const races = (data.MRData?.RaceTable?.Races ?? []).filter(
+    (r) => r?.round && r.date,
+  );
+
+  return races.map((r) => ({
+    name: r.raceName ?? "",
     round: r.round,
     date: r.date,
     time: r.time,
-    circuitId: r.Circuit.circuitId,
-    circuit: r.Circuit.circuitName,
-    locality: r.Circuit.Location.locality,
-    country: r.Circuit.Location.country,
+    circuitId: r.Circuit?.circuitId ?? "",
+    circuit: r.Circuit?.circuitName ?? "",
+    locality: r.Circuit?.Location?.locality ?? "",
+    country: r.Circuit?.Location?.country ?? "",
     sessions: [
       ...SESSIONS.flatMap(([field, key]) => {
         const session = r[field];
-        return session ? [{ key, date: session.date, time: session.time }] : [];
+        return session?.date
+          ? [{ key, date: session.date, time: session.time }]
+          : [];
       }),
       { key: "race" as const, date: r.date, time: r.time },
     ],

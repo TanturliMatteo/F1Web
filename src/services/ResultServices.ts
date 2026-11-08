@@ -73,7 +73,7 @@ export async function fetchResults(signal?: AbortSignal): Promise<Results[]> {
   // The API paginates by result rows: read the first page to learn the total,
   // then fetch the remaining ones in parallel
   const first = await fetchResultsPage(0, signal);
-  const total = toNumber(first.MRData.total);
+  const total = toNumber(first.MRData?.total);
 
   const offsets: number[] = [];
   for (let offset = PAGE_SIZE; offset < total; offset += PAGE_SIZE) {
@@ -85,28 +85,33 @@ export async function fetchResults(signal?: AbortSignal): Promise<Results[]> {
 
   // A race can straddle two pages: it then appears in both with part of its
   // Results each, and flattening simply joins the two halves
+  // Missing pieces in the response become empty values, never a crash;
+  // rows without a round or a driver cannot be placed, so they are skipped
   return [first, ...rest]
-    .flatMap((page) => page.MRData.RaceTable.Races)
+    .flatMap((page) => page.MRData?.RaceTable?.Races ?? [])
+    .filter((race) => race?.round)
     .flatMap((race) =>
-      race.Results.map((r) => ({
-        round: race.round,
-        raceName: race.raceName,
-        driverId: r.Driver.driverId,
-        code: driverCode(r.Driver),
-        givenName: r.Driver.givenName,
-        familyName: r.Driver.familyName,
-        constructorId: r.Constructor.constructorId,
-        constructorName: r.Constructor.name,
-        position: toNumber(r.position),
-        positionText: r.positionText,
-        points: toNumber(r.points),
-        grid: toNumber(r.grid),
-        status: r.status,
-        time: r.Time?.time,
-        fastestLapRank: r.FastestLap?.rank
-          ? toNumber(r.FastestLap.rank)
-          : undefined,
-        fastestLapTime: r.FastestLap?.Time?.time,
-      })),
+      (race.Results ?? [])
+        .filter((r) => r?.Driver?.driverId)
+        .map((r) => ({
+          round: race.round,
+          raceName: race.raceName ?? "",
+          driverId: r.Driver.driverId,
+          code: driverCode(r.Driver),
+          givenName: r.Driver.givenName ?? "",
+          familyName: r.Driver.familyName ?? "",
+          constructorId: r.Constructor?.constructorId ?? "",
+          constructorName: r.Constructor?.name ?? "",
+          position: toNumber(r.position),
+          positionText: r.positionText ?? "",
+          points: toNumber(r.points),
+          grid: toNumber(r.grid),
+          status: r.status ?? "",
+          time: r.Time?.time,
+          fastestLapRank: r.FastestLap?.rank
+            ? toNumber(r.FastestLap.rank)
+            : undefined,
+          fastestLapTime: r.FastestLap?.Time?.time,
+        })),
     );
 }

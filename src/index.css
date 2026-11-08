@@ -224,6 +224,14 @@ dd {
   padding: var(--space-2) var(--space-3);
 }
 
+/* Same look when the action is a button (retry) rather than a link */
+button.link-button {
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
 .link-button:hover {
   border-color: var(--color-primary);
 }

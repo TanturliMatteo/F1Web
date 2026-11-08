@@ -18,13 +18,21 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <Home /> },
-      { path: "pilots", element: <PilotTablePage /> },
-      { path: "pilots/:id", element: <PilotCardPage /> },
-      { path: "races", element: <RaceTablePage /> },
-      { path: "races/:id", element: <RaceCardPage /> },
-      { path: "privacy", element: <PrivacyPage /> },
-      { path: "*", element: <NotFoundPage /> },
+      {
+        // A page that crashes shows the error inside the layout, so header
+        // and footer stay usable; the outer errorElement only catches
+        // failures of the layout itself
+        errorElement: <ErrorPage />,
+        children: [
+          { index: true, element: <Home /> },
+          { path: "pilots", element: <PilotTablePage /> },
+          { path: "pilots/:id", element: <PilotCardPage /> },
+          { path: "races", element: <RaceTablePage /> },
+          { path: "races/:id", element: <RaceCardPage /> },
+          { path: "privacy", element: <PrivacyPage /> },
+          { path: "*", element: <NotFoundPage /> },
+        ],
+      },
     ],
   },
 ]);

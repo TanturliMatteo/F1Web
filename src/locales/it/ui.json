@@ -10,6 +10,8 @@
     "error": "Errore: {message}",
     "errorFallback": "si è verificato un problema",
     "errorTitle": "Qualcosa è andato storto",
+    "sectionError": "Non è stato possibile mostrare questa sezione.",
+    "retry": "Riprova",
     "notFound": "404 - Pagina non trovata",
     "backHome": "Torna alla Home",
     "viewAll": "Vedi tutti",

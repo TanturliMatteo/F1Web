@@ -33,7 +33,9 @@ export const usePilot = (code?: string) =>
   useQuery({
     ...pilotsQuery,
     select: (pilots) =>
-      pilots.find((p) => p.code.toLowerCase() === code?.toLowerCase()) ?? null,
+      (code &&
+        pilots.find((p) => p.code?.toLowerCase() === code.toLowerCase())) ||
+      null,
   });
 
 export const useRace = (round?: string) =>

@@ -10,6 +10,8 @@
     "error": "Error: {message}",
     "errorFallback": "something went wrong",
     "errorTitle": "Something went wrong",
+    "sectionError": "This section could not be displayed.",
+    "retry": "Try again",
     "notFound": "404 - Not Found",
     "backHome": "Go back to Home",
     "viewAll": "View all",

@@ -21,7 +21,19 @@ export async function apiGet<T>(
     throw new Error(`Request failed (${res.status}): ${resource}`);
   }
 
-  return res.json() as Promise<T>;
+  // An HTML error page or a truncated body would otherwise surface as a
+  // cryptic JSON parse error, or as a crash further down the line
+  let body: unknown;
+  try {
+    body = await res.json();
+  } catch {
+    throw new Error(`Invalid response: ${resource}`);
+  }
+  if (!body || typeof body !== "object" || !("MRData" in body)) {
+    throw new Error(`Unexpected response: ${resource}`);
+  }
+
+  return body as T;
 }
 
 // The API sends every number as a string; missing ones become 0
@@ -30,10 +42,16 @@ export const toNumber = (value: string | undefined) => Number(value) || 0;
 // Three-letter driver code ("VER"). The API omits it for some drivers (often
 // new or reserve ones): derive it from the surname so links, photos and
 // lookups that key on the code keep working
-export const driverCode = (driver: { code?: string; familyName: string }) =>
+// (last resort: the driverId, which is always there)
+export const driverCode = (driver: {
+  code?: string;
+  familyName?: string;
+  driverId: string;
+}) =>
   driver.code ||
-  driver.familyName
+  (driver.familyName ?? "")
     .normalize("NFD")
     .replace(/[^a-zA-Z]/g, "")
     .slice(0, 3)
-    .toUpperCase();
+    .toUpperCase() ||
+  driver.driverId.toUpperCase();

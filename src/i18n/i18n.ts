@@ -106,9 +106,9 @@ export const createTranslator = (lang: Lang) => {
       return typeof text === "string" ? interpolate(text, vars) : key;
     },
     privacy: dictionary.privacy,
-    pilotDescription: (code: string) => {
+    pilotDescription: (code?: string) => {
       const pilots = dictionary.pilots;
-      return pilots[code.toLowerCase().trim()] ?? pilots.default;
+      return (code && pilots[code.toLowerCase().trim()]) || pilots.default;
     },
     circuitText: (circuitId: string): CircuitText | undefined =>
       dictionary.circuits[circuitId],

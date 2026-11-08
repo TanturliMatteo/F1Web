@@ -52,11 +52,14 @@ export async function fetchPilotStandings(
     signal,
   );
 
-  const drivers =
-    data.MRData.StandingsTable.StandingsLists[0]?.DriverStandings ?? [];
+  // Missing pieces in the response become empty values, never a crash;
+  // a row without a driver cannot be shown or linked, so it is skipped
+  const drivers = (
+    data.MRData?.StandingsTable?.StandingsLists?.[0]?.DriverStandings ?? []
+  ).filter((d) => d?.Driver?.driverId);
 
   return drivers.map((d, index) => {
-    const team = d.Constructors[0];
+    const team = d.Constructors?.[0];
     return {
       // Drivers without a classified result have no position: keep the order
       position: toNumber(d.position) || index + 1,
@@ -65,10 +68,10 @@ export async function fetchPilotStandings(
       driverId: d.Driver.driverId,
       code: driverCode(d.Driver),
       permanentNumber: d.Driver.permanentNumber ?? "",
-      name: d.Driver.givenName,
-      surname: d.Driver.familyName,
-      dateOfBirth: d.Driver.dateOfBirth,
-      nationality: d.Driver.nationality,
+      name: d.Driver.givenName ?? "",
+      surname: d.Driver.familyName ?? "",
+      dateOfBirth: d.Driver.dateOfBirth ?? "",
+      nationality: d.Driver.nationality ?? "",
       team: team?.name ?? "",
       constructorId: team?.constructorId ?? "",
     };

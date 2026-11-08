@@ -1,15 +1,23 @@
 // Dates from the API are UTC; show them in the visitor's own timezone.
 // `locale` comes from useI18n() ("en-GB", "it-IT").
 
+// Placeholder for a missing or unreadable date, instead of "Invalid Date"
+const NO_DATE = "-";
+
+const isValid = (date: Date) => !Number.isNaN(date.getTime());
+
 // A bare "YYYY-MM-DD" is read as UTC midnight: format it in UTC too, or
 // visitors west of Greenwich would see the previous day
-export const formatDate = (date: string, locale: string) =>
-  new Date(date).toLocaleDateString(locale, {
+export const formatDate = (date: string, locale: string) => {
+  const parsed = new Date(date);
+  if (!date || !isValid(parsed)) return NO_DATE;
+  return parsed.toLocaleDateString(locale, {
     day: "numeric",
     month: "long",
     year: "numeric",
     timeZone: "UTC",
   });
+};
 
 export const formatSessionTime = (
   date: string,
@@ -17,6 +25,7 @@ export const formatSessionTime = (
   locale: string,
 ) => {
   const start = new Date(time ? `${date}T${time}` : date);
+  if (!date || !isValid(start)) return NO_DATE;
   const day = start.toLocaleDateString(locale, {
     weekday: "short",
     day: "numeric",
@@ -35,7 +44,7 @@ export const formatSessionTime = (
 // UTC, compare them with today's local date
 export const ageFrom = (dateOfBirth: string) => {
   const born = new Date(dateOfBirth);
-  if (Number.isNaN(born.getTime())) return null;
+  if (!dateOfBirth || !isValid(born)) return null;
   const now = new Date();
   const hadBirthday =
     now.getMonth() > born.getUTCMonth() ||

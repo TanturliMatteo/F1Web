@@ -18,7 +18,9 @@ const Countdown = ({ target }: { target: Date }) => {
     return () => clearInterval(timer);
   }, []);
 
-  const secondsLeft = Math.max(0, Math.floor((target.getTime() - now) / 1000));
+  // An unreadable start time shows zeros instead of "NaN"
+  const secondsLeft =
+    Math.max(0, Math.floor((target.getTime() - now) / 1000)) || 0;
 
   return (
     <div id="countdown" className="countdown">

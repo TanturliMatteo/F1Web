@@ -46,6 +46,6 @@ const pilotPhoto: Record<string, string> = {
   sai,
 };
 
-export default function getPilotPhoto(pilotCode: string): string | undefined {
-  return pilotPhoto[pilotCode.toLowerCase()];
+export default function getPilotPhoto(pilotCode?: string): string | undefined {
+  return pilotCode ? pilotPhoto[pilotCode.toLowerCase()] : undefined;
 }
