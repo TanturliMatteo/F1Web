@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { writeStorage } from "../utils/storage";
 import {
   I18nContext,
   STORAGE_KEY,
@@ -13,11 +14,7 @@ const I18nProvider = ({ children }: { children: ReactNode }) => {
   // Remember the choice and keep <html lang> right for screen readers
   useEffect(() => {
     document.documentElement.lang = lang;
-    try {
-      localStorage.setItem(STORAGE_KEY, lang);
-    } catch {
-      // Storage blocked: the choice simply lasts for this visit
-    }
+    writeStorage(STORAGE_KEY, lang);
   }, [lang]);
 
   const value = useMemo(

@@ -7,8 +7,6 @@
   },
   "common": {
     "loading": "Loading...",
-    "error": "Error: {message}",
-    "errorFallback": "something went wrong",
     "errorTitle": "Something went wrong",
     "sectionError": "This section could not be displayed.",
     "retry": "Try again",
@@ -18,6 +16,12 @@
     "pts": "pts",
     "season": "2026 season",
     "logoAlt": "F1Web logo"
+  },
+  "errors": {
+    "network": "Could not reach the server. Check your connection and try again.",
+    "server": "The data service is not responding right now. Please try again in a few minutes.",
+    "invalidResponse": "The data received was not valid. Please try again later.",
+    "unexpected": "An unexpected error occurred."
   },
   "status": {
     "completed": "Completed",

@@ -2,6 +2,7 @@ import { Fragment } from "react";
 
 // **bold** or [label](url)
 const TOKEN = /(\*\*[^*]+\*\*|\[[^\]]+\]\([^)\s]+\))/;
+const SAFE_HREF = /^(https?:\/\/|mailto:|\/(?!\/)|#)/i;
 
 // Renders the small markup allowed in translated text: **bold** segments
 // as <strong> and [label](url) as links (external ones open in a new tab)
@@ -12,7 +13,9 @@ const RichText = ({ text }: { text: string }) => (
         return <strong key={index}>{part.slice(2, -2)}</strong>;
       }
       const link = part.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/);
-      if (link) {
+      // Only web, mail and in-site links: a "javascript:" URL in a
+      // translation would otherwise run code on click
+      if (link && SAFE_HREF.test(link[2])) {
         const [, label, href] = link;
         const external = href.startsWith("http");
         return (

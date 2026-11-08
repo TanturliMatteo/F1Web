@@ -58,7 +58,7 @@ const RaceCardPage = () => {
     return (
       <ErrorCard
         id="race-card-error"
-        message={(race.error ?? results.error)?.message}
+        error={race.error ?? results.error}
       />
     );
 

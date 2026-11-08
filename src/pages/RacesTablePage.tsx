@@ -31,7 +31,7 @@ const RaceTablePage = () => {
 
   if (isLoading) return <LoadingCard id="races-loading" />;
 
-  if (isError) return <ErrorCard id="races-error" message={error?.message} />;
+  if (isError) return <ErrorCard id="races-error" error={error} />;
 
   if (!data) return <NotFoundPage />;
 

@@ -53,6 +53,12 @@ export async function GET(request: Request) {
 
     if (!res.ok) return error(502, `Upstream responded ${res.status}`);
 
+    // A 200 that is not JSON (maintenance page, captive portal) must not be
+    // cached on the CDN and served to every visitor for hours
+    const type = res.headers.get("content-type") ?? "";
+    if (!type.includes("application/json"))
+      return error(502, "Upstream sent an unexpected content type");
+
     return new Response(res.body, {
       status: 200,
       headers: {

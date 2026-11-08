@@ -1,4 +1,5 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
+import { logError } from "../errors";
 
 interface ErrorBoundaryProps {
   // Shown instead of the children once they throw while rendering
@@ -22,7 +23,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   componentDidCatch(error: Error, info: ErrorInfo) {
-    console.error(error, info.componentStack);
+    logError(error, `render error${info.componentStack ?? ""}`);
   }
 
   componentDidUpdate(prev: ErrorBoundaryProps) {

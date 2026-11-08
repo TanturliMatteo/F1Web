@@ -40,7 +40,7 @@ const PilotCardPage = () => {
     return (
       <ErrorCard
         id="pilot-card-error"
-        message={(error ?? statsError)?.message}
+        error={error ?? statsError}
       />
     );
 

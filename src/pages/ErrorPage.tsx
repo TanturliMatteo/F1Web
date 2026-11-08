@@ -1,7 +1,11 @@
 import { isRouteErrorResponse, Link, useRouteError } from "react-router";
 import { useI18n } from "../i18n/i18n";
+import { errorMessageKey } from "../errors";
 import NotFoundPage from "./NotFoundPage";
 
+// Route-level boundary: a page (or the layout) crashed while rendering.
+// React Router already logs the error to the console, so it is not logged
+// again here; the visitor gets the translated message for its class.
 const ErrorPage = () => {
   const { t } = useI18n();
   const error = useRouteError();
@@ -11,18 +15,11 @@ const ErrorPage = () => {
     return <NotFoundPage />;
   }
 
-  const message =
-    error instanceof Error
-      ? error.message
-      : isRouteErrorResponse(error)
-        ? `${error.status} ${error.statusText}`
-        : undefined;
-
   return (
     <div id="error-page" className="page-container page-state">
       <div className="ui-card ui-stack">
         <h1 id="error-page-title">{t("common.errorTitle")}</h1>
-        {message && <p id="error-page-message">{message}</p>}
+        <p id="error-page-message">{t(errorMessageKey(error))}</p>
         <div className="banner-actions">
           {/* A full reload also picks up a newer deploy of the site */}
           <button

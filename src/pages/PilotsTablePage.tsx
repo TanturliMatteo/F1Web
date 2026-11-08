@@ -19,7 +19,7 @@ const PilotsTablePage = () => {
 
   if (isLoading) return <LoadingCard id="pilots-loading" />;
 
-  if (isError) return <ErrorCard id="pilots-error" message={error?.message} />;
+  if (isError) return <ErrorCard id="pilots-error" error={error} />;
 
   if (!data) return <NotFoundPage />;
 

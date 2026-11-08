@@ -1,4 +1,5 @@
 import { createContext, useContext } from "react";
+import { readStorage } from "../utils/storage";
 import enUi from "../locales/en/ui.json";
 import itUi from "../locales/it/ui.json";
 import enPilots from "../locales/en/pilots.json";
@@ -133,11 +134,7 @@ export const STORAGE_KEY = "f1web-lang";
 
 // Saved choice first, then the browser language, then English
 export const initialLang = (): Lang => {
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved === "it" || saved === "en") return saved;
-  } catch {
-    // Storage blocked (private mode, settings): just use the browser language
-  }
+  const saved = readStorage(STORAGE_KEY);
+  if (saved === "it" || saved === "en") return saved;
   return navigator.language?.toLowerCase().startsWith("it") ? "it" : "en";
 };

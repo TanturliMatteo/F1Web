@@ -7,8 +7,6 @@
   },
   "common": {
     "loading": "Caricamento in corso...",
-    "error": "Errore: {message}",
-    "errorFallback": "si è verificato un problema",
     "errorTitle": "Qualcosa è andato storto",
     "sectionError": "Non è stato possibile mostrare questa sezione.",
     "retry": "Riprova",
@@ -18,6 +16,12 @@
     "pts": "pt",
     "season": "Stagione 2026",
     "logoAlt": "Logo F1Web"
+  },
+  "errors": {
+    "network": "Impossibile raggiungere il server. Controlla la connessione e riprova.",
+    "server": "Il servizio dati non risponde in questo momento. Riprova tra qualche minuto.",
+    "invalidResponse": "I dati ricevuti non sono validi. Riprova più tardi.",
+    "unexpected": "Si è verificato un errore imprevisto."
   },
   "status": {
     "completed": "Conclusa",
